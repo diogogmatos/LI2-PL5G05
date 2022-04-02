@@ -2,15 +2,18 @@
 #include <stdio.h>
 #include "stack.h"
 
-void handle_token(STACK* s, char *token)
+int val(STACK* s, char* token)
 {
-    if ()    //ADICIONAR A ESTA SEQUENCIAS DE IFS AS OPERACOES
-    else 
-    {
-        int val;
-        sscanf(token, "%d", &val);
-        push(s, val);
-    }
+    int val;
+    sscanf(token, "%d", &val);
+    push(s, val);
+
+    return 1;
+}
+
+void handle_token(STACK* s, char* token)
+{
+    val(s, token) || //ADICIONAR AQUI AS RESTANTES OPERACOES  
 }
 
 int main()
