@@ -19,6 +19,10 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "-") == 0) subtract(s);
     else if (strcmp (token, "*") == 0) multiply(s);
     else if (strcmp (token, "/") == 0) divide(s);
+    else if (strcmp (token, "&") == 0) bit_and(s);
+    else if (strcmp (token, "|") == 0) bit_or(s);
+    else if (strcmp (token, "^") == 0) bit_xor(s);
+    else if (strcmp (token, "~") == 0) bit_not(s);
     else val(s, token);
 }
 
