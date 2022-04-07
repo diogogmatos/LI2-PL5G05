@@ -1,4 +1,4 @@
-#include "expMat.h"
+#include "stack.h"
 
 void add (STACK *s)
 {
