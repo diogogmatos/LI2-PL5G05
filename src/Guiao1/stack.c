@@ -20,5 +20,3 @@ int pop(STACK* s)
     s->sp--;
     return ret;
 }
-
-

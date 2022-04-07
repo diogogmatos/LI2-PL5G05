@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "expMat.h"
+#include "stack.h"
 // '#include "stack.h"' dá conflicting types uma vez que "expMat.h" já inclui as definições contidas em "stack.h"
 
 int val(STACK* s, char* token)
