@@ -11,7 +11,7 @@ STACK *new_stack()
 void push(STACK* s, int elem)
 {
     s->sp++;
-    s->stack[s->sp] =  elem;
+    s->stack[s->sp] = elem;
 }
 
 int pop(STACK* s)
