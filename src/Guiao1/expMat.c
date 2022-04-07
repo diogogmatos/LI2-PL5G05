@@ -54,3 +54,15 @@ void bit_not(STACK *s)
     int x = pop(s);
     push(s, ~x);
 }
+
+void decr(STACK *s)
+{
+    int x = pop(s);
+    push(s, x-1);
+}
+
+void incr(STACK *s)
+{
+    int x = pop(s);
+    push(s, x+1);
+}
