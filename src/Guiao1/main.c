@@ -25,6 +25,8 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "~") == 0) bit_not(s);
     else if (strcmp (token, "(") == 0) decr(s);
     else if (strcmp (token, ")") == 0) incr(s);
+    else if (strcmp(token, "%") == 0)  mod(s);
+    else if (strcmp(token, "#" ) == 0) expo(s);
     else val(s, token);
 }
 

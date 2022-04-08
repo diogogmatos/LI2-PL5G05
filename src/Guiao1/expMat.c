@@ -66,3 +66,24 @@ void incr(STACK *s)
     int x = pop(s);
     push(s, x+1);
 }
+
+void mod(STACK *s)
+{
+    int x = pop (s);
+    int y = pop (s);
+    push(s, y % x);
+}
+
+void expo(STACK *s)
+{
+    int a = 1;
+    int x = pop (s);
+    int y = pop (s);
+
+    while (x > 0)
+    {
+      a = a * y;
+      x--;
+    }
+    push(s, a);
+}
