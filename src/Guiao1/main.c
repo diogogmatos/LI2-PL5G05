@@ -1,9 +1,13 @@
+/*Na main, é onde fazemos a leitura de input e chamamos todas as funções que permitem o funcionamento do programa.
+ *Para issom, fazemos include de stack.h onde estão declaradas todas as funções de que precisamos.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "stack.h"
-// '#include "stack.h"' dá conflicting types uma vez que "expMat.h" já inclui as definições contidas em "stack.h"
 
+//esta função está encarregue de adicionar à stack os elementos do input 
 int val(STACK* s, char* token)
 {
     int val;
@@ -13,6 +17,7 @@ int val(STACK* s, char* token)
     return 1;
 }
 
+//Nesta função é onde é feita a filtragem dos elementos que vão para a stack dos elementos que representam as operações
 void handle_token(STACK* s, char* token)
 {
     if (strcmp (token, "+") == 0) add(s);
@@ -32,11 +37,12 @@ void handle_token(STACK* s, char* token)
 
 int main()
 {
+    //Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
     STACK* s = new_stack();
     char line[BUFSIZ];
     char token[BUFSIZ];
 
-
+    //Nesta secção é onde a leitura do input é feita
     if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while (sscanf(line, "%s%[^\n]", token, line) == 2)
