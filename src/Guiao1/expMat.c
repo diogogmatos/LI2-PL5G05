@@ -82,15 +82,18 @@ void incr(STACK *s)
     int x = pop(s);
     push(s, x+1);
 }
-
-void mod(STACK *s)
+/*a função mod dá-nos o módulo da divisão do segundo número da stack a contar do topo pelo que se encontra no topo, para esse fim usa pop() para obter os mesmos e o push() para returnar o resultado da operação.
+ */
+ void mod(STACK *s)
 {
     int x = pop (s);
     int y = pop (s);
     push(s, y % x);
 }
+/*esta função tem como objetivo obter a exponenciação de valores da stack, sendo este valor feito elevando o segundo número a contar de cima da stack pelo do topo.
+ */
 
-void expo(STACK *s)
+ void expo(STACK *s)
 {
     int a = 1;
     int x = pop (s);
