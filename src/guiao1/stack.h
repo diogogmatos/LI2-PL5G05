@@ -18,3 +18,8 @@ void bit_and(STACK *s);
 void bit_or(STACK *s);
 void bit_xor(STACK *s);
 void bit_not(STACK *s);
+void decr(STACK *s);
+void incr(STACK *s);
+void mod(STACK *s);
+void expo(STACK *s);
+
