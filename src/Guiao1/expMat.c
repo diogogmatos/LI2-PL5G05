@@ -85,12 +85,18 @@ void bit_not(STACK *s)
     push(s, ~x);
 }
 
+/* Decr tem como função subtrair uma unidade ao elemento que se encontrar no topo da stack. Para tal, é utilizada a função pop(), retirando da stack o elemento a ser trabalhado.
+ * No final, após a subtração, o resultado obtido é colocado na stack através da função push().
+ */
 void decr(STACK *s)
 {
     int x = pop(s);
     push(s, x-1);
 }
 
+/* Incr tem como função adicionar uma unidade ao elemento que se encontrar no topo da stack. Para tal, é utilizada a função pop(), retirando da stack o elemento a ser trabalhado.
+ * No final, após a adição, o resultado obtido é colocado na stack através da função push().
+ */
 void incr(STACK *s)
 {
     int x = pop(s);
