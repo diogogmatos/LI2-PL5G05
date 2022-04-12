@@ -22,4 +22,3 @@ void decr(STACK *s);
 void incr(STACK *s);
 void mod(STACK *s);
 void expo(STACK *s);
-

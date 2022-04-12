@@ -23,6 +23,7 @@ void push(STACK* s, int elem)
     s->stack[s->sp] = elem;
 }
 
+
 //dá return do elemento que está na posição atual do stack pointer e decrementa o stack pointer
 int pop(STACK* s)
 {

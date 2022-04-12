@@ -9,9 +9,9 @@
  */
 void add(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y + x);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y + x);
 }
 
 /* A função 'subtract' calcula a diferença entre dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja,
@@ -20,9 +20,9 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y - x);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y - x);
 }
 
 /* A função 'multiply' multiplica dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja, ao valor que
@@ -30,9 +30,9 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y * x);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y * x);
 }
 
 /* A função 'divide' calcula o quociente entre dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja,
@@ -41,9 +41,9 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y / x);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y / x);
 }
 
 /* Bitwise AND retira dois números da stack utilizando o pop() e faz AND em todos os bits de dois números. O resultado de AND é 1 apenas se os dois bits forem 1.
@@ -107,8 +107,8 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
+    int x = pop (s);
+    int y = pop (s);
     push(s, y % x);
 }
 
@@ -117,8 +117,8 @@ void incr(STACK *s)
  void expo(STACK *s)
 {
     int a = 1;
-    int x = pop(s);
-    int y = pop(s);
+    int x = pop (s);
+    int y = pop (s);
 
     while (x > 0)
     {
