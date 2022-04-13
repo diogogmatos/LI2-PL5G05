@@ -17,6 +17,9 @@ STACK* new_stack();
 void push(STACK *s, long elem);
 void* pop(STACK *s);
 
+
+
+//expMat.c
 void add(STACK *s);
 void subtract(STACK *s);
 void multiply(STACK *s);
@@ -29,3 +32,9 @@ void decr(STACK *s);
 void incr(STACK *s);
 void mod(STACK *s);
 void expo(STACK *s);
+
+
+//io.c
+int val(STACK* s, char* token);
+void handle_token(STACK* s, char* token);
+void printStack(STACK *s);
