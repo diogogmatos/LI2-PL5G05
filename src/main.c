@@ -35,6 +35,16 @@ void handle_token(STACK* s, char* token)
     else val(s, token);
 }
 
+void printStack(STACK *s)
+{
+    DADOS d;
+    for (int i = 1; i <= s->sp; ++i)
+            d = s->stack[i];
+            printf("%d", *((int*)d.dados));
+            
+        printf("\n");
+}
+
 int main()
 {
     //Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
@@ -49,10 +59,7 @@ int main()
             handle_token(s, token);
         handle_token(s, token);
     
-        for (int i = 1; i <= s->sp; ++i)
-            printf("%d", s->stack[i]);
-            
-        printf("\n");
+        printStack(s);
     }
 
     return 0;

@@ -17,17 +17,22 @@ STACK *new_stack()
 }
 
 //introduz um novo elemento na stack incrementando um valor ao stack pointer e introduz na stack o elem
-void push(STACK* s, int elem)
+void push(STACK* s, long elem)
 {
+    long *elemP = malloc(sizeof(long));
+    *elemP = elem;
+    
+    DADOS d = {LONG, elemP};
     s->sp++;
-    s->stack[s->sp] = elem;
+    s->stack[s->sp] = d;
 }
 
 
 //dá return do elemento que está na posição atual do stack pointer e decrementa o stack pointer
-int pop(STACK* s)
+void* pop(STACK* s)
 {
-    int ret = s->stack[s->sp];
+    DADOS d = s->stack[s->sp];
     s->sp--;
-    return ret;
+
+    return (d.dados);
 }
