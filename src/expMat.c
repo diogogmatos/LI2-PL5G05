@@ -3,15 +3,21 @@
  */
 
 #include "stack.h"
+#include <stdlib.h>
 
 /* A função 'add' soma dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja, ao valor que se encontra
  * no topo da stack e ao valor que se encontra abaixo deste.
  */
 void add(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y + x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) + *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* A função 'subtract' calcula a diferença entre dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja,
@@ -20,9 +26,14 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y - x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) - *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* A função 'multiply' multiplica dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja, ao valor que
@@ -30,9 +41,14 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y * x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) * *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* A função 'divide' calcula o quociente entre dois números inteiros contidos na stack. Faz uso da função 'pop()' para aceder aos operandos, ou seja,
@@ -41,9 +57,14 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y / x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) / *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* Bitwise AND retira dois números da stack utilizando o pop() e faz AND em todos os bits de dois números. O resultado de AND é 1 apenas se os dois bits forem 1.
@@ -52,9 +73,14 @@ void divide(STACK *s)
 
 void bit_and(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y&x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) & *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* Bitwise OR retira dois números da stack utilizando o pop() e faz OR em todos os bits dos dois números. O resultado de OR é 1 se um dos dois bits for 1.
@@ -62,9 +88,14 @@ void bit_and(STACK *s)
  */
 void bit_or(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y|x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) | *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* Bitwise XOR retira dois números da stack utilizando o pop() e faz XOR em todos os bits dos dois números. O resultado de XOR é 1 se os dois bits forem diferentes.
@@ -72,17 +103,27 @@ void bit_or(STACK *s)
  */
 void bit_xor(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y^x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) ^ *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* Bitwise NOT retira um número da stack utilizando o pop() e faz NOT em todos os bits desse número. O resultado de NOT é a a inversão de todos os bits desse número.
  */
 void bit_not(STACK *s)
 {
-    int x = pop(s);
-    push(s, ~x);
+    void* xd = pop(s);
+    
+    long n = ~ *((long*)xd);
+    
+    free(xd);
+    
+    push(s, n);
 }
 
 /* Decr tem como função subtrair uma unidade ao elemento que se encontrar no topo da stack. Para tal, é utilizada a função pop(), retirando da stack o elemento a ser trabalhado.
@@ -90,8 +131,13 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    int x = pop(s);
-    push(s, x-1);
+    void* xd = pop(s);
+    
+    long n = *((long*)xd) - 1;
+    
+    free(xd);
+    
+    push(s, n);
 }
 
 /* Incr tem como função adicionar uma unidade ao elemento que se encontrar no topo da stack. Para tal, é utilizada a função pop(), retirando da stack o elemento a ser trabalhado.
@@ -99,17 +145,27 @@ void decr(STACK *s)
  */
 void incr(STACK *s)
 {
-    int x = pop(s);
-    push(s, x+1);
+    void* xd = pop(s);
+    
+    long n = *((long*)xd) + 1;
+    
+    free(xd);
+    
+    push(s, n);
 }
 
 /* A função mod dá-nos o módulo da divisão do segundo número da stack a contar do topo pelo que se encontra no topo, para esse fim usa pop() para obter os mesmos e o push() para returnar o resultado da operação.
  */
  void mod(STACK *s)
 {
-    int x = pop(s);
-    int y = pop(s);
-    push(s, y % x);
+    void* xd = pop(s);
+    void* yd = pop(s);
+    long n = *((long*)yd) % *((long*)xd);
+    
+    free(xd);
+    free(yd);
+    
+    push(s, n);
 }
 
 /* Esta função tem como objetivo obter a exponenciação de valores da stack, sendo este valor feito elevando o segundo número a contar de cima da stack pelo do topo.
@@ -117,8 +173,10 @@ void incr(STACK *s)
  void expo(STACK *s)
 {
     int a = 1;
-    int x = pop(s);
-    int y = pop(s);
+    long* xd = pop(s);
+    long* yd = pop(s);
+    long x = *xd;
+    long y = *yd;
 
     while (x > 0)
     {
