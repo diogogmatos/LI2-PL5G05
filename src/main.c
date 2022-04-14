@@ -1,5 +1,6 @@
-/*Na main, é onde fazemos a leitura de input e chamamos todas as funções que permitem o funcionamento do programa.
- *Para isso, fazemos include de stack.h onde estão declaradas todas as funções de que precisamos.
+/**
+ * @file main.c
+ * @brief Função __main__, responsável por lidar diretamente com os inputs do programa.
  */
 
 #include <stdlib.h>
@@ -7,15 +8,20 @@
 #include <string.h>
 #include "stack.h"
 
-
+/**
+ * @brief A função __main__ faz a leitura dos inputs e chama as funções necessárias para lidar com os mesmos.
+ *        Para isso, está incluído o ficheiro __stack.h__ onde estão declaradas todas as definições e funções adicionais.
+ * 
+ * - `STACK* s = new_stack();` - __Declaração de uma nova stack.__
+ * - `if (fgets(line, BUFSIZ, stdin) != NULL)` - __Leitura do input.__
+ */
 int main()
 {
-    //Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
     STACK* s = new_stack();
+    
     char line[BUFSIZ];
     char token[BUFSIZ];
 
-    //Nesta secção é onde a leitura do input é feita
     if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while (sscanf(line, "%s%[^\n]", token, line) == 2)

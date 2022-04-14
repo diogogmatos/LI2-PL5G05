@@ -1,9 +1,21 @@
+/**
+ * @file stack.h
+ * @brief Declaração de funções e definição de estruturas de dados.
+ */
+
 #define MAX_STACK  1000
 
-typedef struct{
-    int stack[MAX_STACK];   //Array para armazenar os elementos da stack com um tamanho maximo de 1000
-    int sp;                 //Stack pointer que vai apontar para a stack
-}STACK;
+/**
+ * @brief Definição da estrutura da stack.
+ * 
+ * - `stack[MAX_STACK]` - __Array para armazenar os elementos da stack com um tamanho maximo de 1000.__
+ * - `sp` - __Stack pointer que vai apontar para a stack.__
+ */
+typedef struct
+{
+    int stack[MAX_STACK];
+    int sp;
+} STACK;
 
 STACK* new_stack();
 

@@ -1,9 +1,16 @@
+/**
+ * @file io.c
+ * @brief Funções responsáveis por lidar com o input e ouput do programa.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "stack.h"
 
-//esta função está encarregue de adicionar à stack os elementos do input 
+/**
+ * @brief Esta função está encarregue de adicionar à stack os elementos do input.
+ */
 int val(STACK* s, char* token)
 {
     int val;
@@ -13,7 +20,9 @@ int val(STACK* s, char* token)
     return 1;
 }
 
-//Nesta função é onde é feita a filtragem dos elementos que vão para a stack dos elementos que representam as operações
+/**
+ * @brief Nesta função é feita a filtragem dos elementos que vão para a stack e dos elementos que representam as operações.
+ */
 void handle_token(STACK* s, char* token)
 {
     if (strcmp (token, "+") == 0) add(s);

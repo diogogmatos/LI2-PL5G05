@@ -1,3 +1,8 @@
+/**
+ * @file conversions.c
+ * @brief Funções de conversão de tipos.
+ */
+
 #include "stack.h"
 
 /*
