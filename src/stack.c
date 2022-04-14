@@ -1,14 +1,14 @@
-/*
-Neste ficheiro estão incluídas as funções básicas para o funcionamento da stack:
-    - new_stack()
-    - push()
-    - pop()
-*/
+/**
+ * @file stack.c
+ * @brief Funções básicas para o funcionamento da stack.
+ */
 
 #include <stdlib.h>
 #include "stack.h"
 
-//aloca espaço na memória heap atribuindo um endereço ao pointer s e iniciando o stack pointer a 0
+/**
+ * @brief Aloca espaço na memória *heap* atribuindo um endereço ao pointer __s__ e iniciando o stack pointer (__s->sp__) a 0.
+ */
 STACK *new_stack()
 {
     STACK *s = malloc(sizeof(STACK));
@@ -16,7 +16,12 @@ STACK *new_stack()
     return s;
 }
 
-//introduz um novo elemento na stack incrementando um valor ao stack pointer e introduz na stack o elem
+/**
+ * @brief Introduz um novo elemento na stack incrementando um valor ao stack pointer (__s->sp__) e introduz na stack o elemento (__elem__).
+ * 
+ * @param s Stack
+ * @param elem Elemento a introduzir na stack
+ */
 void push(STACK* s, long elem)
 {
     long *elemP = malloc(sizeof(long));
@@ -27,8 +32,12 @@ void push(STACK* s, long elem)
     s->stack[s->sp] = d;
 }
 
-
-//dá return do elemento que está na posição atual do stack pointer e decrementa o stack pointer
+/**
+ * @brief Retorna o elemento que está na posição atual do stack pointer (__s->sp__) e decrementa o stack pointer.
+ * 
+ * @param s Stack
+ * @return __d.dados__ - Elemento que se encontra na posição atual do stack pointer
+ */
 void* pop(STACK* s)
 {
     DADOS d = s->stack[s->sp];
