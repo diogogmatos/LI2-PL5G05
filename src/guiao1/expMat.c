@@ -1,10 +1,9 @@
 /**
  * @file expMat.c
- * @brief Neste ficheiro estão incluídas as operações base do projeto.
+ * @brief Operações base do projeto.
  */
 
 #include "stack.h"
-#include <stdlib.h>
 
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
@@ -13,14 +12,9 @@
  */
 void add(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) + *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y + x);
 }
 
 /**
@@ -31,14 +25,9 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) - *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y - x);
 }
 
 /**
@@ -48,14 +37,9 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) * *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y * x);
 }
 
 /**
@@ -66,14 +50,9 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) / *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop (s);
+    int y = pop (s);
+    push (s, y / x);
 }
 
 /**
@@ -84,14 +63,9 @@ void divide(STACK *s)
  */
 void bit_and(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) & *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop(s);
+    int y = pop(s);
+    push(s, y&x);
 }
 
 /**
@@ -102,14 +76,9 @@ void bit_and(STACK *s)
  */
 void bit_or(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) | *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop(s);
+    int y = pop(s);
+    push(s, y|x);
 }
 
 /**
@@ -120,14 +89,9 @@ void bit_or(STACK *s)
  */
 void bit_xor(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) ^ *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop(s);
+    int y = pop(s);
+    push(s, y^x);
 }
 
 /**
@@ -138,13 +102,8 @@ void bit_xor(STACK *s)
  */
 void bit_not(STACK *s)
 {
-    void* xd = pop(s);
-    
-    long n = ~ *((long*)xd);
-    
-    free(xd);
-    
-    push(s, n);
+    int x = pop(s);
+    push(s, ~x);
 }
 
 /**
@@ -155,13 +114,8 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    void* xd = pop(s);
-    
-    long n = *((long*)xd) - 1;
-    
-    free(xd);
-    
-    push(s, n);
+    int x = pop(s);
+    push(s, x-1);
 }
 
 /**
@@ -172,13 +126,8 @@ void decr(STACK *s)
  */
 void incr(STACK *s)
 {
-    void* xd = pop(s);
-    
-    long n = *((long*)xd) + 1;
-    
-    free(xd);
-    
-    push(s, n);
+    int x = pop(s);
+    push(s, x+1);
 }
 
 /**
@@ -188,14 +137,9 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
-    long n = *((long*)yd) % *((long*)xd);
-    
-    free(xd);
-    free(yd);
-    
-    push(s, n);
+    int x = pop (s);
+    int y = pop (s);
+    push(s, y % x);
 }
 
 /**
@@ -206,10 +150,8 @@ void incr(STACK *s)
  void expo(STACK *s)
 {
     int a = 1;
-    long* xd = pop(s);
-    long* yd = pop(s);
-    long x = *xd;
-    long y = *yd;
+    int x = pop (s);
+    int y = pop (s);
 
     while (x > 0)
     {
