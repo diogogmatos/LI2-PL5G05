@@ -17,19 +17,11 @@
  */
 int main()
 {
-<<<<<<< HEAD
-    ///Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
-=======
->>>>>>> main
     STACK* s = new_stack();
     
     char line[BUFSIZ];
     char token[BUFSIZ];
 
-<<<<<<< HEAD
-    ///Nesta secção é onde a leitura do input é feita
-=======
->>>>>>> main
     if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while (sscanf(line, "%s%[^\n]", token, line) == 2)

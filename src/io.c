@@ -8,29 +8,27 @@
 #include <string.h>
 #include "stack.h"
 
-<<<<<<< HEAD
-///esta função está encarregue de adicionar à stack os elementos do input 
-=======
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  */
->>>>>>> main
-int val(STACK* s, char* token)
+int val(STACK* s, char* token) // ! - Falta adicionar os casos DOUBLE e STRING
 {
-    long val;
-    sscanf(token, "%ld", &val);
-    push(s, val);
+    char val;
+    sscanf(token, "%c", &val);
+    
+    int n = val;
+
+    if (n >= 'a' && n <= 'z') // Caso em que o operando é um caracter
+        push_char(s, val);    // Faz push do caracter com a função 'push_char'
+    else                      // Caso em que o operando é um inteiro/long
+        push_long(s, val-48);
 
     return 1;
 }
 
-<<<<<<< HEAD
-///Nesta função é onde é feita a filtragem dos elementos que vão para a stack dos elementos que representam as operações
-=======
 /**
  * @brief Nesta função é feita a filtragem dos elementos que vão para a stack e dos elementos que representam as operações.
  */
->>>>>>> main
 void handle_token(STACK* s, char* token)
 {
     if (strcmp (token, "+") == 0) add(s);
@@ -43,40 +41,22 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "~") == 0) bit_not(s);
     else if (strcmp (token, "(") == 0) decr(s);
     else if (strcmp (token, ")") == 0) incr(s);
-    else if (strcmp (token, "%") == 0) mod(s);
-    else if (strcmp (token, "#") == 0) expo(s);
-    else if (strcmp (token, "f") == 0) convDouble(s);
-    else if (strcmp (token, "i") == 0) convLong(s);
+    else if (strcmp(token, "%") == 0)  mod(s);
+    else if (strcmp(token, "#" ) == 0) expo(s);
+    else if (strcmp(token, "i" ) == 0) conv_int(s);
     else val(s, token);
 }
 
-void printDados(DADOS d)
-{
-    if (d.tipo == LONG)
-    {
-        long n = *((long*)d.dados);
-        printf("%ld", n);
-    }
-    else if (d.tipo == DOUBLE)
-    {
-        double n = *((double*)d.dados);
-        printf("%lf", n);
-    }
-    else if (d.tipo == CHAR)
-    {
-        char n = *((char*)d.dados);
-        printf("%c", n);
-    }
-}
-
-void printStack(STACK *s)
+void printStack(STACK *s) // ! - Falta adicionar os casos DOUBLE e STRING
 {
     DADOS d;
     for (int i = 1; i <= s->sp; ++i)
     {
         d = s->stack[i];
-        printDados(d);
+        if (d.tipo == LONG) // Caso em que o elemento da stack é um LONG
+            printf("%li", *((long*)d.dados));
+        if (d.tipo == CHAR) // Caso em que o elemento da stack é um CHAR
+            printf("%c", *((char*)d.dados));
     }
-            
     printf("\n");
 }

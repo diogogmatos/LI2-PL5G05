@@ -20,7 +20,6 @@ void convLong(STACK *s)
     d.dados = itemP;
 }
 
-
 void convDouble(STACK *s)
 {
     DADOS d = s->stack[s->sp];
@@ -36,3 +35,21 @@ void convDouble(STACK *s)
     d.dados = itemP;
 }
 
+void conv_int(STACK *s)
+{
+    DADOS d = pop(s);
+    
+    if (d.tipo == LONG)
+    {
+        long *a = d.dados;
+        long n = *a;
+        push_long(s, n);
+    }
+    
+    if (d.tipo == CHAR)
+    {
+        char *b = d.dados;
+        long n = *b;
+        push_long(s, n);
+    }
+}
