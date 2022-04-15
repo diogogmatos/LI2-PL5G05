@@ -48,3 +48,8 @@ void expo(STACK *s);
 int val(STACK* s, char* token);
 void handle_token(STACK* s, char* token);
 void printStack(STACK *s);
+
+
+//conversions.c
+void convDouble(STACK *s);
+void convLong(STACK *s);
