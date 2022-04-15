@@ -10,12 +10,12 @@
 
 int main()
 {
-    //Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
+    ///Aqui estamos a alocar espaço na memória heap para podermos armazenar a nossa stack
     STACK* s = new_stack();
     char line[BUFSIZ];
     char token[BUFSIZ];
 
-    //Nesta secção é onde a leitura do input é feita
+    ///Nesta secção é onde a leitura do input é feita
     if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while (sscanf(line, "%s%[^\n]", token, line) == 2)
