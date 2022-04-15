@@ -13,8 +13,8 @@
  */
 void add(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) + *((long*)xd);
     
     free(xd);
@@ -31,8 +31,8 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) - *((long*)xd);
     
     free(xd);
@@ -48,8 +48,8 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) * *((long*)xd);
     
     free(xd);
@@ -66,8 +66,8 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) / *((long*)xd);
     
     free(xd);
@@ -84,8 +84,8 @@ void divide(STACK *s)
  */
 void bit_and(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) & *((long*)xd);
     
     free(xd);
@@ -102,8 +102,8 @@ void bit_and(STACK *s)
  */
 void bit_or(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) | *((long*)xd);
     
     free(xd);
@@ -120,8 +120,8 @@ void bit_or(STACK *s)
  */
 void bit_xor(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) ^ *((long*)xd);
     
     free(xd);
@@ -138,7 +138,7 @@ void bit_xor(STACK *s)
  */
 void bit_not(STACK *s)
 {
-    void* xd = pop(s);
+    void* xd = pop(s).dados;
     
     long n = ~ *((long*)xd);
     
@@ -155,7 +155,7 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    void* xd = pop(s);
+    void* xd = pop(s).dados;
     
     long n = *((long*)xd) - 1;
     
@@ -172,7 +172,7 @@ void decr(STACK *s)
  */
 void incr(STACK *s)
 {
-    void* xd = pop(s);
+    void* xd = pop(s).dados;
     
     long n = *((long*)xd) + 1;
     
@@ -188,8 +188,8 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    void* xd = pop(s);
-    void* yd = pop(s);
+    void* xd = pop(s).dados;
+    void* yd = pop(s).dados;
     long n = *((long*)yd) % *((long*)xd);
     
     free(xd);
@@ -206,8 +206,8 @@ void incr(STACK *s)
  void expo(STACK *s)
 {
     int a = 1;
-    long* xd = pop(s);
-    long* yd = pop(s);
+    long* xd = pop(s).dados;
+    long* yd = pop(s).dados;
     long x = *xd;
     long y = *yd;
 

@@ -28,7 +28,8 @@ typedef struct
 STACK* new_stack();
 
 void push(STACK *s, long elem);
-void* pop(STACK *s);
+void push_char(STACK *s, char elem);
+DADOS pop(STACK *s);
 
 // expMat.c
 void add(STACK *s);
@@ -49,7 +50,7 @@ int val(STACK* s, char* token);
 void handle_token(STACK* s, char* token);
 void printStack(STACK *s);
 
-
 //conversions.c
 void convDouble(STACK *s);
 void convLong(STACK *s);
+void conv_int(STACK *s);
