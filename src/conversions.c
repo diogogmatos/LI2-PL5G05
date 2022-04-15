@@ -12,3 +12,22 @@ void convDouble(STACK *s)
     s->stack[s->sp] = n;
 }
 */
+
+void conv_int(STACK *s)
+{
+    DADOS d = pop(s);
+    
+    if (d.tipo == LONG)
+    {
+        long *a = d.dados;
+        long n = *a;
+        push(s, n);
+    }
+    
+    if (d.tipo == CHAR)
+    {
+        char *b = d.dados;
+        long n = *b;
+        push(s, n);
+    }
+}

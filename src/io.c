@@ -13,9 +13,15 @@
  */
 int val(STACK* s, char* token)
 {
-    int val;
-    sscanf(token, "%d", &val);
-    push(s, val);
+    char val;
+    sscanf(token, "%c", &val);
+    
+    int n = val;
+
+    if (n >= 'a' && n <= 'z')
+        push_char(s, val);
+    else
+        push(s, val-48);
 
     return 1;
 }
@@ -37,6 +43,7 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, ")") == 0) incr(s);
     else if (strcmp(token, "%") == 0)  mod(s);
     else if (strcmp(token, "#" ) == 0) expo(s);
+    else if (strcmp(token, "i" ) == 0) conv_int(s);
     else val(s, token);
 }
 
@@ -44,8 +51,12 @@ void printStack(STACK *s)
 {
     DADOS d;
     for (int i = 1; i <= s->sp; ++i)
-            d = s->stack[i];
-            printf("%d", *((int*)d.dados));
-            
-        printf("\n");
+    {
+        d = s->stack[i];
+        if (d.tipo == LONG)
+            printf("%li", *((long*)d.dados));
+        if (d.tipo == CHAR)
+            printf("%c", *((char*)d.dados));
+    }
+    printf("\n");
 }
