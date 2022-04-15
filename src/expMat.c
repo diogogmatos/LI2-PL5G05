@@ -20,7 +20,7 @@ void add(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -38,7 +38,7 @@ void subtract(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -55,7 +55,7 @@ void multiply(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -73,7 +73,7 @@ void divide(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -91,7 +91,7 @@ void bit_and(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -109,7 +109,7 @@ void bit_or(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -127,7 +127,7 @@ void bit_xor(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -144,7 +144,7 @@ void bit_not(STACK *s)
     
     free(xd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -161,7 +161,7 @@ void decr(STACK *s)
     
     free(xd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -178,7 +178,7 @@ void incr(STACK *s)
     
     free(xd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -195,7 +195,7 @@ void incr(STACK *s)
     free(xd);
     free(yd);
     
-    push(s, n);
+    push_long(s, n);
 }
 
 /**
@@ -216,5 +216,5 @@ void incr(STACK *s)
       a = a * y;
       x--;
     }
-    push(s, a);
+    push_long(s, a);
 }

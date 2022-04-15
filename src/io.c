@@ -11,17 +11,17 @@
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  */
-int val(STACK* s, char* token)
+int val(STACK* s, char* token) // ! - Falta adicionar os casos DOUBLE e STRING
 {
     char val;
     sscanf(token, "%c", &val);
     
     int n = val;
 
-    if (n >= 'a' && n <= 'z')
-        push_char(s, val);
-    else
-        push(s, val-48);
+    if (n >= 'a' && n <= 'z') // Caso em que o operando é um caracter
+        push_char(s, val);    // Faz push do caracter com a função 'push_char'
+    else                      // Caso em que o operando é um inteiro/long
+        push_long(s, val-48);
 
     return 1;
 }
@@ -47,15 +47,15 @@ void handle_token(STACK* s, char* token)
     else val(s, token);
 }
 
-void printStack(STACK *s)
+void printStack(STACK *s) // ! - Falta adicionar os casos DOUBLE e STRING
 {
     DADOS d;
     for (int i = 1; i <= s->sp; ++i)
     {
         d = s->stack[i];
-        if (d.tipo == LONG)
+        if (d.tipo == LONG) // Caso em que o elemento da stack é um LONG
             printf("%li", *((long*)d.dados));
-        if (d.tipo == CHAR)
+        if (d.tipo == CHAR) // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
     }
     printf("\n");

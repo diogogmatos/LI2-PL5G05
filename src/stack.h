@@ -27,7 +27,7 @@ typedef struct
 
 STACK* new_stack();
 
-void push(STACK *s, long elem);
+void push_long(STACK *s, long elem);
 void push_char(STACK *s, char elem);
 DADOS pop(STACK *s);
 

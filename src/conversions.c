@@ -43,13 +43,13 @@ void conv_int(STACK *s)
     {
         long *a = d.dados;
         long n = *a;
-        push(s, n);
+        push_long(s, n);
     }
     
     if (d.tipo == CHAR)
     {
         char *b = d.dados;
         long n = *b;
-        push(s, n);
+        push_long(s, n);
     }
 }

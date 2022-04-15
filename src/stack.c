@@ -17,12 +17,12 @@ STACK *new_stack()
 }
 
 /**
- * @brief Introduz um novo elemento na stack incrementando um valor ao stack pointer (__s->sp__) e introduz na stack o elemento (__elem__).
+ * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).
  * 
  * @param s Stack
  * @param elem Elemento a introduzir na stack
  */
-void push(STACK* s, long elem)
+void push_long(STACK* s, long elem)
 {
     long *elemP = malloc(sizeof(long));
     *elemP = elem;
@@ -32,6 +32,12 @@ void push(STACK* s, long elem)
     s->stack[s->sp] = d;
 }
 
+/**
+ * @brief Introduz um elemento do tipo CHAR na stack, incrementando um valor ao stack pointer (__s->sp__).
+ * 
+ * @param s Stack
+ * @param elem Elemento a introduzir na stack
+ */
 void push_char(STACK* s, char elem)
 {
     char *elemP = malloc(sizeof(long));
