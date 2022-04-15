@@ -1,7 +1,16 @@
 /**
  * @file main.c
+<<<<<<< HEAD
+ * @author Daniel Pereira, Diogo Matos, João Fernandes, Rodrigo Gomes
+ * @brief Na main, é onde fazemos a leitura de input e chamamos todas as funções que permitem o funcionamento do programa.
+ * Para isso, fazemos include de stack.h onde estão declaradas todas as funções de que precisamos.
+ * @version 0.1
+ * @date 2022-04-14
+=======
  * @brief Este ficheiro incluí apenas a função __main__, responsável por lidar diretamente com os inputs do programa.
+>>>>>>> main
  */
+
 
 #include <stdlib.h>
 #include <stdio.h>

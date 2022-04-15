@@ -50,5 +50,7 @@ int val(STACK* s, char* token);
 void handle_token(STACK* s, char* token);
 void printStack(STACK *s);
 
-// conversions.c
+//conversions.c
+void convDouble(STACK *s);
+void convLong(STACK *s);
 void conv_int(STACK *s);

@@ -23,6 +23,7 @@ void add(STACK *s)
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
  */
+ 
 void subtract(STACK *s)
 {
     int x = pop (s);
@@ -112,6 +113,7 @@ void bit_not(STACK *s)
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
  * No final, após a subtração, o resultado obtido é colocado na stack através da função `push()`.
  */
+ 
 void decr(STACK *s)
 {
     int x = pop(s);
@@ -124,6 +126,7 @@ void decr(STACK *s)
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
  * No final, após a adição, o resultado obtido é colocado na stack através da função `push()`.
  */
+
 void incr(STACK *s)
 {
     int x = pop(s);
