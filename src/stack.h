@@ -51,6 +51,7 @@ void expo(STACK *s);
 int val(STACK* s, char* token);
 void handle_token(STACK* s, char* token);
 void print_stack(STACK *s);
+void new_line (STACK *s);
 
 //conversions.c
 void conv_double(STACK *s);

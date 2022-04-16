@@ -49,6 +49,15 @@ int val(STACK* s, char* token) // ! - Falta adicionar o caso DOUBLE
 }
 
 /**
+ * @brief Esta função representa a ação do comando 'l', que recebe uma nova linha de input por cada ocorrência do comando.
+ */
+
+void new_line (STACK *s) {
+    char line[10240];
+    if (fgets (line,10240,stdin) != NULL) push_string (s,line);
+}
+
+/**
  * @brief Nesta função é feita a filtragem dos elementos que vão para a stack e dos elementos que representam as operações.
  */
 void handle_token(STACK* s, char* token)
@@ -65,6 +74,7 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, ")") == 0) incr(s);
     else if (strcmp (token, "%") == 0) mod(s);
     else if (strcmp (token, "#") == 0) expo(s);
+    else if (strcmp (token, "l") == 0) new_line(s);
     else if (strcmp (token, "i") == 0) conv_int(s);
     else if (strcmp (token, "f") == 0) conv_double(s);
     else val(s, token);
