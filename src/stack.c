@@ -4,6 +4,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "stack.h"
 
 /**
@@ -21,8 +22,8 @@ STACK *new_stack()
 /**
  * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).
  * 
- * @param s Stack
- * @param elem Elemento a introduzir na stack
+ * @param s Stack.
+ * @param elem Elemento a introduzir na stack.
  */
 void push_long(STACK* s, long elem)
 {
@@ -37,8 +38,8 @@ void push_long(STACK* s, long elem)
 /**
  * @brief Introduz um elemento do tipo DOUBLE na stack, incrementando um valor ao stack pointer (__s->sp__).
  * 
- * @param s Stack
- * @param elem Elemento a introduzir na stack
+ * @param s Stack.
+ * @param elem Elemento a introduzir na stack.
  */
 void push_double(STACK *s, double elem)
 {
@@ -50,12 +51,11 @@ void push_double(STACK *s, double elem)
     s->stack[s->sp] = d;
 }
 
-
 /**
  * @brief Introduz um elemento do tipo CHAR na stack, incrementando um valor ao stack pointer (__s->sp__).
  * 
- * @param s Stack
- * @param elem Elemento a introduzir na stack
+ * @param s Stack.
+ * @param elem Elemento a introduzir na stack.
  */
 void push_char(STACK* s, char elem)
 {
@@ -68,10 +68,26 @@ void push_char(STACK* s, char elem)
 }
 
 /**
+ * @brief Introduz um elemento do tipo STRING na stack, incrementando um valor ao stack pointer (__s->sp__).
+ * 
+ * @param s Stack.
+ * @param elem Elemento a introduzir na stack.
+ */
+void push_string(STACK *s, char elem[])
+{
+    char *elemP = malloc(BUFSIZ);
+    elemP = elem;
+
+    DADOS d = {STRING, elemP};
+    s->sp++;
+    s->stack[s->sp] = d;
+}
+
+/**
  * @brief Retorna o elemento que está na posição atual do stack pointer (__s->sp__) e decrementa o stack pointer.
  * 
- * @param s Stack
- * @return __d.dados__ - Elemento que se encontra na posição atual do stack pointer
+ * @param s Stack.
+ * @return __d.dados__ - Elemento que se encontra na posição atual do stack pointer.
  */
 DADOS pop(STACK* s)
 {

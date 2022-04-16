@@ -9,20 +9,42 @@
 #include "stack.h"
 
 /**
+ * @brief Função auxiliar que verifica se um caracter é um número.
+ * 
+ * @param c Caracter a ser verificado.
+ * @return int Retorna 1 se o caracter for um número, 0 caso contrário.
+ */
+int isNum(char c)
+{
+    return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
+}
+
+/**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  */
-int val(STACK* s, char* token) // ! - Falta adicionar os casos DOUBLE e STRING
+int val(STACK* s, char* token) // ! - Falta adicionar o caso DOUBLE
 {
     char val;
-    sscanf(token, "%c", &val);
+    int i, num, n;
     
-    int n = val;
-
-    if (n >= 'a' && n <= 'z') // Caso em que o operando é um caracter
-        push_char(s, val);    // Faz push do caracter com a função 'push_char'
-    else                      // Caso em que o operando é um inteiro/long
-        push_long(s, val-48);
-
+    for (n=0; token[n] != '\0'; n++);                    // Calcula tamanho da string token
+    for (i=0; token[i] != '\0' && isNum(token[i]); i++); // Verifica se todos os caracteres são números
+    
+    if (token[i] == '\0')            // Caso em que o operando é LONG
+    {
+        sscanf(token, "%d", &num);
+        push_long(s, num);
+    }
+    else if (n == 1)                 // Caso em que o operando é CHAR
+    {
+        sscanf(token, "%c", &val);
+        push_char(s, val);
+    }
+    else if (n > 1)                  // Caso em que o operando é STRING
+    {
+        push_string(s, token);
+    }
+    
     return 1;
 }
 
@@ -56,10 +78,12 @@ void print_stack(STACK *s) // ! - Falta adicionar os casos DOUBLE e STRING
         d = s->stack[i];
         if (d.tipo == LONG)           // Caso em que o elemento da stack é um LONG
             printf("%li", *((long*)d.dados));
-        else if (d.tipo == CHAR)     // Caso em que o elemento da stack é um CHAR
+        else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
-        else if (d.tipo == DOUBLE)  // Caso em que o elemento da stack é um DOUBLE
+        else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
             printf("%lf", *((double*)d.dados));
+        else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
+            printf("%s", (char*)d.dados);
     }
     printf("\n");
 }
