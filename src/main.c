@@ -28,7 +28,7 @@ int main()
             handle_token(s, token);
         handle_token(s, token);
     
-        printStack(s);
+        print_stack(s);
     }
 
     return 0;
