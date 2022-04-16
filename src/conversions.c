@@ -7,32 +7,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void convLong(STACK *s)
+void conv_double(STACK *s)
 {
-    DADOS d = s->stack[s->sp];
-    long item = *((long*)d.dados); //Casting do conteudo
-    free(d.dados); //Limpa o endereço onde o pointer apontava 
-    
-    long* itemP = malloc(sizeof(long));
-    *itemP = item;
+    DADOS d = pop(s);
 
-    d.tipo = LONG;
-    d.dados = itemP;
-}
-
-void convDouble(STACK *s)
-{
-    DADOS d = s->stack[s->sp];
-    
-    double item = *((double*)d.dados); //Casting do conteudo
-    printf("%lf\n", item);
-    free(d.dados); //Limpa o endereço onde o pointer apontava 
-    
-    double* itemP = malloc(sizeof(double));
-    *itemP = item;
-
-    d.tipo = DOUBLE;
-    d.dados = itemP;
+    if (d.tipo == LONG)
+    {
+        long *a = d.dados;
+        double n = *a;
+        
+        push_double(s, n);
+    }
+    else if (d.tipo == CHAR)
+    {
+        char *b = d.dados;
+        double n = *b;
+        push_double(s, n);
+    }
 }
 
 void conv_int(STACK *s)
@@ -46,10 +37,16 @@ void conv_int(STACK *s)
         push_long(s, n);
     }
     
-    if (d.tipo == CHAR)
+    else if (d.tipo == CHAR)
     {
         char *b = d.dados;
         long n = *b;
         push_long(s, n);
+    }
+    else if (d.tipo == DOUBLE)
+    {
+        double *b = d.dados;
+        long n = *b;
+        push_long(s,n);
     }
 }

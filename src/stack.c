@@ -16,7 +16,7 @@ STACK *new_stack()
     return s;
 }
 
-// ! - Falta implementar push_string e push_double
+// ! - Falta implementar push_string
 
 /**
  * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).
@@ -33,6 +33,23 @@ void push_long(STACK* s, long elem)
     s->sp++;
     s->stack[s->sp] = d;
 }
+
+/**
+ * @brief Introduz um elemento do tipo DOUBLE na stack, incrementando um valor ao stack pointer (__s->sp__).
+ * 
+ * @param s Stack
+ * @param elem Elemento a introduzir na stack
+ */
+void push_double(STACK *s, double elem)
+{
+    double *elemP = malloc(sizeof(double));
+    *elemP = elem;
+
+    DADOS d = {DOUBLE, elemP};
+    s->sp++;
+    s->stack[s->sp] = d;
+}
+
 
 /**
  * @brief Introduz um elemento do tipo CHAR na stack, incrementando um valor ao stack pointer (__s->sp__).

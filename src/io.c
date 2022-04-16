@@ -41,22 +41,25 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "~") == 0) bit_not(s);
     else if (strcmp (token, "(") == 0) decr(s);
     else if (strcmp (token, ")") == 0) incr(s);
-    else if (strcmp(token, "%") == 0)  mod(s);
-    else if (strcmp(token, "#" ) == 0) expo(s);
-    else if (strcmp(token, "i" ) == 0) conv_int(s);
+    else if (strcmp (token, "%") == 0) mod(s);
+    else if (strcmp (token, "#") == 0) expo(s);
+    else if (strcmp (token, "i") == 0) conv_int(s);
+    else if (strcmp (token, "f") == 0) conv_double(s);
     else val(s, token);
 }
 
-void printStack(STACK *s) // ! - Falta adicionar os casos DOUBLE e STRING
+void print_stack(STACK *s) // ! - Falta adicionar os casos DOUBLE e STRING
 {
     DADOS d;
     for (int i = 1; i <= s->sp; ++i)
     {
         d = s->stack[i];
-        if (d.tipo == LONG) // Caso em que o elemento da stack é um LONG
+        if (d.tipo == LONG)           // Caso em que o elemento da stack é um LONG
             printf("%li", *((long*)d.dados));
-        if (d.tipo == CHAR) // Caso em que o elemento da stack é um CHAR
+        else if (d.tipo == CHAR)     // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
+        else if (d.tipo == DOUBLE)  // Caso em que o elemento da stack é um DOUBLE
+            printf("%lf", *((double*)d.dados));
     }
     printf("\n");
 }
