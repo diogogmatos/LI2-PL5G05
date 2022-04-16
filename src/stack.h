@@ -30,6 +30,7 @@ STACK* new_stack();
 void push_double(STACK *s, double elem);
 void push_long(STACK *s, long elem);
 void push_char(STACK *s, char elem);
+void push_string(STACK *s, char elem[]);
 DADOS pop(STACK *s);
 
 // expMat.c

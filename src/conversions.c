@@ -4,10 +4,8 @@
  */
 
 #include "stack.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-void conv_double(STACK *s)
+void conv_double(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING e DOUBLE
 {
     DADOS d = pop(s);
 
@@ -26,7 +24,7 @@ void conv_double(STACK *s)
     }
 }
 
-void conv_int(STACK *s)
+void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
 {
     DADOS d = pop(s);
     
@@ -36,7 +34,6 @@ void conv_int(STACK *s)
         long n = *a;
         push_long(s, n);
     }
-    
     else if (d.tipo == CHAR)
     {
         char *b = d.dados;
@@ -47,6 +44,6 @@ void conv_int(STACK *s)
     {
         double *b = d.dados;
         long n = *b;
-        push_long(s,n);
+        push_long(s, n);
     }
 }
