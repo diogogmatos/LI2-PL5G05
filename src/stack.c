@@ -75,10 +75,13 @@ void push_char(STACK* s, char elem)
  */
 void push_string(STACK *s, char elem[])
 {
+    /* ! - Funciona sem este pedaço de código, mas não sei se tem alguma inconveniência.
+    
     char *elemP = malloc(BUFSIZ);
     elemP = elem; // Como 'elem' já é um apontador, não é necessário fazer a conversão.
-
-    DADOS d = {STRING, elemP};
+    
+    */
+    DADOS d = {STRING, elem}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
     s->sp++;
     s->stack[s->sp] = d;
 }
