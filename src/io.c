@@ -54,11 +54,13 @@ int val(STACK* s, char* token) // ! - Falta adicionar o caso DOUBLE
 
 /**
  * @brief Esta função representa a ação do comando 'l', que recebe uma nova linha de input por cada ocorrência do comando.
+ * @param s Stack.
  */
-
-void new_line (STACK *s) {
-    char line[10240];
-    if (fgets (line,10240,stdin) != NULL) push_string (s,line);
+void new_line (STACK *s)
+{
+    char line[BUFSIZ];
+    if (fgets (line, BUFSIZ, stdin) != NULL)
+        push_string (s,line);
 }
 
 /**
