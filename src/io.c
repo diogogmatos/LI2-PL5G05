@@ -20,6 +20,19 @@ int isNum(char c)
 }
 
 /**
+ * @brief Função auxiliar para dar print duma string na stack.
+ * 
+ * @param s String a sujeita ao print
+ */
+void print_string(char s[])
+{
+    for (int i = 0; s[i] != '\0'; ++i)
+    {
+        printf("%c", s[i]);
+    }
+}
+
+/**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  * @param s Stack.
  * @param token String que contém o input do programa.
@@ -86,8 +99,10 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "i") == 0) conv_int(s);
     else if (strcmp (token, "f") == 0) conv_double(s);
     else if (strcmp (token, "c") == 0) conv_char(s);
+    else if (strcmp (token, "s") == 0) conv_string(s);
     else val(s, token);
 }
+
 
 /**
  * @brief Esta função imprime o conteúdo da stack.
@@ -106,7 +121,7 @@ void print_stack(STACK *s) // ! - Possível problema na impressão de uma string
         else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
             printf("%lf", *((double*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
-            printf("%s", (char*)d.dados);
+            print_string((char*)d.dados);
     }
     printf("\n");
 }

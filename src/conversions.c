@@ -127,3 +127,33 @@ void conv_char(STACK *s)
 
     free(d.dados);
 }
+
+void conv_string(STACK *s)
+{
+    DADOS d = pop(s);
+
+    if (d.tipo == LONG)
+    {
+        char result[50];
+        long *num = d.dados;
+        sprintf(result, "%ld", *num);
+        push_string(s, result);
+    }
+    else if (d.tipo == DOUBLE)
+    {
+        char result[50];
+        double *num = d.dados;
+        sprintf(result, "%lf", *num);
+        push_string(s, result);
+    }
+    else if (d.tipo == CHAR)
+    {
+        char result[50];
+        char *l = d.dados;
+        result[0] = *l;
+        result[1] = '\0';
+        push_string(s, result);
+    }
+
+    free(d.dados);
+}
