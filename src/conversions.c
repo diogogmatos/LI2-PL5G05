@@ -69,3 +69,22 @@ void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
         push_long(s, r);
     }
 }
+
+void conv_char(STACK *s)
+{
+    DADOS d = pop(s);
+
+    if (d.tipo == LONG)
+    {
+        long *a = d.dados;
+        char n = *a;
+        
+        push_char(s, n);
+    }
+    else if (d.tipo == DOUBLE)
+    {
+        double *b = d.dados;
+        char n = *b;
+        push_char(s, n);
+    }
+}

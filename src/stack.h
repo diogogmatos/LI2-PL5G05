@@ -56,3 +56,4 @@ void new_line (STACK *s);
 //conversions.c
 void conv_double(STACK *s);
 void conv_int(STACK *s);
+void conv_char(STACK *s);
