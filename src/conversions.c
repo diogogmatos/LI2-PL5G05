@@ -138,6 +138,7 @@ void conv_string(STACK *s)
         long *num = d.dados;
         sprintf(result, "%ld", *num);
         push_string(s, result);
+        free(d.dados);
     }
     else if (d.tipo == DOUBLE)
     {
@@ -145,6 +146,7 @@ void conv_string(STACK *s)
         double *num = d.dados;
         sprintf(result, "%lf", *num);
         push_string(s, result);
+        free(d.dados);
     }
     else if (d.tipo == CHAR)
     {
@@ -153,7 +155,10 @@ void conv_string(STACK *s)
         result[0] = *l;
         result[1] = '\0';
         push_string(s, result);
+        free(d.dados);
     }
-
-    free(d.dados);
+    else if (d.tipo == STRING)
+    {
+        //ACABAR PLS
+    }
 }
