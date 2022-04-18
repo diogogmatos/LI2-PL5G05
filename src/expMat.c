@@ -66,14 +66,23 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd / *xd;
+    DADOS xd = pop(s);
+    DADOS yd = pop(s);
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    if (xd.tipo == DOUBLE || yd.tipo == DOUBLE)
+    {
+        double n = *((double*)yd.dados) / *((double*)xd.dados);
+        free(xd.dados);
+        free(yd.dados);
+        push_double(s, n);
+    }
+    else
+    {
+        long n = *((long*)yd.dados) / *((long*)xd.dados);
+        free(xd.dados);
+        free(yd.dados);
+        push_long(s, n);
+    }
 }
 
 /**

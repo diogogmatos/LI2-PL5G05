@@ -57,3 +57,4 @@ void new_line (STACK *s);
 void conv_double(STACK *s);
 void conv_int(STACK *s);
 void conv_char(STACK *s);
+void conv_string(STACK *s);
