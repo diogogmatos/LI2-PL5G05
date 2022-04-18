@@ -5,6 +5,7 @@
 
 #include "stack.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void conv_double(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING e DOUBLE
 {
@@ -23,6 +24,34 @@ void conv_double(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING e
         double n = *b;
         push_double(s, n);
     }
+    else if (d.tipo == DOUBLE) 
+    {
+        double *b = d.dados;
+        double n = *b;
+        push_double(s, n);
+    }
+    else if (d.tipo == STRING)
+    {
+        char *b = d.dados;
+        double r = 0;
+        for (int i=0; b[i] != '\0'; i++)
+        {
+            if (b[i] >= 48 && b[i] <= 57)
+            {
+                r = r * 10 + (b[i] - 48);
+            }
+            else if (b[i] > 57 && b[i] <= 99)
+            {
+                r = r * 100 + b[i];
+            }
+            else if (b[i] > 99 && b[i] <= 122)
+            {
+                r = r * 1000 + b[i];
+            }
+        }
+        push_long(s, r);
+    }
+    free(d.dados);
 }
 
 void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
@@ -68,6 +97,7 @@ void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
         }
         push_long(s, r);
     }
+    free(d.dados);
 }
 
 void conv_char(STACK *s)
@@ -87,4 +117,13 @@ void conv_char(STACK *s)
         char n = *b;
         push_char(s, n);
     }
+    else if (d.tipo == CHAR)
+    {
+        char *a = d.dados;
+        char n = *a;
+        
+        push_char(s, n);
+    }
+
+    free(d.dados);
 }
