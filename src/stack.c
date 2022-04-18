@@ -17,7 +17,6 @@ STACK *new_stack()
     return s;
 }
 
-// ! - Falta implementar push_string
 
 /**
  * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).

@@ -83,6 +83,7 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "l") == 0) new_line(s);
     else if (strcmp (token, "i") == 0) conv_int(s);
     else if (strcmp (token, "f") == 0) conv_double(s);
+    else if (strcmp (token, "c") == 0) conv_char(s);
     else val(s, token);
 }
 
