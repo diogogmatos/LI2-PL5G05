@@ -5,6 +5,7 @@
 
 #include "stack.h"
 #include <stdlib.h>
+#include <math.h>
 
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
@@ -13,14 +14,49 @@
  */
 void add(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) + *((long*)xd);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
+
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd + *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd + xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd + yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd + *xd;
+        
+        push_double(s, n);
+    }
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -31,14 +67,49 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) - *((long*)xd);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    free(xd);
-    free(yd);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd - *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd - xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd - yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd - *xd;
+        
+        push_double(s, n);
+    }
     
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -48,14 +119,49 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) * *((long*)xd);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    free(xd);
-    free(yd);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd * *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd * xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd * yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd * *xd;
+        
+        push_double(s, n);
+    }
     
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -66,14 +172,49 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) / *((long*)xd);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    free(xd);
-    free(yd);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd / *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd / xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd / yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd / *xd;
+        
+        push_double(s, n);
+    }
     
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -84,9 +225,9 @@ void divide(STACK *s)
  */
 void bit_and(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) & *((long*)xd);
+    long* xd = pop(s).dados;
+    long* yd = pop(s).dados;
+    long n = *yd & *xd;
     
     free(xd);
     free(yd);
@@ -102,9 +243,9 @@ void bit_and(STACK *s)
  */
 void bit_or(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) | *((long*)xd);
+    long* xd = pop(s).dados;
+    long* yd = pop(s).dados;
+    long n = *yd | *xd;
     
     free(xd);
     free(yd);
@@ -120,9 +261,9 @@ void bit_or(STACK *s)
  */
 void bit_xor(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) ^ *((long*)xd);
+    long* xd = pop(s).dados;
+    long* yd = pop(s).dados;
+    long n = *yd ^ *xd;
     
     free(xd);
     free(yd);
@@ -138,9 +279,8 @@ void bit_xor(STACK *s)
  */
 void bit_not(STACK *s)
 {
-    void* xd = pop(s).dados;
-    
-    long n = ~ *((long*)xd);
+    long* xd = pop(s).dados;
+    long n = ~ *xd;
     
     free(xd);
     
@@ -155,13 +295,13 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    void* xd = pop(s).dados;
+    DADOS xd = pop(s);
+    if (xd.tipo == DOUBLE)
+        push_double(s, (*(double*)xd.dados) - 1);
+    else
+        push_long(s, (*(long*)xd.dados) - 1);
     
-    long n = *((long*)xd) - 1;
-    
-    free(xd);
-    
-    push_long(s, n);
+    free(xd.dados);
 }
 
 /**
@@ -172,13 +312,13 @@ void decr(STACK *s)
  */
 void incr(STACK *s)
 {
-    void* xd = pop(s).dados;
+    DADOS xd = pop(s);
+    if (xd.tipo == DOUBLE)
+        push_double(s, (*(double*)xd.dados) + 1);
+    else
+        push_long(s, (*(long*)xd.dados) + 1);
     
-    long n = *((long*)xd) + 1;
-    
-    free(xd);
-    
-    push_long(s, n);
+    free(xd.dados);
 }
 
 /**
@@ -188,9 +328,9 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    void* xd = pop(s).dados;
-    void* yd = pop(s).dados;
-    long n = *((long*)yd) % *((long*)xd);
+    long* xd = pop(s).dados;
+    long* yd = pop(s).dados;
+    long n = *yd % *xd;
     
     free(xd);
     free(yd);
@@ -205,16 +345,50 @@ void incr(STACK *s)
  */
  void expo(STACK *s)
 {
-    int a = 1;
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long x = *xd;
-    long y = *yd;
+    DADOS xd = pop(s);
+    DADOS yd = pop(s);
 
-    while (x > 0)
+    if (xd.tipo == DOUBLE && yd.tipo == DOUBLE)
     {
-      a = a * y;
-      x--;
+        double x = *((double*)xd.dados);
+        double y = *((double*)yd.dados);
+        double n = pow(y, x);
+        
+        push_double(s, n);
     }
-    push_long(s, a);
+    else if (xd.tipo == LONG && yd.tipo == DOUBLE)
+    {
+        long* xp = xd.dados;
+        double x = *xp;
+        double* y = yd.dados;
+        double n = pow(*y, x);
+
+        push_double(s, n);
+    }
+    else if (xd.tipo == DOUBLE && yd.tipo == LONG)
+    {
+        long* yp = yd.dados;
+        double y = *yp;
+        double* x = xd.dados;
+        double n = pow(y, *x);
+      
+        push_double(s, n);
+    }
+    else if (xd.tipo == LONG && yd.tipo == LONG)
+    {
+        int a = 1;
+        long x = *((long*)xd.dados);
+        long y = *((long*)yd.dados);
+
+        while (x > 0)
+        {
+          a = a * y;
+          (x)--;
+        }
+        
+        push_long(s, a);
+    }
+    
+    free(xd.dados);
+    free(yd.dados);
 }
