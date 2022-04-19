@@ -57,7 +57,7 @@ int val(STACK* s, char* token) // ! - Falta adicionar o caso DOUBLE
     }
     else if (n > 1)                  // Caso em que o operando é STRING
     {
-        char string[n];
+        char string[n+1];
         strcpy (string, token);
         push_string(s, string);
     }
