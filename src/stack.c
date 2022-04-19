@@ -58,6 +58,7 @@ void push_double(STACK *s, double elem)
  */
 void push_char(STACK* s, char elem)
 {
+
     char *elemP = malloc(sizeof(long));
     *elemP = elem;
     
@@ -73,18 +74,19 @@ void push_char(STACK* s, char elem)
  * @param elem Elemento a introduzir na stack.
  */
 void push_string(STACK *s, char elem[])
-{
-    /* ! - Funciona sem este pedaço de código, mas não sei se tem alguma inconveniência.
+{   int i;
+    char *str = malloc(sizeof(char) * 50);
+    for (i = 0; *(elem + i) != 0; ++i)
+    {
+        *(str+i) = *(elem + i);
+    }
+    *(str+i) = '\0';
     
-    char *elemP = malloc(BUFSIZ);
-    elemP = elem; // Como 'elem' já é um apontador, não é necessário fazer a conversão.
-    
-    */
-    DADOS d = {STRING, elem}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
+    DADOS d = {STRING, str}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
     s->sp++;
     s->stack[s->sp] = d;
 }
-
+    
 /**
  * @brief Retorna o elemento que está na posição atual do stack pointer (__s->sp__) e decrementa o stack pointer.
  * 
@@ -98,3 +100,4 @@ DADOS pop(STACK* s)
 
     return d;
 }
+
