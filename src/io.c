@@ -11,17 +11,6 @@
 // Colocação de elementos na stack
 
 /**
- * @brief Função auxiliar que verifica se um caracter é um número.
- * 
- * @param c Caracter a ser verificado.
- * @return int Retorna 1 se o caracter for um número, 0 caso contrário.
- */
-int isNum(char c)
-{
-    return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
-}
-
-/**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  * @param s Stack.
  * @param token String que contém o input do programa.
@@ -30,7 +19,7 @@ int val(STACK* s, char* token)
 {
     int num, n = strlen(token) + 1;
     double d;
-    
+
     if (token[0] == '"')               // Caso em que o operando é STRING
     {
        char string[n-2];
