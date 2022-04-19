@@ -7,7 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void conv_double(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING e DOUBLE
+/**
+ * @brief Converte um elemento para DOUBLE.
+ * @param s Stack.
+ */
+void conv_double(STACK *s)
 {
     DADOS d = pop(s);
 
@@ -38,23 +42,27 @@ void conv_double(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING e
         {
             if (b[i] >= 48 && b[i] <= 57)
             {
-                r = r * 10 + (b[i] - 48);
+                r = r * 10.0 + (b[i] - 48.0);
             }
             else if (b[i] > 57 && b[i] <= 99)
             {
-                r = r * 100 + b[i];
+                r = r * 100.0 + b[i];
             }
             else if (b[i] > 99 && b[i] <= 122)
             {
-                r = r * 1000 + b[i];
+                r = r * 1000.0 + b[i];
             }
         }
-        push_long(s, r);
+        push_double(s, r);
     }
     free(d.dados);
 }
 
-void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
+/**
+ * @brief Converte um elemento para inteiro (LONG).
+ * @param s Stack.
+ */
+void conv_int(STACK *s)
 {
     DADOS d = pop(s);
     
@@ -100,6 +108,10 @@ void conv_int(STACK *s) // ! - Falta adicionar caso em que d.tipo é STRING
     free(d.dados);
 }
 
+/**
+ * @brief Converte um elemento para CHAR.
+ * @param s Stack.
+ */
 void conv_char(STACK *s)
 {
     DADOS d = pop(s);
@@ -128,6 +140,10 @@ void conv_char(STACK *s)
     free(d.dados);
 }
 
+/**
+ * @brief Converte um elemento para STRING.
+ * @param s Stack.
+ */
 void conv_string(STACK *s)
 {
     DADOS d = pop(s);
@@ -163,4 +179,3 @@ void conv_string(STACK *s)
         push_string(s, str);
     }
 }
-
