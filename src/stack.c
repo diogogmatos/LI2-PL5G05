@@ -100,3 +100,4 @@ DADOS pop(STACK* s)
 
     return d;
 }
+
