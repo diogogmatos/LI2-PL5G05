@@ -28,36 +28,32 @@ int isNum(char c)
  */
 int val(STACK* s, char* token)
 {
-    char val;
-    int i, j, num, n;
+    int num, n = strlen(token) + 1;
     double d;
     
-    for (n=0; token[n] != '\0'; n++);                    // Calcula tamanho da string token
-    for (i=0; token[i] != '\0' && isNum(token[i]); i++); // Verifica se todos os caracteres são números
-    for (j=0; token[j] != '\0' && token[j] != '.'; j++); // Verifica se algum caracter é ponto
-
-    if (token[i] == '\0')            // Caso em que o operando é LONG
+    if (token[0] == '"')               // Caso em que o operando é STRING
     {
-        sscanf(token, "%d", &num);
-        push_long(s, num);
+       char string[n-2];
+       int i, j=0;
+       for (i=1; token[i] != '"'; i++, j++)
+       {
+           string[j] = token[i];
+       }
+       push_string(s, string);
     }
-    else if (n == 1)                 // Caso em que o operando é CHAR
+    else
     {
-        sscanf(token, "%c", &val);
-        push_char(s, val);
-    }
-    else if (n > 1)                  
-    {
-        if (j != n)                  // Caso em que o operando é DOUBLE
+        int i;
+        for (i=0; token[i] != '\0' && token[i] != '.'; i++);
+        if (i != n-1)                  // Caso em que o operando é DOUBLE
         {
             sscanf(token, "%lf", &d);
             push_double(s, d);
         }
-        else                         // Caso em que o operando é STRING
+        else                           // Caso em que o operando é LONG
         {
-            char string[n];
-            strcpy(string, token);
-            push_string(s, string);
+            sscanf(token, "%d", &num);
+            push_long(s, num);
         }
     }
     
