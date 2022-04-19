@@ -5,6 +5,7 @@
 
 #include "stack.h"
 #include <stdlib.h>
+#include <math.h>
 
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
@@ -294,12 +295,14 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long n = *xd - 1;
+    DADOS xd = pop(s);
+    if (xd.tipo == DOUBLE)
+        push_double(s, (*(double*)xd.dados) - 1);
     
-    free(xd);
+    else
+        push_long(s, (*(long*)xd.dados) - 1);
     
-    push_long(s, n);
+    free(xd.dados);
 }
 
 /**
@@ -310,12 +313,14 @@ void decr(STACK *s)
  */
 void incr(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long n = *xd + 1;
+    DADOS xd = pop(s);
+    if (xd.tipo == DOUBLE)
+        push_double(s, (*(double*)xd.dados) + 1);
     
-    free(xd);
+    else
+        push_long(s, (*(long*)xd.dados) + 1);
     
-    push_long(s, n);
+    free(xd.dados);
 }
 
 /**
@@ -342,18 +347,50 @@ void incr(STACK *s)
  */
  void expo(STACK *s)
 {
-    int a = 1;
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
+    DADOS xd = pop(s);
+    DADOS yd = pop(s);
 
-    while (*xd > 0)
+    if (xd.tipo == DOUBLE && yd.tipo == DOUBLE)
     {
-      a = a * *yd;
-      (*xd)--;
+        double x = *((double*)xd.dados);
+        double y = *((double*)yd.dados);
+        double n = pow(y, x);
+        
+        push_double(s, n);
+    }
+    else if(xd.tipo == LONG && yd.tipo == DOUBLE)
+    {
+        long* xp = xd.dados;
+        double x = *xp;
+        double* y = yd.dados;
+        double n = pow(*y, x);
+
+        push_double(s, n);
+    }
+    else if(xd.tipo == DOUBLE && yd.tipo == LONG)
+    {
+        long* yp = yd.dados;
+        double y = *yp;
+        double* x = xd.dados;
+        double n = pow(y, *x);
+      
+        push_double(s, n);
+    }
+    else if(xd.tipo == LONG && yd.tipo == LONG)
+    {
+        int a = 1;
+        long x = *((long*)xd.dados);
+        long y = *((long*)yd.dados);
+
+        while (x > 0)
+        {
+          a = a * y;
+          (x)--;
+        }
+        
+        push_long(s, a);
     }
     
-    free(xd);
-    free(yd);
-
-    push_long(s, a);
+    free(xd.dados);
+    free(yd.dados);
 }
