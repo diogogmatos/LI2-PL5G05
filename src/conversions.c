@@ -134,24 +134,24 @@ void conv_string(STACK *s)
 
     if (d.tipo == LONG)
     {
-        char result[50];
-        long *num = d.dados;
+        char result[100];
+        long *num = (long*)d.dados;
         sprintf(result, "%ld", *num);
         push_string(s, result);
         free(d.dados);
     }
     else if (d.tipo == DOUBLE)
     {
-        char result[50];
-        double *num = d.dados;
+        char result[100];
+        double *num = (double*)d.dados;
         sprintf(result, "%lf", *num);
         push_string(s, result);
         free(d.dados);
     }
     else if (d.tipo == CHAR)
     {
-        char result[50];
-        char *l = d.dados;
+        char result[100];
+        char *l = (char*)d.dados;
         result[0] = *l;
         result[1] = '\0';
         push_string(s, result);
@@ -159,6 +159,8 @@ void conv_string(STACK *s)
     }
     else if (d.tipo == STRING)
     {
-        //ACABAR PLS
+        char *str = (char*)d.dados;
+        push_string(s, str);
     }
 }
+
