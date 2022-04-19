@@ -48,11 +48,6 @@ int val(STACK* s, char* token)
     }
     else if (n > 1)                  
     {
-<<<<<<< HEAD
-        char string[n+1];
-        strcpy (string, token);
-        push_string(s, string);
-=======
         if (j != n)                  // Caso em que o operando é DOUBLE
         {
             sscanf(token, "%lf", &d);
@@ -64,7 +59,6 @@ int val(STACK* s, char* token)
             strcpy(string, token);
             push_string(s, string);
         }
->>>>>>> main
     }
     
     return 1;
