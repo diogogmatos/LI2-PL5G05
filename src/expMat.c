@@ -298,7 +298,6 @@ void decr(STACK *s)
     DADOS xd = pop(s);
     if (xd.tipo == DOUBLE)
         push_double(s, (*(double*)xd.dados) - 1);
-    
     else
         push_long(s, (*(long*)xd.dados) - 1);
     
@@ -316,7 +315,6 @@ void incr(STACK *s)
     DADOS xd = pop(s);
     if (xd.tipo == DOUBLE)
         push_double(s, (*(double*)xd.dados) + 1);
-    
     else
         push_long(s, (*(long*)xd.dados) + 1);
     
@@ -358,7 +356,7 @@ void incr(STACK *s)
         
         push_double(s, n);
     }
-    else if(xd.tipo == LONG && yd.tipo == DOUBLE)
+    else if (xd.tipo == LONG && yd.tipo == DOUBLE)
     {
         long* xp = xd.dados;
         double x = *xp;
@@ -367,7 +365,7 @@ void incr(STACK *s)
 
         push_double(s, n);
     }
-    else if(xd.tipo == DOUBLE && yd.tipo == LONG)
+    else if (xd.tipo == DOUBLE && yd.tipo == LONG)
     {
         long* yp = yd.dados;
         double y = *yp;
@@ -376,7 +374,7 @@ void incr(STACK *s)
       
         push_double(s, n);
     }
-    else if(xd.tipo == LONG && yd.tipo == LONG)
+    else if (xd.tipo == LONG && yd.tipo == LONG)
     {
         int a = 1;
         long x = *((long*)xd.dados);
