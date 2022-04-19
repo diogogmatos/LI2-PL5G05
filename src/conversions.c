@@ -37,25 +37,23 @@ void conv_double(STACK *s)
     else if (d.tipo == STRING)
     {
         char *b = d.dados;
-        double r = 0;
-        for (int i=0; b[i] != '\0'; i++)
-        {
-            if (b[i] >= 48 && b[i] <= 57)
-            {
-                r = r * 10.0 + (b[i] - 48.0);
-            }
-            else if (b[i] > 57 && b[i] <= 99)
-            {
-                r = r * 100.0 + b[i];
-            }
-            else if (b[i] > 99 && b[i] <= 122)
-            {
-                r = r * 1000.0 + b[i];
-            }
-        }
-        push_double(s, r);
+        double n;
+        sscanf(b, "%lf", &n);
+        push_double(s, n);
     }
+
     free(d.dados);
+}
+
+/**
+ * @brief Função auxiliar que verifica se um caracter é um número.
+ * 
+ * @param c Caracter a ser verificado.
+ * @return int Retorna 1 se o caracter for um número, 0 caso contrário.
+ */
+int isNum(char c)
+{
+    return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
 }
 
 /**
@@ -87,24 +85,11 @@ void conv_int(STACK *s)
     else if (d.tipo == STRING)
     {
         char *b = d.dados;
-        long r = 0;
-        for (int i=0; b[i] != '\0'; i++)
-        {
-            if (b[i] >= 48 && b[i] <= 57)
-            {
-                r = r * 10 + (b[i] - 48);
-            }
-            else if (b[i] > 57 && b[i] <= 99)
-            {
-                r = r * 100 + b[i];
-            }
-            else if (b[i] > 99 && b[i] <= 122)
-            {
-                r = r * 1000 + b[i];
-            }
-        }
-        push_long(s, r);
+        long n;
+        sscanf(b, "%ld", &n);
+        push_long(s, n);
     }
+    
     free(d.dados);
 }
 
@@ -150,32 +135,31 @@ void conv_string(STACK *s)
 
     if (d.tipo == LONG)
     {
-        char result[100];
+        char result[BUFSIZ];
         long *num = (long*)d.dados;
         sprintf(result, "%ld", *num);
         push_string(s, result);
-        free(d.dados);
     }
     else if (d.tipo == DOUBLE)
     {
-        char result[100];
+        char result[BUFSIZ];
         double *num = (double*)d.dados;
         sprintf(result, "%lf", *num);
         push_string(s, result);
-        free(d.dados);
     }
     else if (d.tipo == CHAR)
     {
-        char result[100];
+        char result[BUFSIZ];
         char *l = (char*)d.dados;
         result[0] = *l;
         result[1] = '\0';
         push_string(s, result);
-        free(d.dados);
     }
     else if (d.tipo == STRING)
     {
         char *str = (char*)d.dados;
         push_string(s, str);
     }
+
+    free(d.dados);
 }

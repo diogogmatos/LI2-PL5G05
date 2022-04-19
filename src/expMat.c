@@ -14,14 +14,49 @@
  */
 void add(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd + *xd;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
+
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd + *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd + xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd + yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd + *xd;
+        
+        push_double(s, n);
+    }
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -32,14 +67,49 @@ void add(STACK *s)
  */
 void subtract(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd - *xd;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    free(xd);
-    free(yd);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd - *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd - xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd - yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd - *xd;
+        
+        push_double(s, n);
+    }
     
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -49,14 +119,49 @@ void subtract(STACK *s)
  */
 void multiply(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd * *xd;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    free(xd);
-    free(yd);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd * *xd;
+        
+        push_long(s, n);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd * xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd * yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd * *xd;
+        
+        push_double(s, n);
+    }
     
-    push_long(s, n);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -67,23 +172,49 @@ void multiply(STACK *s)
  */
 void divide(STACK *s)
 {
-    DADOS xd = pop(s);
-    DADOS yd = pop(s);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
     
-    if (xd.tipo == DOUBLE || yd.tipo == DOUBLE)
+    if (x.tipo == LONG && y.tipo == LONG)
     {
-        double n = *((double*)yd.dados) / *((double*)xd.dados);
-        free(xd.dados);
-        free(yd.dados);
-        push_double(s, n);
-    }
-    else
-    {
-        long n = *((long*)yd.dados) / *((long*)xd.dados);
-        free(xd.dados);
-        free(yd.dados);
+        long* xd = x.dados;
+        long* yd = y.dados;
+        long n = *yd / *xd;
+        
         push_long(s, n);
     }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long* xdi = x.dados;
+        double xd = *xdi;
+        double* yd = y.dados;
+        
+        double n = *yd / xd;
+        
+        push_double(s, n);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double* xd = x.dados;
+        long* ydi = y.dados;
+        double yd = *ydi;
+        
+        double n = *xd / yd;
+        
+        push_double(s, n);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double* xd = x.dados;
+        double* yd = y.dados;
+        
+        double n = *yd / *xd;
+        
+        push_double(s, n);
+    }
+    
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -216,7 +347,6 @@ void incr(STACK *s)
  */
  void expo(STACK *s)
 {
-    int a = 1;
     DADOS xd = pop(s);
     DADOS yd = pop(s);
 
@@ -243,11 +373,12 @@ void incr(STACK *s)
         double y = *yp;
         double* x = xd.dados;
         double n = pow(y, *x);
-
+      
         push_double(s, n);
     }
-    else 
+    else if(xd.tipo == LONG && yd.tipo == LONG)
     {
+        int a = 1;
         long x = *((long*)xd.dados);
         long y = *((long*)yd.dados);
 
