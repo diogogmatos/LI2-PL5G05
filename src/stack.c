@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include "stack.h"
 
+// Declaração de nova stack
+
 /**
  * @brief Aloca espaço na memória *heap* atribuindo um endereço ao pointer __s__ e iniciando o stack pointer (__s->sp__) a 0.
  */
@@ -17,6 +19,7 @@ STACK *new_stack()
     return s;
 }
 
+// Funções push()
 
 /**
  * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).
@@ -86,7 +89,9 @@ void push_string(STACK *s, char elem[])
     s->sp++;
     s->stack[s->sp] = d;
 }
-    
+
+// Função pop()
+
 /**
  * @brief Retorna o elemento que está na posição atual do stack pointer (__s->sp__) e decrementa o stack pointer.
  * 
@@ -100,4 +105,3 @@ DADOS pop(STACK* s)
 
     return d;
 }
-
