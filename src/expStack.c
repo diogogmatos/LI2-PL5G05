@@ -250,7 +250,7 @@ void ncopy(STACK *s)
         push_string(s, res);
     }
 
-   printf("%d\n", * ind);
+   
    
 } 
 
