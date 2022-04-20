@@ -126,7 +126,7 @@ void print_stack(STACK *s) // ! - Possível problema na impressão de uma string
         else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
         else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
-            printf("%lf", *((double*)d.dados));
+            printf("%g", *((double*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             print_string((char*)d.dados);
     }

@@ -62,7 +62,7 @@ void push_double(STACK *s, double elem)
 void push_char(STACK* s, char elem)
 {
 
-    char *elemP = malloc(sizeof(long));
+    char *elemP = malloc(sizeof(char));
     *elemP = elem;
     
     DADOS d = {CHAR, elemP};

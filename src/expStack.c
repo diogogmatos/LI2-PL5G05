@@ -34,15 +34,15 @@ void dup (STACK *s)
         push_string(s, str);
         push_string(s, str);
     }
+    
     free(d.dados);
-
 }
 
 void spin (STACK *s)
 {
-   DADOS x = pop (s);
-   DADOS y = pop (s);
-   DADOS z = pop (s);
+    DADOS x = pop (s);
+    DADOS y = pop (s);
+    DADOS z = pop (s);
 
     if (y.tipo == LONG)
     {
@@ -68,7 +68,6 @@ void spin (STACK *s)
         push_string(s, str);
     }
 
-
     if (x.tipo == LONG)
     {
         long *a = x.dados;
@@ -93,7 +92,6 @@ void spin (STACK *s)
         push_string(s, str);
     }
     
-
     if (z.tipo == LONG)
     {
         long *a = z.dados;
@@ -118,21 +116,17 @@ void spin (STACK *s)
         push_string(s, str);
     }
     
-    
-    
     free(x.dados);
     free(y.dados);
     free(z.dados);
-
 }
 
 void popS(STACK *s)
 {
-
-   pop (s);
-   DADOS z = pop(s);
+    pop (s);
+    DADOS z = pop(s);
    
-   if (z.tipo == LONG)
+    if (z.tipo == LONG)
     {
         long *a = z.dados;
         long n = *a;
@@ -157,16 +151,12 @@ void popS(STACK *s)
     }
 
     free(z.dados);
-
 }
 
 void swap(STACK *s) 
 {
-
-  
-   DADOS x = pop (s);
-   DADOS y = pop (s);
-
+    DADOS x = pop (s);
+    DADOS y = pop (s);
 
     if (x.tipo == LONG)
     {
@@ -218,16 +208,13 @@ void swap(STACK *s)
       
     free(x.dados);
     free(y.dados);
-
-
 }
-
 
 void ncopy(STACK *s)
 {
-   DADOS t = pop(s);
-   int * ind = (int *) t.dados;
-   DADOS y = s->stack[(s->sp) - *ind];
+    DADOS t = pop(s);
+    int * ind = (int *) t.dados;
+    DADOS y = s->stack[(s->sp) - *ind];
     
     if (y.tipo == LONG)
     {
@@ -250,7 +237,5 @@ void ncopy(STACK *s)
         push_string(s, res);
     }
 
-   
-   
-} 
-
+    free(t.dados);
+}
