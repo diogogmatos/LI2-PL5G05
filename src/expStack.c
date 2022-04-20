@@ -225,66 +225,32 @@ void swap(STACK *s)
 
 void ncopy(STACK *s)
 {
+   DADOS t = pop(s);
+   int * ind = (int *) t.dados;
+   DADOS y = s->stack[(s->sp) - *ind];
+    
+    if (y.tipo == LONG)
+    {
+         int * res = s->stack[(s->sp) - *ind].dados;
+         push_long(s, *res);
+    }
+    else if (y.tipo == CHAR)
+    {
+        char * res = s->stack[(s->sp) - *ind].dados;
+        push_char(s, *res);
+    }
+    else if (y.tipo == DOUBLE)
+    {
+        int * res = s->stack[(s->sp) - *ind].dados;
+        push_double(s, *res);
+    }
+    else if (y.tipo == STRING)
+    {
+        char  * res = s->stack[(s->sp) - *ind].dados;
+        push_string(s, res);
+    }
 
-   DADOS n = pop(s);
-   DADOS x = pop (s);
+   printf("%d\n", * ind);
    
-
-
-    if (x.tipo == LONG)
-    {
-        long *a = x.dados;
-        long n = *a;
-        push_long(s, n);
-    }
-    else if (x.tipo == CHAR)
-    {
-        char *b = x.dados;
-        char n = *b;
-        push_char(s, n);
-    }
-    else if (x.tipo == DOUBLE)
-    {
-        double *b = x.dados;
-        double n = *b;
-        push_double(s, n);
-    }
-    else if (x.tipo == STRING)
-    {
-        char *str = (char*)x.dados;
-        push_string(s, str);
-    }
-   
-   busca (s,n);
-
-   free(n.dados);
-   free(x.dados);
- 
-
-}
-
-void busca(STACK *s, DADOS n)
-{
-
-    conv_double (STACK *s);
-
-    while (n < 0)
-    {
-      pop(s);
-    }
-    
-    DADOS x = pop(s);
-    
-    
-    if (x.tipo == DOUBLE)
-    {
-        double *b = x.dados;
-        double n = *b;
-        push_double (s,n);
-       
-    }
-    
-    free (x.dados);
-    
-}
+} 
 
