@@ -88,6 +88,11 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, "f") == 0) conv_double(s);
     else if (strcmp (token, "c") == 0) conv_char(s);
     else if (strcmp (token, "s") == 0) conv_string(s);
+    else if (strcmp (token, "_") == 0) dup(s);
+    else if (strcmp (token, "@") == 0) spin(s);
+    else if (strcmp (token, ";") == 0) popS(s);
+    else if (strcmp (token, "\\") == 0) swap(s);
+    else if (strcmp (token, "$") == 0) ncopy(s);
     else val(s, token);
 }
 

@@ -65,3 +65,11 @@ void conv_double(STACK *s);
 void conv_int(STACK *s);
 void conv_char(STACK *s);
 void conv_string(STACK *s);
+
+//expStack.c 
+
+void dup(STACK *s);
+void spin(STACK *s);
+void popS(STACK *s);
+void swap(STACK *s);
+void ncopy(STACK *s);
