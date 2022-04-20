@@ -7,8 +7,18 @@
 
 #define MAX_STACK  1000
 
-typedef enum{LONG, DOUBLE, CHAR, STRING}TIPO;
+/**
+ * @brief Definição de um tipo __TIPO__ que representa o tipo do elemento (long, double, char ou string).
+ * 
+ */
+typedef enum{LONG, DOUBLE, CHAR, STRING} TIPO;
 
+/**
+ * @brief Definição de uma estrutura DADOS que constitui os elementos da stack.
+ * 
+ * - `tipo`: __Tipo do elemento, definido em 'TIPO'.__
+ * - `dados`: __ Endereço do elemento.__
+ */
 typedef struct
 {
     TIPO tipo;
@@ -18,8 +28,8 @@ typedef struct
 /**
  * @brief Definição da estrutura da stack.
  * 
- * - `stack[MAX_STACK]` - __Array para armazenar os elementos da stack com um tamanho maximo de 1000.__
- * - `sp` - __Stack pointer que vai apontar para a stack.__
+ * - `stack[MAX_STACK]`: __Array para armazenar os elementos da stack com um tamanho maximo de 1000.__
+ * - `sp`: __Stack pointer que vai apontar para a stack.__
  */
 typedef struct
 {
@@ -66,7 +76,7 @@ void conv_int(STACK *s);
 void conv_char(STACK *s);
 void conv_string(STACK *s);
 
-//expStack.c 
+// expStack.c 
 
 void dup(STACK *s);
 void spin(STACK *s);

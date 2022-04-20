@@ -9,6 +9,7 @@
 
 /**
  * @brief Converte um elemento para DOUBLE.
+ * 
  * @param s Stack.
  */
 void conv_double(STACK *s)
@@ -46,18 +47,8 @@ void conv_double(STACK *s)
 }
 
 /**
- * @brief Função auxiliar que verifica se um caracter é um número.
- * 
- * @param c Caracter a ser verificado.
- * @return int Retorna 1 se o caracter for um número, 0 caso contrário.
- */
-int isNum(char c)
-{
-    return (c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9');
-}
-
-/**
  * @brief Converte um elemento para inteiro (LONG).
+ * 
  * @param s Stack.
  */
 void conv_int(STACK *s)
@@ -95,6 +86,7 @@ void conv_int(STACK *s)
 
 /**
  * @brief Converte um elemento para CHAR.
+ * 
  * @param s Stack.
  */
 void conv_char(STACK *s)
@@ -127,6 +119,7 @@ void conv_char(STACK *s)
 
 /**
  * @brief Converte um elemento para STRING.
+ * 
  * @param s Stack.
  */
 void conv_string(STACK *s)
