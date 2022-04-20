@@ -19,7 +19,7 @@ STACK *new_stack()
     return s;
 }
 
-// Funções push()
+// Funções de push
 
 /**
  * @brief Introduz um elemento do tipo LONG na stack, incrementando um valor ao stack pointer (__s->sp__).
@@ -88,6 +88,36 @@ void push_string(STACK *s, char elem[])
     DADOS d = {STRING, str}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
     s->sp++;
     s->stack[s->sp] = d;
+}
+
+/**
+ * @brief Introduz um elemento na stack, direcionando para a função push correspondente de acordo com o tipo.
+ * 
+ * @param s Stack.
+ * @param elem Elemento a introduzir na stack.
+ */
+void push(STACK* s, DADOS elem)
+{
+    if (elem.tipo == LONG)
+    {
+        long *n = elem.dados;
+        push_long(s, *n);
+    }
+    else if (elem.tipo == DOUBLE)
+    {
+        double *n = elem.dados;
+        push_double(s, *n);
+    }
+    else if (elem.tipo == CHAR)
+    {
+        char *n = elem.dados;
+        push_char(s, *n);
+    }
+    else if (elem.tipo == STRING)
+    {
+        char *n = elem.dados;
+        push_string(s, n);
+    }
 }
 
 // Função pop()
