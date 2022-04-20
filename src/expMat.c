@@ -16,13 +16,13 @@ void add(STACK *s)
 {
     DADOS x = pop(s);
     DADOS y = pop(s);
-
+    
     if (x.tipo == LONG && y.tipo == LONG)
     {
         long* xd = x.dados;
         long* yd = y.dados;
+
         long n = *yd + *xd;
-        
         push_long(s, n);
     }
     else if (x.tipo == LONG && y.tipo == DOUBLE)
@@ -32,7 +32,6 @@ void add(STACK *s)
         double* yd = y.dados;
         
         double n = *yd + xd;
-        
         push_double(s, n);        
     }
     else if (x.tipo == DOUBLE && y.tipo == LONG)
@@ -41,8 +40,7 @@ void add(STACK *s)
         long* ydi = y.dados;
         double yd = *ydi;
         
-        double n = *xd + yd;
-        
+        double n = yd + *xd;
         push_double(s, n);
     }
     else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
@@ -51,7 +49,6 @@ void add(STACK *s)
         double* yd = y.dados;
         
         double n = *yd + *xd;
-        
         push_double(s, n);
     }
     
@@ -74,8 +71,8 @@ void subtract(STACK *s)
     {
         long* xd = x.dados;
         long* yd = y.dados;
+
         long n = *yd - *xd;
-        
         push_long(s, n);
     }
     else if (x.tipo == LONG && y.tipo == DOUBLE)
@@ -85,7 +82,6 @@ void subtract(STACK *s)
         double* yd = y.dados;
         
         double n = *yd - xd;
-        
         push_double(s, n);        
     }
     else if (x.tipo == DOUBLE && y.tipo == LONG)
@@ -94,8 +90,7 @@ void subtract(STACK *s)
         long* ydi = y.dados;
         double yd = *ydi;
         
-        double n = *xd - yd;
-        
+        double n = yd - *xd;
         push_double(s, n);
     }
     else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
@@ -104,7 +99,6 @@ void subtract(STACK *s)
         double* yd = y.dados;
         
         double n = *yd - *xd;
-        
         push_double(s, n);
     }
     
@@ -126,8 +120,8 @@ void multiply(STACK *s)
     {
         long* xd = x.dados;
         long* yd = y.dados;
+
         long n = *yd * *xd;
-        
         push_long(s, n);
     }
     else if (x.tipo == LONG && y.tipo == DOUBLE)
@@ -137,7 +131,6 @@ void multiply(STACK *s)
         double* yd = y.dados;
         
         double n = *yd * xd;
-        
         push_double(s, n);        
     }
     else if (x.tipo == DOUBLE && y.tipo == LONG)
@@ -146,8 +139,7 @@ void multiply(STACK *s)
         long* ydi = y.dados;
         double yd = *ydi;
         
-        double n = *xd * yd;
-        
+        double n = yd * *xd;
         push_double(s, n);
     }
     else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
@@ -156,7 +148,6 @@ void multiply(STACK *s)
         double* yd = y.dados;
         
         double n = *yd * *xd;
-        
         push_double(s, n);
     }
     
@@ -179,8 +170,8 @@ void divide(STACK *s)
     {
         long* xd = x.dados;
         long* yd = y.dados;
+
         long n = *yd / *xd;
-        
         push_long(s, n);
     }
     else if (x.tipo == LONG && y.tipo == DOUBLE)
@@ -190,7 +181,6 @@ void divide(STACK *s)
         double* yd = y.dados;
         
         double n = *yd / xd;
-        
         push_double(s, n);        
     }
     else if (x.tipo == DOUBLE && y.tipo == LONG)
@@ -199,8 +189,7 @@ void divide(STACK *s)
         long* ydi = y.dados;
         double yd = *ydi;
         
-        double n = *xd / yd;
-        
+        double n = yd / *xd;
         push_double(s, n);
     }
     else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
@@ -209,7 +198,6 @@ void divide(STACK *s)
         double* yd = y.dados;
         
         double n = *yd / *xd;
-        
         push_double(s, n);
     }
     
@@ -298,7 +286,9 @@ void decr(STACK *s)
     DADOS xd = pop(s);
     if (xd.tipo == DOUBLE)
         push_double(s, (*(double*)xd.dados) - 1);
-    else
+    else if (xd.tipo == CHAR)
+        push_char(s, (*(char*)xd.dados) - 1);
+    else if (xd.tipo == LONG)
         push_long(s, (*(long*)xd.dados) - 1);
     
     free(xd.dados);
@@ -315,7 +305,9 @@ void incr(STACK *s)
     DADOS xd = pop(s);
     if (xd.tipo == DOUBLE)
         push_double(s, (*(double*)xd.dados) + 1);
-    else
+    else if (xd.tipo == CHAR)
+        push_char(s, (*(char*)xd.dados) + 1);
+    else if (xd.tipo == LONG)
         push_long(s, (*(long*)xd.dados) + 1);
     
     free(xd.dados);
@@ -352,8 +344,8 @@ void incr(STACK *s)
     {
         double x = *((double*)xd.dados);
         double y = *((double*)yd.dados);
+
         double n = pow(y, x);
-        
         push_double(s, n);
     }
     else if (xd.tipo == LONG && yd.tipo == DOUBLE)
@@ -361,8 +353,8 @@ void incr(STACK *s)
         long* xp = xd.dados;
         double x = *xp;
         double* y = yd.dados;
-        double n = pow(*y, x);
 
+        double n = pow(*y, x);
         push_double(s, n);
     }
     else if (xd.tipo == DOUBLE && yd.tipo == LONG)
@@ -370,8 +362,8 @@ void incr(STACK *s)
         long* yp = yd.dados;
         double y = *yp;
         double* x = xd.dados;
+
         double n = pow(y, *x);
-      
         push_double(s, n);
     }
     else if (xd.tipo == LONG && yd.tipo == LONG)
@@ -388,7 +380,7 @@ void incr(STACK *s)
         
         push_long(s, a);
     }
-    
+
     free(xd.dados);
     free(yd.dados);
 }
