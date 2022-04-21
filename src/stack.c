@@ -19,6 +19,44 @@ STACK *new_stack()
     return s;
 }
 
+// Armazenamento de variáveis
+
+/**
+ * @brief Inicializa o array que armazena as variáveis com os seus valores por defeito.
+ * 
+ * @param var Array que armazena as variáveis.
+ */
+void initialize_var(DADOS *var)
+{   
+    int i;
+
+    for (i=0; i<=5; i++)
+    {
+        long *r = malloc(sizeof(long));
+        *r = 10 + i;
+        var[i].tipo = LONG;
+        var[i].dados = r;
+    }
+
+    char *n = malloc(sizeof(char));
+    *n = '\n';
+    var[13].tipo = CHAR;
+    var[13].dados = n;
+
+    char *s = malloc(sizeof(char));
+    *s = ' ';
+    var[18].tipo = CHAR;
+    var[18].dados = s;
+
+    for (i=19; i<26; i++)
+    {
+        long *r = malloc(sizeof(long));
+        *r = i - 18;
+        var[i].tipo = LONG;
+        var[i].dados = r;
+    }
+}
+
 // Funções de push
 
 /**
