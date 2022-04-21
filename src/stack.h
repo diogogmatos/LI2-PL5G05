@@ -42,6 +42,7 @@ typedef struct
 // stack.c
 
 STACK* new_stack();
+void initialize_var(DADOS *var);
 void push_double(STACK *s, double elem);
 void push_long(STACK *s, long elem);
 void push_char(STACK *s, char elem);
@@ -67,7 +68,7 @@ void expo(STACK *s);
 // io.c
 
 void val(STACK* s, char* token);
-void handle_token(STACK* s, char* token);
+void handle_token(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
 
 // conversions.c

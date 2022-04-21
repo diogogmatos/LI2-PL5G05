@@ -12,6 +12,7 @@
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
+ * 
  * @param s Stack.
  * @param token String que contém o input do programa.
  */
@@ -19,7 +20,7 @@ void val(STACK* s, char* token)
 {
     int i, n = strlen(token);
 
-    if (token[0] == '"')               // Caso em que o operando é STRING
+    if (token[0] == '"')                // Caso em que o operando é STRING
     {
        char string[n-1];
        int j=0;
@@ -32,7 +33,7 @@ void val(STACK* s, char* token)
     else
     {
         for (i=0; token[i] != '\0' && token[i] != '.'; i++);
-        if (i != n)                  // Caso em que o operando é DOUBLE
+        if (i != n)                    // Caso em que o operando é DOUBLE
         {
             double d;
             sscanf(token, "%lf", &d);
@@ -63,11 +64,51 @@ void new_line (STACK *s)
 // Handling de inputs
 
 /**
- * @brief Nesta função é feita a filtragem dos elementos que vão para a stack e dos elementos que representam as operações.
+ * @brief Lida com o input de variáveis, determinando se devemos guardar um elemento na variável ou imprimir o seu conteúdo.
+ * 
  * @param s Stack.
  * @param token String que contém o input do programa.
+ * @param var Array que armazena as variáveis.
  */
-void handle_token(STACK* s, char* token)
+void handle_variables(STACK* s, char* token, DADOS *var)
+{   
+    if (token[0] == ':')
+    {
+        DADOS d = pop(s);
+        int n = token[1];
+        var[n-65] = d;
+        push(s, d);
+    }
+    else
+    {
+        char n = token[0];
+        if (n >= 'A' && n <= 'Z')
+            push(s, var[n-65]);
+    }
+}
+
+/**
+ * @brief Função auxiliar que verifica se um caracter é uma letra maiúscula, ou seja, uma variável.
+ * 
+ * @param c Carcater a ser verificado.
+ * @return int Retorna 1 (True) ou 0 (False).
+ */
+int isVar(char c)
+{
+    if (c >= 'A' && c <= 'Z')
+        return 1;
+    else
+        return 0;
+}
+
+/**
+ * @brief Lida com os inputs do programa, determinando que função deve ser utilizada para lidar com cada um deles.
+ * 
+ * @param s Stack.
+ * @param token String que contém o input do programa.
+ * @param var Array que armazena as variáveis.
+ */
+void handle_token(STACK* s, char* token, DADOS *var)
 {
     if (strcmp (token, "+") == 0) add(s);
     else if (strcmp (token, "-") == 0) subtract(s);
@@ -91,6 +132,7 @@ void handle_token(STACK* s, char* token)
     else if (strcmp (token, ";") == 0) popS(s);
     else if (strcmp (token, "\\") == 0) swap(s);
     else if (strcmp (token, "$") == 0) ncopy(s);
+    else if (token[0] == ':' || isVar(token[0])) handle_variables(s, token, var);
     else val(s, token);
 }
 
@@ -111,6 +153,7 @@ void print_string(char s[])
 
 /**
  * @brief Esta função imprime o conteúdo da stack.
+ * 
  * @param s Stack.
  */
 void print_stack(STACK *s) // ! - Possível problema na impressão de uma string
