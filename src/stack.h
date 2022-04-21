@@ -66,7 +66,7 @@ void expo(STACK *s);
 
 // io.c
 
-int val(STACK* s, char* token);
+void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token);
 void print_stack(STACK *s);
 
