@@ -15,15 +15,14 @@
  * @param s Stack.
  * @param token String que contém o input do programa.
  */
-int val(STACK* s, char* token)
+void val(STACK* s, char* token)
 {
-    int num, n = strlen(token) + 1;
-    double d;
+    int i, n = strlen(token);
 
     if (token[0] == '"')               // Caso em que o operando é STRING
     {
-       char string[n-2];
-       int i, j=0;
+       char string[n-1];
+       int j=0;
        for (i=1; token[i] != '"'; i++, j++)
        {
            string[j] = token[i];
@@ -32,21 +31,20 @@ int val(STACK* s, char* token)
     }
     else
     {
-        int i;
         for (i=0; token[i] != '\0' && token[i] != '.'; i++);
-        if (i != n-1)                  // Caso em que o operando é DOUBLE
+        if (i != n)                  // Caso em que o operando é DOUBLE
         {
+            double d;
             sscanf(token, "%lf", &d);
             push_double(s, d);
         }
         else                           // Caso em que o operando é LONG
         {
-            sscanf(token, "%d", &num);
+            long num;
+            sscanf(token, "%li", &num);
             push_long(s, num);
         }
     }
-    
-    return 1;
 }
 
 // Funções de input/output (operadores 'l', 't' e 'p')
