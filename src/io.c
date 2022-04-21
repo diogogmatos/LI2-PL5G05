@@ -64,6 +64,20 @@ void new_line (STACK *s)
 // Handling de inputs
 
 /**
+ * @brief Função auxiliar que verifica se um caracter é uma letra maiúscula, ou seja, uma variável.
+ * 
+ * @param c Carcater a ser verificado.
+ * @return int Retorna 1 (True) ou 0 (False).
+ */
+int isVar(char c)
+{
+    if (c >= 'A' && c <= 'Z')
+        return 1;
+    else
+        return 0;
+}
+
+/**
  * @brief Lida com o input de variáveis, determinando se devemos guardar um elemento na variável ou imprimir o seu conteúdo.
  * 
  * @param s Stack.
@@ -85,20 +99,6 @@ void handle_variables(STACK* s, char* token, DADOS *var)
         if (n >= 'A' && n <= 'Z')
             push(s, var[n-65]);
     }
-}
-
-/**
- * @brief Função auxiliar que verifica se um caracter é uma letra maiúscula, ou seja, uma variável.
- * 
- * @param c Carcater a ser verificado.
- * @return int Retorna 1 (True) ou 0 (False).
- */
-int isVar(char c)
-{
-    if (c >= 'A' && c <= 'Z')
-        return 1;
-    else
-        return 0;
 }
 
 /**
