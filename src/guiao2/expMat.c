@@ -1,9 +1,6 @@
 /**
  * @file expMat.c
  * @brief Operações base do projeto.
- * 
- * - __Nota:__ Todas as funções em expMat.c incluem uma libertação de memória (ex: `free(x.dados)`) uma vez que acedemos a um elemento da stack com
- * a função `pop()` para o qual foi alocada memória dinâmica que já não será usada.
  */
 
 #include "stack.h"
