@@ -8,16 +8,19 @@
 #define MAX_STACK  1000
 
 /**
- * @brief Definição de um tipo __TIPO__ que representa o tipo do elemento (long, double, char ou string).
+ * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
  * 
  */
 typedef enum{LONG, DOUBLE, CHAR, STRING} TIPO;
 
 /**
- * @brief Definição de uma estrutura DADOS que constitui os elementos da stack.
+ * @brief Definição de uma estrutura "__DADOS__" que constitui os elementos da stack.
  * 
  * - `tipo`: __Tipo do elemento, definido em 'TIPO'.__
  * - `dados`: __ Endereço do elemento.__
+ * 
+ * - __Nota:__ O endereço do elemento é do tipo `void` para que possa alocar um elemento de qualquer tipo. Por este motivo, sempre que se pretende
+ * aceder ao conteúdo deste endereço, ou seja, ao conteúdo do elemento, deve-se explicitar o seu tipo. Por exemplo: `long n = *((long*)d.dados)`.
  */
 typedef struct
 {
@@ -26,10 +29,11 @@ typedef struct
 } DADOS;
 
 /**
- * @brief Definição da estrutura da stack.
+ * @brief Definição da estrutura da stack, denominada "__STACK__".
  * 
- * - `stack[MAX_STACK]`: __Array para armazenar os elementos da stack com um tamanho maximo de 1000.__
- * - `sp`: __Stack pointer que vai apontar para a stack.__
+ * "STACK" é contituída por: 
+ * - Um array de 'DADOS' `stack[]` de tamanho 1000, que representa a stack;
+ * - Um inteiro `sp` que representa o topo da stack.
  */
 typedef struct
 {
