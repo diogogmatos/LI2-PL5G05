@@ -149,6 +149,9 @@ void handle_token(STACK* s, char* token, DADOS *var)
     else if (strcmp (token, "\\") == 0) swap(s);
     else if (strcmp (token, "$") == 0) ncopy(s);
     else if (token[0] == ':' || isVar(token[0])) handle_variables(s, token, var);
+    else if (strcmp (token, ">") == 0) bigger(s);
+    else if (strcmp (token, "!") == 0) lnot(s);
+    else if (strcmp (token, "e&") == 0) and(s);
     else val(s, token);
 }
 

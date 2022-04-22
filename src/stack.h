@@ -89,3 +89,10 @@ void spin(STACK *s);
 void popS(STACK *s);
 void swap(STACK *s);
 void ncopy(STACK *s);
+
+
+//expLogic.c
+
+void bigger(STACK *s);
+void lnot(STACK *s);
+void and(STACK *s);
