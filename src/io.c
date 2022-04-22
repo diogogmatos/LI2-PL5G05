@@ -13,6 +13,10 @@
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  * 
+ * Para isso, a função:
+ * 1. Verifica o tipo do elemento introduzido pelo utilizador;
+ * 2. Introduz o elemento na stack utilizando a função de push respetiva.
+ * 
  * @param s Stack.
  * @param token String que contém o input do programa.
  */
@@ -20,7 +24,7 @@ void val(STACK* s, char* token)
 {
     int i, n = strlen(token);
 
-    if (token[0] == '"')                // Caso em que o operando é STRING
+    if (token[0] == '"')                // Caso em que o operando é STRING (o input encontra-se entre aspas)
     {
        char string[n-1];
        int j=0;
@@ -33,13 +37,13 @@ void val(STACK* s, char* token)
     else
     {
         for (i=0; token[i] != '\0' && token[i] != '.'; i++);
-        if (i != n)                    // Caso em que o operando é DOUBLE
+        if (i != n)                    // Caso em que o operando é DOUBLE (o input contém um '.')
         {
             double d;
             sscanf(token, "%lf", &d);
             push_double(s, d);
         }
-        else                           // Caso em que o operando é LONG
+        else                           // Caso em que o operando é LONG (o input é apenas constituído por números)
         {
             long num;
             sscanf(token, "%li", &num);
@@ -51,7 +55,8 @@ void val(STACK* s, char* token)
 // Funções de input/output (operadores 'l', 't' e 'p')
 
 /**
- * @brief Esta função representa a ação do comando 'l', que recebe uma nova linha de input por cada ocorrência do comando.
+ * @brief Esta função representa a ação do comando `l`, que recebe uma nova linha de input por cada ocorrência do comando.
+ * 
  * @param s Stack.
  */
 void new_line (STACK *s)
@@ -78,7 +83,14 @@ int isVar(char c)
 }
 
 /**
- * @brief Lida com o input de variáveis, determinando se devemos guardar um elemento na variável ou imprimir o seu conteúdo.
+ * @brief Lida com o input de variáveis, determinando se devemos guardar um elemento na variável ou introduzir na stack o seu conteúdo.
+ * 
+ * Para isso, a função:
+ * 1. Verifica se o input contém `:X`, ou seja, se queremos guardar o topo da stack na variável X, sendo X uma variável qualquer de A a Z;
+ * 2. Caso contrário, o input é apenas uma variável pelo que introduzimos na stack o seu conteúdo.
+ * 
+ * - __Nota:__ A função recebe o array `var` como argumento, que é responsável por armazenar as variáveis.
+ * Este array é declarado e inicializado na função `main()`.
  * 
  * @param s Stack.
  * @param token String que contém o input do programa.
@@ -103,6 +115,10 @@ void handle_variables(STACK* s, char* token, DADOS *var)
 
 /**
  * @brief Lida com os inputs do programa, determinando que função deve ser utilizada para lidar com cada um deles.
+ * 
+ * Para isso, a função:
+ * 1. Verifica se o input é um operador ou uma variável, executando a função correspondente se o mesmo se verificar;
+ * 2. Caso contrário, o input será um operando e é introduzido na stack com a função `val()`.
  * 
  * @param s Stack.
  * @param token String que contém o input do programa.
@@ -139,20 +155,11 @@ void handle_token(STACK* s, char* token, DADOS *var)
 // Impressão da stack
 
 /**
- * @brief Função auxiliar para dar print duma string na stack.
- * 
- * @param s String a sujeita ao print
- */
-void print_string(char s[])
-{
-    for (int i = 0; s[i] != '\0'; ++i)
-    {
-        printf("%c", s[i]);
-    }
-}
-
-/**
  * @brief Esta função imprime o conteúdo da stack.
+ * 
+ * Para isso:
+ * 1. Percorre o array de dados da stack, desde a primeira posição até à posição atual do "stack pointer" (`s->sp`);
+ * 2. Imprime o conteúdo de cada elemento, de acordo com o seu tipo.
  * 
  * @param s Stack.
  */
@@ -169,7 +176,7 @@ void print_stack(STACK *s) // ! - Possível problema na impressão de uma string
         else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
             printf("%g", *((double*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
-            print_string((char*)d.dados);
+            printf("%s", (char*)d.dados);
     }
     printf("\n");
 }

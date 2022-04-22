@@ -1,9 +1,17 @@
+/**
+ * @file expStack.c
+ * @brief Operações de manipulação da stack.
+ * 
+ * - __Nota:__ Todas as funções em expStack.c incluem uma libertação de memória (`free(d.dados)`) uma vez que acedemos a um elemento da stack com
+ * a função `pop()` para o qual foi alocada memória dinâmica que já não será usada.
+ */
+
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * @brief Duplica um elemento na stack.
+ * @brief Duplica um elemento na stack, introduzindo-o na mesma duas vezes com função `push()`.
  * 
  * @param s Stack.
  */
@@ -18,7 +26,7 @@ void dup (STACK *s)
 }
 
 /**
- * @brief Roda os primeiros três elementos da stack.
+ * @brief Roda os primeiros três elementos da stack, introduzindo-os na mesma pela ordem pretendida com função `push()`.
  * 
  * @param s Stack.
  */
@@ -38,7 +46,7 @@ void spin (STACK *s)
 }
 
 /**
- * @brief Permite que o utilizador realize um pop.
+ * @brief Permite que o utilizador execute a função `pop()`.
  * 
  * @param s Stack.
  */
@@ -48,7 +56,7 @@ void popS(STACK *s)
 }
 
 /**
- * @brief Troca os dois primeiros elementos da stack.
+ * @brief Troca os dois primeiros elementos da stack, introduzindo-os na mesma por ordem oposta com função `push()`.
  * 
  * @param s Stack.
  */
@@ -67,6 +75,8 @@ void swap(STACK *s)
 /**
  * @brief Copia o n-ésimo elemento da stack para o topo da stack.
  * 
+ * Para isso, acede ao n-ésimo elemento da stack e introduz o mesmo novamente com função `push()`.
+ * 
  * @param s Stack.
  */
 void ncopy(STACK *s)
@@ -74,27 +84,8 @@ void ncopy(STACK *s)
     DADOS t = pop(s);
     int * ind = (int *) t.dados;
     DADOS y = s->stack[(s->sp) - *ind];
-    
-    if (y.tipo == LONG)
-    {
-        int * res = s->stack[(s->sp) - *ind].dados;
-        push_long(s, *res);
-    }
-    else if (y.tipo == CHAR)
-    {
-        char * res = s->stack[(s->sp) - *ind].dados;
-        push_char(s, *res);
-    }
-    else if (y.tipo == DOUBLE)
-    {
-        int * res = s->stack[(s->sp) - *ind].dados;
-        push_double(s, *res);
-    }
-    else if (y.tipo == STRING)
-    {
-        char  * res = s->stack[(s->sp) - *ind].dados;
-        push_string(s, res);
-    }
+
+    push(s, y);
 
     free(t.dados);
 }
