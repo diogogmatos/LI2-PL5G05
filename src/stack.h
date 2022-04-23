@@ -96,3 +96,5 @@ void ncopy(STACK *s);
 void bigger(STACK *s);
 void lnot(STACK *s);
 void and(STACK *s);
+void maior2 (STACK *s);
+void menor2 (STACK *s);

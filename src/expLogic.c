@@ -85,3 +85,54 @@ void and(STACK *s)
    }
 
 }
+
+/**
+ * @brief Compara os 2 valores do topo da stack, deixando nesta somente o de maior grandeza;
+ * 
+ * @param s Stack.
+ */
+
+void maior2 (STACK *s) {
+
+ DADOS x = pop(s);
+   long *a = x.dados;
+   long n = *a;
+   DADOS y = pop(s);
+   long *b = y.dados;
+   long n1 = *b;
+   
+   if (n1 > n)
+   {
+     push(s,y);
+   }
+   else push(s,x);
+   
+   free (x.dados);
+   free (y.dados);
+}
+
+
+ /**
+ * @brief Compara os 2 valores do topo da stack, deixando nesta somente o de menor grandeza;
+ * 
+ * @param s Stack.
+ */
+
+void menor2 (STACK *s) {
+
+ DADOS x = pop(s);
+   long *a = x.dados;
+   long n = *a;
+   DADOS y = pop(s);
+   long *b = y.dados;
+   long n1 = *b;
+   
+   if (n1 > n)
+   {
+     push(s,x);
+   }
+   else push(s,y);
+   
+   free (x.dados);
+   free (y.dados);
+}

@@ -152,6 +152,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
     else if (strcmp (token, ">") == 0) bigger(s);
     else if (strcmp (token, "!") == 0) lnot(s);
     else if (strcmp (token, "e&") == 0) and(s);
+    else if (strcmp (token, "e>") == 0) maior2(s);
+    else if (strcmp (token, "e<") == 0) menor2(s);
     else val(s, token);
 }
 
