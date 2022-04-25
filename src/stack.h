@@ -90,9 +90,10 @@ void popS(STACK *s);
 void swap(STACK *s);
 void ncopy(STACK *s);
 
+// expLogic.c
 
-//expLogic.c
-
+void equal(STACK *s);
+void smaller(STACK *s);
 void bigger(STACK *s);
 void lnot(STACK *s);
 void and(STACK *s);
