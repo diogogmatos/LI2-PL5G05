@@ -156,3 +156,40 @@ void menor2 (STACK *s)
     free (x.dados);
     free (y.dados);
 }
+
+void or (STACK *s)
+{
+    DADOS x = pop(s);
+    DADOS y = pop(s);
+    long *a = x.dados;
+    long *b = y.dados;
+
+    if (*a == 0 && *b == 0)
+        push_long(s, 0);
+    else
+        push_long(s, 1);
+    
+    free(x.dados);
+    free(y.dados);
+}
+
+void if_else (STACK* s)
+{
+    DADOS else_this = pop(s);
+    DADOS then_this = pop(s);
+    DADOS if_this = pop(s);
+
+    long *a = if_this.dados;
+    if (*a != 0)
+    {
+        push(s, then_this);
+        free(if_this.dados);
+        free(else_this.dados);
+    }
+    else
+    {
+        push(s, else_this);
+        free(if_this.dados);
+        free(then_this.dados);
+    }
+}
