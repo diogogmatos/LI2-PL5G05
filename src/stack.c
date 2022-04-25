@@ -50,12 +50,12 @@ void initialize_var(DADOS *var)
     var[18].tipo = CHAR;
     var[18].dados = s;
 
-    for (i=19; i<26; i++)
+    for (i=23; i<26; i++)               // *r toma valor 0, 1 ou 2 para X, Y ou Z (respetivamente).
     {
-        long *r = malloc(sizeof(long));
-        *r = i - 18;                    // *r toma o valor 0, 1 ou 2 para X, Y ou Z (respetivamente).
+        long *x = malloc(sizeof(long));
+        *x = i - 23;
         var[i].tipo = LONG;
-        var[i].dados = r;
+        var[i].dados = x;
     }
 }
 
