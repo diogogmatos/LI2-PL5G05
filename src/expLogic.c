@@ -17,54 +17,16 @@
  */
 void equal(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
+    double *a = pop(s).dados;
+    double *b = pop(s).dados;
 
-    if (x.tipo == LONG && y.tipo == LONG)
-    {
-        long *a = x.dados;
-        long *b = y.dados;
+    if (*b == *a)
+        push_long(s, 1);
+    else
+        push_long(s, 0);
 
-        if (*b == *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long *ai = x.dados;
-        double a = *ai;
-        double *b = y.dados;
-        
-        if (*b == a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);        
-    }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
-    {
-        double *a = x.dados;
-        long *bi = y.dados;
-        double b = *bi;
-        
-        if (b == *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double *a = x.dados;
-        double *b = y.dados;
-        
-        if (*b == *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -72,56 +34,18 @@ void equal(STACK *s)
  * 
  * @param s Stack.
  */
-void smaller(STACK *s)
+void is_smaller(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
+    double *a = pop(s).dados;
+    double *b = pop(s).dados;
 
-    if (x.tipo == LONG && y.tipo == LONG)
-    {
-        long *a = x.dados;
-        long *b = y.dados;
+    if (*b < *a)
+        push_long(s, 1);
+    else
+        push_long(s, 0);
 
-        if (*b < *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long *ai = x.dados;
-        double a = *ai;
-        double *b = y.dados;
-        
-        if (*b < a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);        
-    }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
-    {
-        double *a = x.dados;
-        long *bi = y.dados;
-        double b = *bi;
-        
-        if (b < *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double *a = x.dados;
-        double *b = y.dados;
-        
-        if (*b < *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -129,57 +53,18 @@ void smaller(STACK *s)
  * 
  * @param s Stack.
  */
-void bigger(STACK *s)
+void is_bigger(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
+    double *a = pop(s).dados;
+    double *b = pop(s).dados;
 
+    if (*b > *a)
+        push_long(s, 1);
+    else
+        push_long(s, 0);
 
-    if (x.tipo == LONG && y.tipo == LONG)
-    {
-        long *a = x.dados;
-        long *b = y.dados;
-
-        if (*b > *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long *ai = x.dados;
-        double a = *ai;
-        double *b = y.dados;
-        
-        if (*b > a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);        
-    }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
-    {
-        double *a = x.dados;
-        long *bi = y.dados;
-        double b = *bi;
-        
-        if (b > *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double *a = x.dados;
-        double *b = y.dados;
-        
-        if (*b > *a)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -189,15 +74,14 @@ void bigger(STACK *s)
  */
 void lnot(STACK *s)
 {
-    DADOS x = pop(s);
-    long *a = x.dados;
+    double *a = pop(s).dados;
 
     if (*a == 0)
-        push_long(s,1);
+        push_long(s, 1);
     else
-        push_long(s,0);
+        push_long(s, 0);
 
-    free(x.dados);
+    free(a);
 }
 
 /**
@@ -208,18 +92,17 @@ void lnot(STACK *s)
 void and(STACK *s)
 {
     DADOS x = pop(s);
-    long *a = x.dados;
 
-    DADOS y = pop(s);
-    long *b = y.dados;
+    double *a = x.dados;
+    double *b = pop(s).dados;
 
     if (*a != 0 && *b != 0)
-        push(s,x);
+        push(s, x);
     else
-        push_long(s,0);
+        push_long(s, 0);
 
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -227,19 +110,19 @@ void and(STACK *s)
  * 
  * @param s Stack.
  */
-void maior2 (STACK *s)
+void bigger (STACK *s)
 {
     DADOS x = pop(s);
-    long *a = x.dados;
-
     DADOS y = pop(s);
-    long *b = y.dados;
+
+    double *a = x.dados;
+    double *b = y.dados;
 
     if (*b > *a)
-        push(s,y);
+        push(s, y);
     else
-        push(s,x);
-
+        push(s, x);
+    
     free (x.dados);
     free (y.dados);
 }
@@ -249,19 +132,19 @@ void maior2 (STACK *s)
  * 
  * @param s Stack.
  */
-void menor2 (STACK *s)
+void smaller (STACK *s)
 {
     DADOS x = pop(s);
-    long *a = x.dados;
-
     DADOS y = pop(s);
-    long *b = y.dados;
 
-    if (*b > *a)
-        push(s,x);
+    double *a = x.dados;
+    double *b = y.dados;
+
+    if (*b < *a)
+        push(s, y);
     else
-        push(s,y);
-
+        push(s, x);
+    
     free (x.dados);
     free (y.dados);
 }
@@ -270,16 +153,19 @@ void or (STACK *s)
 {
     DADOS x = pop(s);
     DADOS y = pop(s);
-    long *a = x.dados;
-    long *b = y.dados;
+
+    double *a = x.dados;
+    double *b = y.dados;
 
     if (*a == 0 && *b == 0)
         push_long(s, 0);
+    else if (*b == 0)
+        push(s, x);
     else
-        push_long(s, 1);
+        push(s, y);
     
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 void if_else (STACK* s)
@@ -288,7 +174,7 @@ void if_else (STACK* s)
     DADOS then_this = pop(s);
     DADOS if_this = pop(s);
 
-    long *a = if_this.dados;
+    double *a = if_this.dados;
     if (*a != 0)
     {
         push(s, then_this);

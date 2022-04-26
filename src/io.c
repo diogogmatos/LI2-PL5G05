@@ -45,8 +45,8 @@ void val(STACK* s, char* token)
         }
         else                           // Caso em que o operando é LONG (o input é apenas constituído por números)
         {
-            long num;
-            sscanf(token, "%li", &num);
+            double num;
+            sscanf(token, "%lf", &num);
             push_long(s, num);
         }
     }
@@ -128,37 +128,37 @@ void handle_token(STACK* s, char* token, DADOS *var)
 {
     // Expressões matemáticas
 
-    if (token[0] == '+') add(s);
-    else if (token[0] == '-') subtract(s);
-    else if (token[0] == '*') multiply(s);
-    else if (token[0] == '/') divide(s);
-    else if (token[0] == '(') decr(s);
-    else if (token[0] == ')') incr(s);
-    else if (token[0] == '%') mod(s);
-    else if (token[0] == '#') expo(s);
-    else if (token[0] == '&') bit_and(s);
-    else if (token[0] == '|') bit_or(s);
-    else if (token[0] == '^') bit_xor(s);
-    else if (token[0] == '~') bit_not(s);
+    if (strcmp(token, "+") == 0) add(s);
+    else if (strcmp(token, "-") == 0) subtract(s);
+    else if (strcmp(token, "*") == 0) multiply(s);
+    else if (strcmp(token, "/") == 0) divide(s);
+    else if (strcmp(token, "(") == 0) decr(s);
+    else if (strcmp(token, ")") == 0) incr(s);
+    else if (strcmp(token, "%") == 0) mod(s);
+    else if (strcmp(token, "#") == 0) expo(s);
+    else if (strcmp(token, "&") == 0) bit_and(s);
+    else if (strcmp(token, "|") == 0) bit_or(s);
+    else if (strcmp(token, "^") == 0) bit_xor(s);
+    else if (strcmp(token, "~") == 0) bit_not(s);
 
     // Input/Output
 
-    else if (token[0] == 'l') new_line(s);
+    else if (strcmp(token, "l") == 0) new_line(s);
 
     // Conversões
 
-    else if (token[0] == 'i') conv_int(s);
-    else if (token[0] == 'f') conv_double(s);
-    else if (token[0] == 'c') conv_char(s);
-    else if (token[0] == 's') conv_string(s);
+    else if (strcmp(token, "i") == 0) conv_int(s);
+    else if (strcmp(token, "f") == 0) conv_double(s);
+    else if (strcmp(token, "c") == 0) conv_char(s);
+    else if (strcmp(token, "s") == 0) conv_string(s);
 
     // Stack
 
-    else if (token[0] == '_') dup(s);
-    else if (token[0] == ';') popS(s);
-    else if (token[0] == '\\') swap(s);
-    else if (token[0] == '@') spin(s);
-    else if (token[0] == '$') ncopy(s);
+    else if (strcmp(token, "_") == 0) dup(s);
+    else if (strcmp(token, ";") == 0) popS(s);
+    else if (strcmp(token, "\\") == 0) swap(s);
+    else if (strcmp(token, "@") == 0) spin(s);
+    else if (strcmp(token, "$") == 0) ncopy(s);
 
     // Variáveis
 
@@ -166,16 +166,15 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
     // Lógica
 
-    else if (token[0] == '=') equal(s);
-    else if (token[0] == '<') smaller(s);
-    else if (token[0] == '>') bigger(s);
-    else if (token[0] == '!') lnot(s);
-     else if (token[0] == '?') if_else(s);
-    else if (strcmp (token, "e&") == 0) and(s);
-    else if (strcmp (token, "e|") == 0) or(s);
-    else if (strcmp (token, "e<") == 0) menor2(s);
-    else if (strcmp (token, "e>") == 0) maior2(s);
-    else if (strcmp (token, "e>") == 0) maior2(s);
+    else if (strcmp(token, "=") == 0) equal(s);
+    else if (strcmp(token, "<") == 0) is_smaller(s);
+    else if (strcmp(token, ">") == 0) is_bigger(s);
+    else if (strcmp(token, "!") == 0) lnot(s);
+    else if (strcmp(token, "?") == 0) if_else(s);
+    else if (strcmp(token, "e&") == 0) and(s);
+    else if (strcmp(token, "e|") == 0) or(s);
+    else if (strcmp(token, "e<") == 0) smaller(s);
+    else if (strcmp(token, "e>") == 0) bigger(s);
     
     // Operandos
 
@@ -199,12 +198,10 @@ void print_stack(STACK *s)
     for (int i = 1; i <= s->sp; ++i)
     {
         d = s->stack[i];
-        if (d.tipo == LONG)           // Caso em que o elemento da stack é um LONG
-            printf("%li", *((long*)d.dados));
+        if (d.tipo == LONG || d.tipo == DOUBLE)    // Caso em que o elemento da stack é um LONG ou DOUBLE
+            printf("%g", *((double*)d.dados));
         else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
-        else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
-            printf("%g", *((double*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             printf("%s", (char*)d.dados);
     }
