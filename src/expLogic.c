@@ -84,4 +84,7 @@ void and(STACK *s)
        push_long(s,0);
    }
 
+   free(x.dados);
+   free(y.dados);
+
 }
