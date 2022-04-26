@@ -67,7 +67,7 @@ void new_line (STACK *s)
  * @param s Stack.
  * @param token String que contém o input do programa.
  */
-void handle_token(STACK* s, char* token, char* operation_char, function* func_list)
+void handle_token(STACK* s, char* token, char operation_char[], function func_list[])
 {   
     int index, i;
     for (i = 0; token[0] != operation_char[i]; ++i);
