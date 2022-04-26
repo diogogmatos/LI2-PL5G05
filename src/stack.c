@@ -34,7 +34,7 @@ void initialize_var(DADOS *var)
 
     for (i=0; i<=5; i++)
     {
-        long *r = malloc(sizeof(long));
+        double *r = malloc(sizeof(double));
         *r = 10 + i;                    // *r toma valor 11, 12, 13, 14 ou 15 para A, B, C, D, E ou F (respetivamente)
         var[i].tipo = LONG;
         var[i].dados = r;
@@ -52,7 +52,7 @@ void initialize_var(DADOS *var)
 
     for (i=23; i<26; i++)               // *r toma valor 0, 1 ou 2 para X, Y ou Z (respetivamente).
     {
-        long *x = malloc(sizeof(long));
+        double *x = malloc(sizeof(double));
         *x = i - 23;
         var[i].tipo = LONG;
         var[i].dados = x;
@@ -70,9 +70,9 @@ void initialize_var(DADOS *var)
  * @param s Stack.
  * @param elem Elemento a introduzir na stack.
  */
-void push_long(STACK* s, long elem)
+void push_long(STACK* s, double elem)
 {
-    long *elemP = malloc(sizeof(long));
+    double *elemP = malloc(sizeof(double));
     *elemP = elem;
     
     DADOS d = {LONG, elemP};
@@ -152,7 +152,7 @@ void push(STACK* s, DADOS elem)
 {
     if (elem.tipo == LONG)
     {
-        long *n = elem.dados;
+        double *n = elem.dados;
         push_long(s, *n);
     }
     else if (elem.tipo == DOUBLE)
