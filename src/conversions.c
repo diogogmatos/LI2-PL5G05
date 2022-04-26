@@ -16,31 +16,26 @@ void conv_double(STACK *s)
 {
     DADOS d = pop(s);
 
-    if (d.tipo == LONG)
+    if (d.tipo == LONG || d.tipo == DOUBLE)
     {
-        long *a = d.dados;
-        double n = *a;
-        
-        push_double(s, n);
+        double *a = d.dados;
+
+        push_double(s, *a);
     }
     else if (d.tipo == CHAR)
     {
-        char *b = d.dados;
-        double n = *b;
-        push_double(s, n);
-    }
-    else if (d.tipo == DOUBLE) 
-    {
-        double *b = d.dados;
-        double n = *b;
-        push_double(s, n);
+        char *a = d.dados;
+
+        double r = *a;
+        push_double(s, r);
     }
     else if (d.tipo == STRING)
     {
-        char *b = d.dados;
-        double n;
-        sscanf(b, "%lf", &n);
-        push_double(s, n);
+        char *a = d.dados;
+
+        double r;
+        sscanf(a, "%lf", &r);
+        push_double(s, r);
     }
 
     free(d.dados);
@@ -57,28 +52,34 @@ void conv_int(STACK *s)
     
     if (d.tipo == LONG)
     {
-        long *a = d.dados;
-        long n = *a;
-        push_long(s, n);
+        double *a = d.dados;
+
+        push_long(s, *a);
     }
     else if (d.tipo == CHAR)
     {
-        char *b = d.dados;
-        long n = *b;
-        push_long(s, n);
+        char *a = d.dados;
+        long ri = *a;
+
+        double r = ri;
+        push_long(s, r);
     }
     else if (d.tipo == DOUBLE)
     {
-        double *b = d.dados;
-        long n = *b;
-        push_long(s, n);
+        double *a = d.dados;
+        long ri = *a;
+
+        double r = ri;
+        push_long(s, r);
     }
     else if (d.tipo == STRING)
     {
-        char *b = d.dados;
-        long n;
-        sscanf(b, "%ld", &n);
-        push_long(s, n);
+        char *a = d.dados;
+        long ri;
+        sscanf(a, "%ld", &ri);
+
+        double r = ri;
+        push_long(s, r);
     }
     
     free(d.dados);
@@ -95,23 +96,22 @@ void conv_char(STACK *s)
 
     if (d.tipo == LONG)
     {
-        long *a = d.dados;
-        char n = *a;
+        double *ai = d.dados;
+        long a = *ai;
         
-        push_char(s, n);
+        char r = a;
+        push_char(s, r);
     }
     else if (d.tipo == DOUBLE)
     {
-        double *b = d.dados;
-        char n = *b;
-        push_char(s, n);
+        double *a = d.dados;
+
+        char r = *a;
+        push_char(s, r);
     }
     else if (d.tipo == CHAR)
     {
-        char *a = d.dados;
-        char n = *a;
-        
-        push_char(s, n);
+        push(s, d);
     }
 
     free(d.dados);
@@ -129,21 +129,25 @@ void conv_string(STACK *s)
     if (d.tipo == LONG)
     {
         char result[BUFSIZ];
-        long *num = (long*)d.dados;
-        sprintf(result, "%ld", *num);
+        double *ai = (double*)d.dados;
+
+        long a = *ai;
+        sprintf(result, "%ld", a);
         push_string(s, result);
     }
     else if (d.tipo == DOUBLE)
     {
         char result[BUFSIZ];
-        double *num = (double*)d.dados;
-        sprintf(result, "%lf", *num);
+        double *a = (double*)d.dados;
+
+        sprintf(result, "%lf", *a);
         push_string(s, result);
     }
     else if (d.tipo == CHAR)
     {
         char result[BUFSIZ];
         char *l = (char*)d.dados;
+        
         result[0] = *l;
         result[1] = '\0';
         push_string(s, result);

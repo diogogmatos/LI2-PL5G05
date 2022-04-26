@@ -82,8 +82,11 @@ void swap(STACK *s)
 void ncopy(STACK *s)
 {
     DADOS t = pop(s);
-    int * ind = (int *) t.dados;
-    DADOS y = s->stack[(s->sp) - *ind];
+
+    double *ii = (double*)t.dados;
+    long i = *ii;
+    
+    DADOS y = s->stack[(s->sp) - i];
 
     push(s, y);
 

@@ -221,6 +221,8 @@ void decr(STACK *s)
 
     if (x.tipo == LONG)
         push_long(s, (*(double*)x.dados) - 1);
+    else if (x.tipo == CHAR)
+        push_char(s, (*(char*)x.dados) - 1);
     else
         push_double(s, (*(double*)x.dados) - 1);
     
@@ -239,6 +241,8 @@ void incr(STACK *s)
     
     if (x.tipo == LONG)
         push_long(s, (*(double*)x.dados) + 1);
+    else if (x.tipo == CHAR)
+        push_char(s, (*(char*)x.dados) + 1);
     else
         push_double(s, (*(double*)x.dados) + 1);
     

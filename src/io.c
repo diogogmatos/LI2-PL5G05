@@ -198,7 +198,13 @@ void print_stack(STACK *s)
     for (int i = 1; i <= s->sp; ++i)
     {
         d = s->stack[i];
-        if (d.tipo == LONG || d.tipo == DOUBLE)    // Caso em que o elemento da stack é um LONG ou DOUBLE
+        if (d.tipo == LONG)           // Caso em que o elemento da stack é um LONG
+        {
+            double *ri = d.dados;
+            long r = *ri;
+            printf("%ld", r);
+        }
+        else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
             printf("%g", *((double*)d.dados));
         else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
             printf("%c", *((char*)d.dados));
