@@ -48,7 +48,7 @@ typedef struct
 STACK* new_stack();
 void initialize_var(DADOS *var);
 void push_double(STACK *s, double elem);
-void push_long(STACK *s, long elem);
+void push_long(STACK *s, double elem);
 void push_char(STACK *s, char elem);
 void push_string(STACK *s, char elem[]);
 void push(STACK *s, DADOS elem);
@@ -93,11 +93,11 @@ void ncopy(STACK *s);
 // expLogic.c
 
 void equal(STACK *s);
-void smaller(STACK *s);
-void bigger(STACK *s);
+void is_smaller(STACK *s);
+void is_bigger(STACK *s);
 void lnot(STACK *s);
 void and(STACK *s);
-void or (STACK *s);
-void maior2 (STACK *s);
-void menor2 (STACK *s);
-void if_else (STACK* s);
+void or(STACK *s);
+void bigger(STACK *s);
+void smaller(STACK *s);
+void if_else(STACK* s);
