@@ -37,8 +37,6 @@ typedef struct
     int sp;
 } STACK;
 
-typedef void (*function)(STACK*);
-
 // Declarações de funções
 
 // stack.c
@@ -69,9 +67,8 @@ void expo(STACK *s);
 // io.c
 
 void val(STACK* s, char* token);
-void handle_token(STACK* s, char* token, char operation_list, function* func_list);
+void handle_token(STACK* s, char* token);
 void print_stack(STACK *s);
-void new_line (STACK *s);
 
 // conversions.c
 

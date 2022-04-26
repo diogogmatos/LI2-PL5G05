@@ -126,32 +126,59 @@ void handle_variables(STACK* s, char* token, DADOS *var)
  */
 void handle_token(STACK* s, char* token, DADOS *var)
 {
-    if (strcmp (token, "+") == 0) add(s);
-    else if (strcmp (token, "-") == 0) subtract(s);
-    else if (strcmp (token, "*") == 0) multiply(s);
-    else if (strcmp (token, "/") == 0) divide(s);
-    else if (strcmp (token, "&") == 0) bit_and(s);
-    else if (strcmp (token, "|") == 0) bit_or(s);
-    else if (strcmp (token, "^") == 0) bit_xor(s);
-    else if (strcmp (token, "~") == 0) bit_not(s);
-    else if (strcmp (token, "(") == 0) decr(s);
-    else if (strcmp (token, ")") == 0) incr(s);
-    else if (strcmp (token, "%") == 0) mod(s);
-    else if (strcmp (token, "#") == 0) expo(s);
-    else if (strcmp (token, "l") == 0) new_line(s);
-    else if (strcmp (token, "i") == 0) conv_int(s);
-    else if (strcmp (token, "f") == 0) conv_double(s);
-    else if (strcmp (token, "c") == 0) conv_char(s);
-    else if (strcmp (token, "s") == 0) conv_string(s);
-    else if (strcmp (token, "_") == 0) dup(s);
-    else if (strcmp (token, "@") == 0) spin(s);
-    else if (strcmp (token, ";") == 0) popS(s);
-    else if (strcmp (token, "\\") == 0) swap(s);
-    else if (strcmp (token, "$") == 0) ncopy(s);
+    // Expressões matemáticas
+
+    if (token[0] == '+') add(s);
+    else if (token[0] == '-') subtract(s);
+    else if (token[0] == '*') multiply(s);
+    else if (token[0] == '/') divide(s);
+    else if (token[0] == '(') decr(s);
+    else if (token[0] == ')') incr(s);
+    else if (token[0] == '%') mod(s);
+    else if (token[0] == '#') expo(s);
+    else if (token[0] == '&') bit_and(s);
+    else if (token[0] == '|') bit_or(s);
+    else if (token[0] == '^') bit_xor(s);
+    else if (token[0] == '~') bit_not(s);
+
+    // Input/Output
+
+    else if (token[0] == 'l') new_line(s);
+
+    // Conversões
+
+    else if (token[0] == 'i') conv_int(s);
+    else if (token[0] == 'f') conv_double(s);
+    else if (token[0] == 'c') conv_char(s);
+    else if (token[0] == 's') conv_string(s);
+
+    // Stack
+
+    else if (token[0] == '_') dup(s);
+    else if (token[0] == ';') popS(s);
+    else if (token[0] == '\\') swap(s);
+    else if (token[0] == '@') spin(s);
+    else if (token[0] == '$') ncopy(s);
+
+    // Variáveis
+
     else if (token[0] == ':' || isVar(token[0])) handle_variables(s, token, var);
-    else if (strcmp (token, ">") == 0) bigger(s);
-    else if (strcmp (token, "!") == 0) lnot(s);
+
+    // Lógica
+
+    else if (token[0] == '=') equal(s);
+    else if (token[0] == '<') smaller(s);
+    else if (token[0] == '>') bigger(s);
+    else if (token[0] == '!') lnot(s);
+     else if (token[0] == '?') if_else(s);
     else if (strcmp (token, "e&") == 0) and(s);
+    else if (strcmp (token, "e|") == 0) or(s);
+    else if (strcmp (token, "e<") == 0) menor2(s);
+    else if (strcmp (token, "e>") == 0) maior2(s);
+    else if (strcmp (token, "e>") == 0) maior2(s);
+    
+    // Operandos
+
     else val(s, token);
 }
 
@@ -166,7 +193,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
  * 
  * @param s Stack.
  */
-void print_stack(STACK *s) // ! - Possível problema na impressão de uma string
+void print_stack(STACK *s)
 {
     DADOS d;
     for (int i = 1; i <= s->sp; ++i)

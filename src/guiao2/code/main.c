@@ -17,7 +17,7 @@
  */
 int main()
 {
-    char operation_char = {
+    char operation_char[] = {
         '+',
         '-',
         '*',
