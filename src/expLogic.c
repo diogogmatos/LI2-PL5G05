@@ -132,18 +132,54 @@ void smaller(STACK *s)
 void bigger(STACK *s)
 {
     DADOS x = pop(s);
-    long *a = x.dados;
-
     DADOS y = pop(s);
-    long *b = y.dados;
 
-    if (*b > *a)
-        push_long(s,1);
-    else
-        push_long(s,0);
 
-    free (x.dados);
-    free (y.dados);
+    if (x.tipo == LONG && y.tipo == LONG)
+    {
+        long *a = x.dados;
+        long *b = y.dados;
+
+        if (*b > *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+    else if (x.tipo == LONG && y.tipo == DOUBLE)
+    {
+        long *ai = x.dados;
+        double a = *ai;
+        double *b = y.dados;
+        
+        if (*b > a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);        
+    }
+    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    {
+        double *a = x.dados;
+        long *bi = y.dados;
+        double b = *bi;
+        
+        if (b > *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
+    {
+        double *a = x.dados;
+        double *b = y.dados;
+        
+        if (*b > *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -181,6 +217,9 @@ void and(STACK *s)
         push(s,x);
     else
         push_long(s,0);
+
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
