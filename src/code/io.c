@@ -67,16 +67,33 @@ void new_line (STACK *s)
  * @param s Stack.
  * @param token String que contém o input do programa.
  */
-void handle_token(STACK* s, char* token, char* operation_char, function* func_list)
-{   
-    int index, i;
-    for (i = 0; token[0] != operation_char[i]; ++i);
-    index = i;
-    if (index < 22)
-        func_list[index](s);
-    else
-        val(s, token);
+void handle_token(STACK* s, char* token)
+{
+    if (token[0] == '+') add(s);
+    else if (token[0] == '-') subtract(s);
+    else if (token[0] == '*') multiply(s);
+    else if (token[0] == '/') divide(s);
+    else if (token[0] == '&') bit_and(s);
+    else if (token[0] == '|') bit_or(s);
+    else if (token[0] == '^') bit_xor(s);
+    else if (token[0] == '~') bit_not(s);
+    else if (token[0] == '(') decr(s);
+    else if (token[0] == ')') incr(s);
+    else if (token[0] == '%') mod(s);
+    else if (token[0] == '#') expo(s);
+    else if (token[0] == 'l') new_line(s);
+    else if (token[0] == 'i') conv_int(s);
+    else if (token[0] == 'f') conv_double(s);
+    else if (token[0] == 'c') conv_char(s);
+    else if (token[0] == 's') conv_string(s);
+    else if (token[0] == '_') dup(s);
+    else if (token[0] == '@') spin(s);
+    else if (token[0] == ';') popS(s);
+    else if (token[0] == '\\') swap(s);
+    else if (token[0] == '$') ncopy(s);
+    else val(s, token);
 }
+
 // Impressão da stack
 
 /**
