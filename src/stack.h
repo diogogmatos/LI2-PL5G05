@@ -11,7 +11,7 @@
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
  * 
  */
-typedef enum{LONG, DOUBLE, CHAR, STRING} TIPO;
+typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY} TIPO;
 
 /**
  * @brief Definição de uma estrutura "__DADOS__" que constitui os elementos da stack.
@@ -71,6 +71,7 @@ void expo(STACK *s);
 
 // io.c
 
+char* get_token(char* line, char token[]);
 void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
