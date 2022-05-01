@@ -172,6 +172,13 @@ void push(STACK* s, DADOS elem)
     }
 }
 
+// void push_array(STACK* s)
+// {
+    
+// }
+
+
+
 // Função pop()
 
 /**
