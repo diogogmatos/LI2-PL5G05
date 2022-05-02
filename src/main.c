@@ -25,7 +25,7 @@ char* get_token(char* line, char token[]){
                 ++line;
                 ++flag;
             }
-            else if (*line == ']' && flag == 1){
+            else if (*line == ']'){
                 token[index] = *line; 
                 ++index;
                 ++line;
@@ -94,6 +94,7 @@ int main()
         }
         handle_token(s, token, var);
         print_stack(s);
+        putchar('\n');
     }
     return 0;
 }
