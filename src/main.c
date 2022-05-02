@@ -84,7 +84,7 @@ int main()
     DADOS var[26];
     initialize_var(var);
 
-    char* line = malloc(sizeof(char) * 50);
+    char* line = malloc(sizeof(char) * BUFSIZ);
     char token[BUFSIZ];
 
     if (fgets(line, BUFSIZ, stdin) != NULL)
