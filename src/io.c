@@ -241,5 +241,4 @@ void print_stack(STACK *s)
             print_stack(d.dados);
         }
     }
-    printf("\n");
 }

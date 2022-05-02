@@ -10,46 +10,12 @@
 
 
 
-/* void get_token(char* line, char token[], STACK* s, DADOS var[]){ */
-/*     int index = 0; */
-/*     int flag = 0; */
-
-/*     while (*line != '\n'){ */
-/*         if (*line == ' ') */
-/*             line++; */
-
-/*         while ((*line && *line != ' ' && *line != '\n' && flag == 0) || flag > 0){ */
-/*             if (*line == '['){ */
-/*                 token[index] = *line; */ 
-/*                 ++index; */
-/*                 ++line; */
-/*                 ++flag; */
-/*             } */
-/*             else if (*line == ']' && flag == 1){ */
-/*                 token[index] = *line; */
-/*                 ++index; */
-/*                 ++line; */
-/*                 --flag; */
-/*             } */
-/*             else{ */   
-/*                 token[index] = *line; */
-/*                 index++; */
-/*                 line++; */
-/*             } */  
-/*         } */
-/*         token[index] = '\0'; */
-
-/*         handle_token(s, token, var); */
-/*         index = 0; */
-/*     } */
-/* } */
-
 char* get_token(char* line, char token[]){
     int index = 0;
     int flag = 0;
 
     while (*line != '\n'){
-        if (*line == ' ')
+        while (*line == ' ')
             line++;
 
         while ((*line && *line != ' ' && *line != '\n' && flag == 0) || flag > 0){
@@ -59,8 +25,8 @@ char* get_token(char* line, char token[]){
                 ++line;
                 ++flag;
             }
-            else if (*line == ']' && flag == 1){
-                token[index] = *line;
+            else if (*line == ']'){
+                token[index] = *line; 
                 ++index;
                 ++line;
                 --flag;
@@ -128,6 +94,7 @@ int main()
         }
         handle_token(s, token, var);
         print_stack(s);
+        putchar('\n');
     }
     return 0;
 }
