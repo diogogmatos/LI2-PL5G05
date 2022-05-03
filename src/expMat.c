@@ -193,20 +193,38 @@ void bit_xor(STACK *s)
 }
 
 /**
- * @brief `bit_not()` retira um número da stack utilizando `pop()` e faz NOT (~) em todos os bits desse número.
+ * @brief `bit_not()` retira um número da stack utilizando `pop()` e faz NOT (`~`) em todos os bits desse número.
  *        
  * O resultado de NOT é a a inversão de todos os bits desse número.
  * No final, o resultado obtido é colocado na stack através da função `push_long()`.
+ * 
+ * - __Nota:__ No caso de o input ser um ARRAY, a função `bit_not()` coloca na stack todos os elementos do mesmo. É usada a mesma
+ * função para ambas estas operações uma vez que os operadores (`~`) são idênticos.
  */
 void bit_not(STACK *s)
 {
-    double *ai = pop(s).dados;
-    long a = *ai;
+    DADOS x = pop(s);
     
-    double r = ~ a;
-    push_long(s, r);
+    if (x.tipo == ARRAY)      // Coloca na stack todos os elementos do ARRAY
+    {
+        STACK *a = x.dados;
+        
+        for (int i=1; i <= a->sp; i++)
+        {
+            DADOS r = a->stack[i];
+            push(s, r);
+        }
+    }
+    else                      // Operação NOT binária
+    {
+        double *ai = x.dados;
+        long a = *ai;
+        
+        double r = ~ a;
+        push_long(s, r);
+    }
 
-    free(ai);
+    free(x.dados);
 }
 
 /**
