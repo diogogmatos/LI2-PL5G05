@@ -102,3 +102,8 @@ void or(STACK *s);
 void bigger(STACK *s);
 void smaller(STACK *s);
 void if_else(STACK* s);
+
+// expArrayString.c
+
+void div_newline(STACK *s);
+void range(STACK *s);

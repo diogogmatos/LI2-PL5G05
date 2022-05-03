@@ -206,6 +206,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
     // Arrays e Strings
     
     else if (token[0] == '[') create_array(s, token, var);
+    else if (strcmp(token, "N/") == 0) div_newline(s);
+    else if (strcmp(token, ",") == 0) range(s);
     
     // Operandos
 
