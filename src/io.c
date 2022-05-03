@@ -8,8 +8,8 @@
 #include <string.h>
 #include "stack.h"
 
-
 // Colocação de elementos na stack
+
 DADOS create_array(STACK* s, char* token, DADOS *var)
 {
     STACK* array = new_stack();
@@ -152,20 +152,21 @@ void handle_token(STACK* s, char* token, DADOS *var)
     //case '+':{add(s); return;}
     //case '-':{subtract(s); return;}
     //}
+
     // Expressões matemáticas
 
-    if (strcmp(token, "+") == 0) add(s);
+    if (strcmp(token, "+") == 0) add(s);                   // Também opera com arrays
     else if (strcmp(token, "-") == 0) subtract(s);
-    else if (strcmp(token, "*") == 0) multiply(s);
+    else if (strcmp(token, "*") == 0) multiply(s);         // Também opera com arrays
     else if (strcmp(token, "/") == 0) divide(s);
-    else if (strcmp(token, "(") == 0) decr(s);
-    else if (strcmp(token, ")") == 0) incr(s);
+    else if (strcmp(token, "(") == 0) decr(s);             // Também opera com arrays
+    else if (strcmp(token, ")") == 0) incr(s);             // Também opera com arrays
     else if (strcmp(token, "%") == 0) mod(s);
-    else if (strcmp(token, "#") == 0) expo(s);
+    else if (strcmp(token, "#") == 0) expo(s);             // Também opera com arrays
     else if (strcmp(token, "&") == 0) bit_and(s);
     else if (strcmp(token, "|") == 0) bit_or(s);
     else if (strcmp(token, "^") == 0) bit_xor(s);
-    else if (strcmp(token, "~") == 0) bit_not(s);
+    else if (strcmp(token, "~") == 0) bit_not(s);          // Também opera com arrays
 
     // Input/Output
 
@@ -192,17 +193,20 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
     // Lógica
 
-    else if (strcmp(token, "=") == 0) equal(s);
-    else if (strcmp(token, "<") == 0) is_smaller(s);
-    else if (strcmp(token, ">") == 0) is_bigger(s);
+    else if (strcmp(token, "=") == 0) equal(s);            // Também opera com arrays
+    else if (strcmp(token, "<") == 0) is_smaller(s);       // Também opera com arrays
+    else if (strcmp(token, ">") == 0) is_bigger(s);        // Também opera com arrays
     else if (strcmp(token, "!") == 0) lnot(s);
     else if (strcmp(token, "?") == 0) if_else(s);
     else if (strcmp(token, "e&") == 0) and(s);
     else if (strcmp(token, "e|") == 0) or(s);
     else if (strcmp(token, "e<") == 0) smaller(s);
     else if (strcmp(token, "e>") == 0) bigger(s);
+
+    // Arrays e Strings
     
     else if (token[0] == '[') create_array(s, token, var);
+    
     // Operandos
 
     else val(s, token);
