@@ -110,7 +110,6 @@ void push_double(STACK *s, double elem)
  */
 void push_char(STACK* s, char elem)
 {
-
     char *elemP = malloc(sizeof(char));
     *elemP = elem;
     
@@ -129,7 +128,8 @@ void push_char(STACK* s, char elem)
  * @param elem Elemento a introduzir na stack.
  */
 void push_string(STACK *s, char elem[])
-{   int i;
+{   
+    int i;
     char *str = malloc(sizeof(char) * 50);
     for (i = 0; *(elem + i) != 0; ++i)
     {
@@ -138,6 +138,16 @@ void push_string(STACK *s, char elem[])
     *(str+i) = '\0';
     
     DADOS d = {STRING, str}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
+    s->sp++;
+    s->stack[s->sp] = d;
+}
+
+void push_array(STACK *s, STACK elem)
+{
+    STACK *arrayP = new_stack();
+    *arrayP = elem;
+
+    DADOS d = {ARRAY, arrayP};
     s->sp++;
     s->stack[s->sp] = d;
 }
@@ -170,14 +180,12 @@ void push(STACK* s, DADOS elem)
         char *n = elem.dados;
         push_string(s, n);
     }
+    else if (elem.tipo == ARRAY)
+    {
+        STACK *n = elem.dados;
+        push_array(s, *n);
+    }
 }
-
-// void push_array(STACK* s)
-// {
-    
-// }
-
-
 
 // Função pop()
 
