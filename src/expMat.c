@@ -9,7 +9,7 @@
 #include "stack.h"
 #include <stdlib.h>
 #include <math.h>
-
+#include <stdio.h>
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
  *        
@@ -217,16 +217,32 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    DADOS x = pop(s);
+    DADOS x = s->stack[s->sp];
+    STACK* n_stack = x.dados;
+    DADOS elem = n_stack->stack[1];
+    double n = *((double*)elem.dados);
+    push_long(s, n);
+    /* double n = (*(double*)elem.dados); */
+    /* ++s; */
+    /* push_long(s, n); */
+    /* DADOS x = pop(s); */
 
-    if (x.tipo == LONG)
-        push_long(s, (*(double*)x.dados) - 1);
-    else if (x.tipo == CHAR)
-        push_char(s, (*(char*)x.dados) - 1);
-    else
-        push_double(s, (*(double*)x.dados) - 1);
+    /* if (x.tipo == LONG) */
+    /*     push_long(s, (*(double*)x.dados) - 1); */
+    /* else if (x.tipo == CHAR) */
+    /*     push_char(s, (*(char*)x.dados) - 1); */
+    /* else if (x.tipo == ARRAY) */
+    /* { */
+    /*     STACK* n_stack = x.dados; */
+    /*     DADOS elem = n_stack->stack[0]; */
+    /*     ++s; */
+    /*     push_long(s, (*(double*)elem.dados)); */
+    /* } */    
+        
+    /* else */
+    /*     push_double(s, (*(double*)x.dados) - 1); */
     
-    free(x.dados);
+    /* free(x.dados); */
 }
 
 /**
