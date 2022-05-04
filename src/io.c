@@ -147,71 +147,92 @@ void handle_variables(STACK* s, char* token, DADOS *var)
  */
 void handle_token(STACK* s, char* token, DADOS *var)
 {
-    //switch(token[0])
-    //{
-    //case '+':{add(s); return;}
-    //case '-':{subtract(s); return;}
-    //}
+    switch (token[0])
+    {
+        // Expressões matemáticas
 
-    // Expressões matemáticas
+        case '+': { add(s); return; }
+        case '*': { multiply(s); return; }
+        case '/': { divide(s); return; }
+        case '(': { decr(s); return; }
+        case ')': { incr(s); return; }
+        case '%': { mod(s); return; }
+        case '#': { expo(s); return; }
+        case '&': { bit_and(s); return; }
+        case '|': { bit_or(s); return; }
+        case '^': { bit_xor(s); return; }
+        case '~': { bit_not(s); return; }
+        
+        // Input/Output
 
-    if (strcmp(token, "+") == 0) add(s);                   // Também opera com arrays
-    else if (strcmp(token, "-") == 0) subtract(s);
-    else if (strcmp(token, "*") == 0) multiply(s);         // Também opera com arrays
-    else if (strcmp(token, "/") == 0) divide(s);
-    else if (strcmp(token, "(") == 0) decr(s);             // Também opera com arrays
-    else if (strcmp(token, ")") == 0) incr(s);             // Também opera com arrays
-    else if (strcmp(token, "%") == 0) mod(s);
-    else if (strcmp(token, "#") == 0) expo(s);             // Também opera com arrays
-    else if (strcmp(token, "&") == 0) bit_and(s);
-    else if (strcmp(token, "|") == 0) bit_or(s);
-    else if (strcmp(token, "^") == 0) bit_xor(s);
-    else if (strcmp(token, "~") == 0) bit_not(s);          // Também opera com arrays
+        case 'l': { new_line(s); return; }
 
-    // Input/Output
+        // Conversões
 
-    else if (strcmp(token, "l") == 0) new_line(s);
+        case 'i': { conv_int(s); return; }
+        case 'f': { conv_double(s); return; }
+        case 'c': { conv_char(s); return; }
+        case 's': { conv_string(s); return; }
 
-    // Conversões
+        // Stack
 
-    else if (strcmp(token, "i") == 0) conv_int(s);
-    else if (strcmp(token, "f") == 0) conv_double(s);
-    else if (strcmp(token, "c") == 0) conv_char(s);
-    else if (strcmp(token, "s") == 0) conv_string(s);
+        case '_': { dup(s); return; }
+        case ';': { popS(s); return; }
+        case '\\': { swap(s); return; }
+        case '@': { spin(s); return; }
+        case '$': { ncopy(s); return; }
 
-    // Stack
+        // Lógica
 
-    else if (strcmp(token, "_") == 0) dup(s);
-    else if (strcmp(token, ";") == 0) popS(s);
-    else if (strcmp(token, "\\") == 0) swap(s);
-    else if (strcmp(token, "@") == 0) spin(s);
-    else if (strcmp(token, "$") == 0) ncopy(s);
+        case '=': { equal(s); return; }
+        case '<': { is_smaller(s); return; }
+        case '>': { is_bigger(s); return; }
+        case '!': { lnot(s); return; }
+        case '?': { if_else(s); return; }
+        case 'e':
+        {
+            switch (token[1])
+            {
+                case '&': { and(s); return; }
+                case '|': { or(s); return; }
+                case '<': { smaller(s); return; }
+                case '>': { bigger(s); return; }
+            }
+            return;
+        }
 
-    // Variáveis
+        // Arrays e Strings
 
-    else if (token[0] == ':' || isVar(token[0])) handle_variables(s, token, var);
+        case '[': { create_array(s, token, var); return; }
+        case ',': { range(s); return; }
+        
+        // Casos especiais
 
-    // Lógica
+        default:
+        { 
+            // Expressões matemáticas
+            
+            if (strlen(token) == 1 && token[0] == '-')
+                subtract(s);
 
-    else if (strcmp(token, "=") == 0) equal(s);            // Também opera com arrays
-    else if (strcmp(token, "<") == 0) is_smaller(s);       // Também opera com arrays
-    else if (strcmp(token, ">") == 0) is_bigger(s);        // Também opera com arrays
-    else if (strcmp(token, "!") == 0) lnot(s);
-    else if (strcmp(token, "?") == 0) if_else(s);
-    else if (strcmp(token, "e&") == 0) and(s);
-    else if (strcmp(token, "e|") == 0) or(s);
-    else if (strcmp(token, "e<") == 0) smaller(s);
-    else if (strcmp(token, "e>") == 0) bigger(s);
+            // Variáveis
 
-    // Arrays e Strings
-    
-    else if (token[0] == '[') create_array(s, token, var);
-    else if (strcmp(token, "N/") == 0) div_newline(s);
-    else if (strcmp(token, ",") == 0) range(s);
-    
-    // Operandos
+            else if (token[0] == ':' || isVar(token[0]))
+                handle_variables(s, token, var);
+            
+            // Arrays e Strings
+            
+            else if (strcmp (token, "N/") == 0)
+                div_newline(s);
+            
+            // Operandos
 
-    else val(s, token);
+            else
+                val(s, token);
+            
+            return;
+        }
+    }
 }
 
 // Impressão da stack
