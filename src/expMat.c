@@ -235,32 +235,31 @@ void bit_not(STACK *s)
  */
 void decr(STACK *s)
 {
-    DADOS x = s->stack[s->sp];
-    STACK* n_stack = x.dados;
-    DADOS elem = n_stack->stack[1];
-    double n = *((double*)elem.dados);
-    push_long(s, n);
-    /* double n = (*(double*)elem.dados); */
-    /* ++s; */
-    /* push_long(s, n); */
-    /* DADOS x = pop(s); */
+    DADOS x = pop(s);
 
-    /* if (x.tipo == LONG) */
-    /*     push_long(s, (*(double*)x.dados) - 1); */
-    /* else if (x.tipo == CHAR) */
-    /*     push_char(s, (*(char*)x.dados) - 1); */
-    /* else if (x.tipo == ARRAY) */
-    /* { */
-    /*     STACK* n_stack = x.dados; */
-    /*     DADOS elem = n_stack->stack[0]; */
-    /*     ++s; */
-    /*     push_long(s, (*(double*)elem.dados)); */
-    /* } */    
+    if (x.tipo == LONG)
+    {
+        push_long(s, (*(double*)x.dados) - 1);
+    }
+    else if (x.tipo == CHAR)
+    {
+        push_char(s, (*(char*)x.dados) - 1);
+    }
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[1];
+        remove_elem(n_stack, 1);
+        push_array(s, *n_stack);
+        push(s, elem);
+    }    
         
-    /* else */
-    /*     push_double(s, (*(double*)x.dados) - 1); */
-    
-    /* free(x.dados); */
+    else
+    {
+        push_double(s, (*(double*)x.dados) - 1);
+    }
+
+    free(x.dados);
 }
 
 /**
@@ -277,6 +276,14 @@ void incr(STACK *s)
         push_long(s, (*(double*)x.dados) + 1);
     else if (x.tipo == CHAR)
         push_char(s, (*(char*)x.dados) + 1);
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[n_stack->sp];
+        n_stack->sp--;            
+        push_array(s, *n_stack);
+        push(s, elem);
+    }
     else
         push_double(s, (*(double*)x.dados) + 1);
     
