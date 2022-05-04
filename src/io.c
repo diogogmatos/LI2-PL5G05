@@ -151,17 +151,17 @@ void handle_token(STACK* s, char* token, DADOS *var)
     {
         // Expressões matemáticas
 
-        case '+': { add(s); return; }
-        case '*': { multiply(s); return; }
+        case '+': { add(s); return; }            // Também opera com arrays
+        case '*': { multiply(s); return; }       // Também opera com arrays
         case '/': { divide(s); return; }
-        case '(': { decr(s); return; }
-        case ')': { incr(s); return; }
+        case '(': { decr(s); return; }           // Também opera com arrays
+        case ')': { incr(s); return; }           // Também opera com arrays
         case '%': { mod(s); return; }
-        case '#': { expo(s); return; }
+        case '#': { expo(s); return; }           // Também opera com arrays
         case '&': { bit_and(s); return; }
         case '|': { bit_or(s); return; }
         case '^': { bit_xor(s); return; }
-        case '~': { bit_not(s); return; }
+        case '~': { bit_not(s); return; }        // Também opera com arrays
         
         // Input/Output
 
@@ -184,9 +184,9 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
         // Lógica
 
-        case '=': { equal(s); return; }
-        case '<': { is_smaller(s); return; }
-        case '>': { is_bigger(s); return; }
+        case '=': { equal(s); return; }          // Também opera com arrays
+        case '<': { is_smaller(s); return; }     // Também opera com arrays
+        case '>': { is_bigger(s); return; }      // Também opera com arrays
         case '!': { lnot(s); return; }
         case '?': { if_else(s); return; }
         case 'e':
