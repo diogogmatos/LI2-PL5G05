@@ -46,6 +46,7 @@ typedef struct
 // stack.c
 
 STACK* new_stack();
+void remove_elem(STACK* s, int pos);
 void initialize_var(DADOS *var);
 void push_double(STACK *s, double elem);
 void push_long(STACK *s, double elem);
@@ -108,3 +109,4 @@ void if_else(STACK* s);
 
 void div_newline(STACK *s);
 void range(STACK *s);
+

@@ -9,7 +9,7 @@
 #include "stack.h"
 #include <stdlib.h>
 #include <math.h>
-
+#include <stdio.h>
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
  *        
@@ -238,12 +238,27 @@ void decr(STACK *s)
     DADOS x = pop(s);
 
     if (x.tipo == LONG)
+    {
         push_long(s, (*(double*)x.dados) - 1);
+    }
     else if (x.tipo == CHAR)
+    {
         push_char(s, (*(char*)x.dados) - 1);
+    }
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[1];
+        remove_elem(n_stack, 1);
+        push_array(s, *n_stack);
+        push(s, elem);
+    }    
+        
     else
+    {
         push_double(s, (*(double*)x.dados) - 1);
-    
+    }
+
     free(x.dados);
 }
 
@@ -261,6 +276,14 @@ void incr(STACK *s)
         push_long(s, (*(double*)x.dados) + 1);
     else if (x.tipo == CHAR)
         push_char(s, (*(char*)x.dados) + 1);
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[n_stack->sp];
+        n_stack->sp--;            
+        push_array(s, *n_stack);
+        push(s, elem);
+    }
     else
         push_double(s, (*(double*)x.dados) + 1);
     

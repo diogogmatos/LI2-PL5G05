@@ -18,7 +18,6 @@
 char* get_token(char* line, char token[]){
     int index = 0;
     int flag = 0;
-
     while (*line != '\n'){
         while (*line == ' ')
             line++;
