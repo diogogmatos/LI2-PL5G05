@@ -51,6 +51,7 @@ void push_double(STACK *s, double elem);
 void push_long(STACK *s, double elem);
 void push_char(STACK *s, char elem);
 void push_string(STACK *s, char elem[]);
+void push_array(STACK *s, STACK elem);
 void push(STACK *s, DADOS elem);
 DADOS pop(STACK *s);
 
@@ -102,3 +103,8 @@ void or(STACK *s);
 void bigger(STACK *s);
 void smaller(STACK *s);
 void if_else(STACK* s);
+
+// expArrayString.c
+
+void div_newline(STACK *s);
+void range(STACK *s);

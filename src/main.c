@@ -8,8 +8,13 @@
 #include <string.h>
 #include "stack.h"
 
-
-
+/**
+ * @brief Get the token object
+ * 
+ * @param line String contendo a totalidade do input.
+ * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
+ * @return char* Retorna o endereço da string `line`.
+ */
 char* get_token(char* line, char token[]){
     int index = 0;
     int flag = 0;
@@ -52,31 +57,6 @@ char* get_token(char* line, char token[]){
  * - `initialize_var(var);`: __Inicialização do array que armazena as variáveis com os seus valores por defeito.__ 
  * - `if (fgets(line, BUFSIZ, stdin) != NULL)`: __Leitura do input.__
  */
-/* int main() */
-/* { */
-/*     STACK* s = new_stack(); */
-/*     DADOS var[26]; */
-/*     initialize_var(var); */
-    
-/*     char line[BUFSIZ]; */
-/*     char* lineP = line; */
-/*     char token[BUFSIZ]; */
-
-/*     if (fgets(line, BUFSIZ, stdin) != NULL) */
-/*     { */
-/*         while (sscanf(line, "%s%[^\n]", token, lineP) == 2) */
-/*         { */    
-/*             handle_token(s, token, var); */
-/*         } */
-/*         handle_token(s, token, var); */
-    
-/*         print_stack(s); */
-/*     } */
-
-/*     return 0; */
-/* } */
-
-
 int main()
 {
     STACK* s = new_stack();
