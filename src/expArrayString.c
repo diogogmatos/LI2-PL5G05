@@ -21,7 +21,7 @@
 void div_newline(STACK *s)
 {
     char *a = pop(s).dados;
-    char *token;
+    char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
     token = strtok(a, "\n");
@@ -31,10 +31,38 @@ void div_newline(STACK *s)
         push_string(r, token);
         token = strtok(NULL, "\n");
     }
-
+    
     push_array(s, *r);
 
     free(a);
+    free(token);
+}
+
+/**
+ * @brief Separa uma string em substrings de acordo com o caracter ' ' (espaço), adicionando cada substring a um array que é
+ * posteriormente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()`
+ * para inicializar o "array".
+ * 
+ * @param s Stack.
+ */
+void div_whitespace(STACK *s)
+{
+    char *a = pop(s).dados;
+    char *token = malloc(sizeof(char) * strlen(a));
+    STACK *r = new_stack();
+    
+    token = strtok(a, " \n");
+
+    while (token != NULL)
+    {
+        push_string(r, token);
+        token = strtok(NULL, " \n");
+    }
+    
+    push_array(s, *r);
+
+    free(a);
+    free(token);
 }
 
 /**
@@ -67,24 +95,3 @@ void range(STACK *s)
 
     free(x.dados);
 }
-
-/*
-void nline_array (STACK *s) 
-{
-    DADOS x = pop(s);
-    char str[] = x.dados;
-    char part[BUFSIZ];
-     arr[BUFSIZ];
-    int i;int j = 0;
-
-    for (i=0;i < strlen(str);i++)
-    {
-        if (str[i] == '\n')
-        {
-            arr[j] = part
-        }
-    }
-
-}
-
-*/
