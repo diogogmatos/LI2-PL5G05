@@ -253,7 +253,13 @@ void decr(STACK *s)
         push_array(s, *n_stack);
         push(s, elem);
     }    
-        
+    else if (x.tipo == STRING)
+    {
+        char *str = x.dados;
+        char elem = *str;
+        push_string(s, ++str);
+        push_char(s, elem);
+    }
     else
     {
         push_double(s, (*(double*)x.dados) - 1);
@@ -283,6 +289,18 @@ void incr(STACK *s)
         n_stack->sp--;            
         push_array(s, *n_stack);
         push(s, elem);
+    }
+    else if (x.tipo == STRING)
+    {
+        char *str = x.dados;
+        char elem = 'd';
+        int i;
+        for (i = 0; *(str+i) != '\0'; ++i){
+            elem = *(str+i);
+        }
+        *(str+i-1) = '\0';
+        push_string(s, str);
+        push_char(s, elem);
     }
     else
         push_double(s, (*(double*)x.dados) + 1);

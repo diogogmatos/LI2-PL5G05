@@ -204,7 +204,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Arrays e Strings
 
         case '[': { create_array(s, token, var); return; }
-        /* case ',': { range(s); return; } */
+        case ',': { range(s); return; }
         
         // Casos especiais
 
