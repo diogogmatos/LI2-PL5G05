@@ -110,6 +110,5 @@ void if_else(STACK* s);
 // expArrayString.c
 
 void div_newline(STACK *s);
+void div_whitespace(STACK *s);
 void range(STACK *s);
-void nline_array (STACK *s);
-

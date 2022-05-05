@@ -218,7 +218,22 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
         case '[': { create_array(s, token, var); return; }
         case ',': { range(s); return; }
-        case 'N/': {nline_array(s); return; }
+        case 'N':
+        {
+            switch (token[1])
+            {
+                case '/': { div_newline(s); return; }
+            }
+            return;
+        }
+        case 'S':
+        {
+            switch (token[1])
+            {
+                case '/': { div_whitespace(s); return; }
+            }
+            return;
+        }
         
         // Casos especiais
 
@@ -233,11 +248,6 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
             else if (token[0] == ':' || isVar(token[0]))
                 handle_variables(s, token, var);
-            
-            // Arrays e Strings
-            
-            else if (strcmp (token, "N/") == 0)
-                div_newline(s);
             
             // Operandos
 
