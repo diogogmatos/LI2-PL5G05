@@ -190,7 +190,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Stack
 
         case '_': { dup(s); return; }
-        case ';': { popS(s); return; }
+        case ';': { pop(s); return; }
         case '\\': { swap(s); return; }
         case '@': { spin(s); return; }
         case '$': { ncopy(s); return; }
