@@ -21,6 +21,18 @@ STACK *new_stack()
     return s;
 }
 
+
+//Remoção de elementos da stack
+
+void remove_elem(STACK* s, int pos){
+    for (int i = pos; i+1 <= s->sp+1; ++i){
+        s->stack[i] = s->stack[i+1];
+    }
+    s->sp--;
+}
+
+
+
 // Armazenamento de variáveis
 
 /**
@@ -34,7 +46,7 @@ void initialize_var(DADOS *var)
 
     for (i=0; i<=5; i++)
     {
-        long *r = malloc(sizeof(long));
+        double *r = malloc(sizeof(double));
         *r = 10 + i;                    // *r toma valor 11, 12, 13, 14 ou 15 para A, B, C, D, E ou F (respetivamente)
         var[i].tipo = LONG;
         var[i].dados = r;
@@ -52,7 +64,7 @@ void initialize_var(DADOS *var)
 
     for (i=23; i<26; i++)               // *r toma valor 0, 1 ou 2 para X, Y ou Z (respetivamente).
     {
-        long *x = malloc(sizeof(long));
+        double *x = malloc(sizeof(double));
         *x = i - 23;
         var[i].tipo = LONG;
         var[i].dados = x;
@@ -70,9 +82,9 @@ void initialize_var(DADOS *var)
  * @param s Stack.
  * @param elem Elemento a introduzir na stack.
  */
-void push_long(STACK* s, long elem)
+void push_long(STACK* s, double elem)
 {
-    long *elemP = malloc(sizeof(long));
+    double *elemP = malloc(sizeof(double));
     *elemP = elem;
     
     DADOS d = {LONG, elemP};
@@ -110,7 +122,6 @@ void push_double(STACK *s, double elem)
  */
 void push_char(STACK* s, char elem)
 {
-
     char *elemP = malloc(sizeof(char));
     *elemP = elem;
     
@@ -129,7 +140,8 @@ void push_char(STACK* s, char elem)
  * @param elem Elemento a introduzir na stack.
  */
 void push_string(STACK *s, char elem[])
-{   int i;
+{   
+    int i;
     char *str = malloc(sizeof(char) * 50);
     for (i = 0; *(elem + i) != 0; ++i)
     {
@@ -138,6 +150,16 @@ void push_string(STACK *s, char elem[])
     *(str+i) = '\0';
     
     DADOS d = {STRING, str}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
+    s->sp++;
+    s->stack[s->sp] = d;
+}
+
+void push_array(STACK *s, STACK elem)
+{
+    STACK *arrayP = new_stack();
+    *arrayP = elem;
+
+    DADOS d = {ARRAY, arrayP};
     s->sp++;
     s->stack[s->sp] = d;
 }
@@ -152,7 +174,7 @@ void push(STACK* s, DADOS elem)
 {
     if (elem.tipo == LONG)
     {
-        long *n = elem.dados;
+        double *n = elem.dados;
         push_long(s, *n);
     }
     else if (elem.tipo == DOUBLE)
@@ -169,6 +191,11 @@ void push(STACK* s, DADOS elem)
     {
         char *n = elem.dados;
         push_string(s, n);
+    }
+    else if (elem.tipo == ARRAY)
+    {
+        STACK *n = elem.dados;
+        push_array(s, *n);
     }
 }
 

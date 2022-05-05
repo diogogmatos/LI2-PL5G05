@@ -11,7 +11,7 @@
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
  * 
  */
-typedef enum{LONG, DOUBLE, CHAR, STRING} TIPO;
+typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY} TIPO;
 
 /**
  * @brief Definição de uma estrutura "__DADOS__" que constitui os elementos da stack.
@@ -46,11 +46,13 @@ typedef struct
 // stack.c
 
 STACK* new_stack();
+void remove_elem(STACK* s, int pos);
 void initialize_var(DADOS *var);
 void push_double(STACK *s, double elem);
-void push_long(STACK *s, long elem);
+void push_long(STACK *s, double elem);
 void push_char(STACK *s, char elem);
 void push_string(STACK *s, char elem[]);
+void push_array(STACK *s, STACK elem);
 void push(STACK *s, DADOS elem);
 DADOS pop(STACK *s);
 
@@ -71,6 +73,7 @@ void expo(STACK *s);
 
 // io.c
 
+char* get_token(char* line, char token[]);
 void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
@@ -93,11 +96,17 @@ void ncopy(STACK *s);
 // expLogic.c
 
 void equal(STACK *s);
-void smaller(STACK *s);
-void bigger(STACK *s);
+void is_smaller(STACK *s);
+void is_bigger(STACK *s);
 void lnot(STACK *s);
 void and(STACK *s);
-void or (STACK *s);
-void maior2 (STACK *s);
-void menor2 (STACK *s);
-void if_else (STACK* s);
+void or(STACK *s);
+void bigger(STACK *s);
+void smaller(STACK *s);
+void if_else(STACK* s);
+
+// expArrayString.c
+
+void div_newline(STACK *s);
+void range(STACK *s);
+

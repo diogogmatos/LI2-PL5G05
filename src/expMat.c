@@ -9,54 +9,35 @@
 #include "stack.h"
 #include <stdlib.h>
 #include <math.h>
-
+#include <stdio.h>
 /** 
  * @brief A função `add()` soma dois números inteiros contidos na stack.
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  */
 void add(STACK *s)
-{
+{   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
+    double *a = x.dados;
+    double *b = y.dados;
+
     if (x.tipo == LONG && y.tipo == LONG)
     {
-        long* xd = x.dados;
-        long* yd = y.dados;
-
-        long n = *yd + *xd;
-        push_long(s, n);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long* xdi = x.dados;
-        double xd = *xdi;
-        double* yd = y.dados;
+        long ri = *b + *a;
         
-        double n = *yd + xd;
-        push_double(s, n);        
+        double r = ri;
+        push_long(s, r);
     }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    else
     {
-        double* xd = x.dados;
-        long* ydi = y.dados;
-        double yd = *ydi;
-        
-        double n = yd + *xd;
-        push_double(s, n);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double* xd = x.dados;
-        double* yd = y.dados;
-        
-        double n = *yd + *xd;
-        push_double(s, n);
+        double r = *b + *a;
+        push_double(s, r);
     }
     
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -66,47 +47,28 @@ void add(STACK *s)
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
  */
 void subtract(STACK *s)
-{
+{   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
+    double *a = x.dados;
+    double *b = y.dados;
+
     if (x.tipo == LONG && y.tipo == LONG)
     {
-        long* xd = x.dados;
-        long* yd = y.dados;
-
-        long n = *yd - *xd;
-        push_long(s, n);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long* xdi = x.dados;
-        double xd = *xdi;
-        double* yd = y.dados;
+        long ri = *b - *a;
         
-        double n = *yd - xd;
-        push_double(s, n);        
+        double r = ri;
+        push_long(s, r);
     }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    else
     {
-        double* xd = x.dados;
-        long* ydi = y.dados;
-        double yd = *ydi;
-        
-        double n = yd - *xd;
-        push_double(s, n);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double* xd = x.dados;
-        double* yd = y.dados;
-        
-        double n = *yd - *xd;
-        push_double(s, n);
+        double r = *b - *a;
+        push_double(s, r);
     }
     
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -115,47 +77,28 @@ void subtract(STACK *s)
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  */
 void multiply(STACK *s)
-{
+{   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
+    double *a = x.dados;
+    double *b = y.dados;
+
     if (x.tipo == LONG && y.tipo == LONG)
     {
-        long* xd = x.dados;
-        long* yd = y.dados;
-
-        long n = *yd * *xd;
-        push_long(s, n);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long* xdi = x.dados;
-        double xd = *xdi;
-        double* yd = y.dados;
+        long ri = *b * *a;
         
-        double n = *yd * xd;
-        push_double(s, n);        
+        double r = ri;
+        push_long(s, r);
     }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    else
     {
-        double* xd = x.dados;
-        long* ydi = y.dados;
-        double yd = *ydi;
-        
-        double n = yd * *xd;
-        push_double(s, n);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double* xd = x.dados;
-        double* yd = y.dados;
-        
-        double n = *yd * *xd;
-        push_double(s, n);
+        double r = *b * *a;
+        push_double(s, r);
     }
     
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
@@ -165,155 +108,186 @@ void multiply(STACK *s)
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
  */
 void divide(STACK *s)
-{
+{   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
+    double *a = x.dados;
+    double *b = y.dados;
+
     if (x.tipo == LONG && y.tipo == LONG)
     {
-        long* xd = x.dados;
-        long* yd = y.dados;
-
-        long n = *yd / *xd;
-        push_long(s, n);
-    }
-    else if (x.tipo == LONG && y.tipo == DOUBLE)
-    {
-        long* xdi = x.dados;
-        double xd = *xdi;
-        double* yd = y.dados;
+        long ri = *b / *a;
         
-        double n = *yd / xd;
-        push_double(s, n);        
+        double r = ri;
+        push_long(s, r);
     }
-    else if (x.tipo == DOUBLE && y.tipo == LONG)
+    else
     {
-        double* xd = x.dados;
-        long* ydi = y.dados;
-        double yd = *ydi;
-        
-        double n = yd / *xd;
-        push_double(s, n);
-    }
-    else if (x.tipo == DOUBLE && y.tipo == DOUBLE)
-    {
-        double* xd = x.dados;
-        double* yd = y.dados;
-        
-        double n = *yd / *xd;
-        push_double(s, n);
+        double r = *b / *a;
+        push_double(s, r);
     }
     
-    free(x.dados);
-    free(y.dados);
+    free(a);
+    free(b);
 }
 
 /**
  * @brief `bit_and()` retira dois números da stack utilizando `pop()` e faz AND (&) em todos os bits de dois números.
  *        
  * O resultado de AND é 1 apenas se os dois bits forem 1.
- * No final, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, o resultado obtido é colocado na stack através da função `push_long()`.
  */
 void bit_and(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd & *xd;
-    
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    double *ai = pop(s).dados;
+    long a = *ai;
+    double *bi = pop(s).dados;
+    long b = *bi;
+
+    double r = b & a;
+    push_long(s, r);
+
+    free(ai);
+    free(bi);
 }
 
 /**
  * @brief `bit_or()` retira dois números da stack utilizando `pop()` e faz OR (|) em todos os bits dos dois números.
  *        
  * O resultado de OR é 1 se um dos dois bits for 1.
- * No final, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, o resultado obtido é colocado na stack através da função `push_long()`.
  */
 void bit_or(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd | *xd;
+    double *ai = pop(s).dados;
+    long a = *ai;
+    double *bi = pop(s).dados;
+    long b = *bi;
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    double r = b | a;
+    push_long(s, r);
+
+    free(ai);
+    free(bi);
 }
 
 /**
  * @brief `bit_xor()` retira dois números da stack utilizando `pop()` e faz XOR (^) em todos os bits dos dois números.
  *        
  * O resultado de XOR é 1 se os dois bits forem diferentes.
- * No final, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, o resultado obtido é colocado na stack através da função `push_long()`.
  */
 void bit_xor(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd ^ *xd;
+    double *ai = pop(s).dados;
+    long a = *ai;
+    double *bi = pop(s).dados;
+    long b = *bi;
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    double r = b ^ a;
+    push_long(s, r);
+
+    free(ai);
+    free(bi);
 }
 
 /**
- * @brief `bit_not()` retira um número da stack utilizando `pop()` e faz NOT (~) em todos os bits desse número.
+ * @brief `bit_not()` retira um número da stack utilizando `pop()` e faz NOT (`~`) em todos os bits desse número.
  *        
  * O resultado de NOT é a a inversão de todos os bits desse número.
- * No final, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, o resultado obtido é colocado na stack através da função `push_long()`.
+ * 
+ * - __Nota:__ No caso de o input ser um ARRAY, a função `bit_not()` coloca na stack todos os elementos do mesmo. É usada a mesma
+ * função para ambas estas operações uma vez que os operadores (`~`) são idênticos.
  */
 void bit_not(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long n = ~ *xd;
+    DADOS x = pop(s);
     
-    free(xd);
-    
-    push_long(s, n);
+    if (x.tipo == ARRAY)      // Coloca na stack todos os elementos do ARRAY
+    {
+        STACK *a = x.dados;
+        
+        for (int i=1; i <= a->sp; i++)
+        {
+            DADOS r = a->stack[i];
+            push(s, r);
+        }
+    }
+    else                      // Operação NOT binária
+    {
+        double *ai = x.dados;
+        long a = *ai;
+        
+        double r = ~ a;
+        push_long(s, r);
+    }
+
+    free(x.dados);
 }
 
 /**
  * @brief `decr()` tem como função subtrair uma unidade ao elemento que se encontrar no topo da stack.
  *        
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
- * No final, após a subtração, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, após a subtração, o resultado obtido é colocado na stack através da função `push_long()` ou `push_double()`.
  */
 void decr(STACK *s)
 {
-    DADOS xd = pop(s);
-    if (xd.tipo == DOUBLE)
-        push_double(s, (*(double*)xd.dados) - 1);
-    else if (xd.tipo == CHAR)
-        push_char(s, (*(char*)xd.dados) - 1);
-    else if (xd.tipo == LONG)
-        push_long(s, (*(long*)xd.dados) - 1);
-    
-    free(xd.dados);
+    DADOS x = pop(s);
+
+    if (x.tipo == LONG)
+    {
+        push_long(s, (*(double*)x.dados) - 1);
+    }
+    else if (x.tipo == CHAR)
+    {
+        push_char(s, (*(char*)x.dados) - 1);
+    }
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[1];
+        remove_elem(n_stack, 1);
+        push_array(s, *n_stack);
+        push(s, elem);
+    }    
+        
+    else
+    {
+        push_double(s, (*(double*)x.dados) - 1);
+    }
+
+    free(x.dados);
 }
 
 /**
  * @brief `incr()` tem como função adicionar uma unidade ao elemento que se encontrar no topo da stack.
  *        
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
- * No final, após a adição, o resultado obtido é colocado na stack através da função `push()`.
+ * No final, após a adição, o resultado obtido é colocado na stack através da função `push_long()` ou `push_double()`.
  */
 void incr(STACK *s)
 {
-    DADOS xd = pop(s);
-    if (xd.tipo == DOUBLE)
-        push_double(s, (*(double*)xd.dados) + 1);
-    else if (xd.tipo == CHAR)
-        push_char(s, (*(char*)xd.dados) + 1);
-    else if (xd.tipo == LONG)
-        push_long(s, (*(long*)xd.dados) + 1);
+    DADOS x = pop(s);
     
-    free(xd.dados);
+    if (x.tipo == LONG)
+        push_long(s, (*(double*)x.dados) + 1);
+    else if (x.tipo == CHAR)
+        push_char(s, (*(char*)x.dados) + 1);
+    else if (x.tipo == ARRAY)
+    {
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[n_stack->sp];
+        n_stack->sp--;            
+        push_array(s, *n_stack);
+        push(s, elem);
+    }
+    else
+        push_double(s, (*(double*)x.dados) + 1);
+    
+    free(x.dados);
 }
 
 /**
@@ -323,14 +297,17 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    long* xd = pop(s).dados;
-    long* yd = pop(s).dados;
-    long n = *yd % *xd;
+    double *ai = pop(s).dados;
+    long a = *ai;
+
+    double *bi = pop(s).dados;
+    long b = *bi;
+
+    double r = b % a;
+    push_long(s, r);
     
-    free(xd);
-    free(yd);
-    
-    push_long(s, n);
+    free(ai);
+    free(bi);
 }
 
 /**
@@ -340,50 +317,36 @@ void incr(STACK *s)
  */
  void expo(STACK *s)
 {
-    DADOS xd = pop(s);
-    DADOS yd = pop(s);
+    DADOS x = pop(s);
+    DADOS y = pop(s);
 
-    if (xd.tipo == DOUBLE && yd.tipo == DOUBLE)
+    if (x.tipo == LONG && y.tipo == LONG)
     {
-        double x = *((double*)xd.dados);
-        double y = *((double*)yd.dados);
+        double r = 1;
 
-        double n = pow(y, x);
-        push_double(s, n);
-    }
-    else if (xd.tipo == LONG && yd.tipo == DOUBLE)
-    {
-        long* xp = xd.dados;
-        double x = *xp;
-        double* y = yd.dados;
+        double ai = *((double*)x.dados);
+        long a = ai;
 
-        double n = pow(*y, x);
-        push_double(s, n);
-    }
-    else if (xd.tipo == DOUBLE && yd.tipo == LONG)
-    {
-        long* yp = yd.dados;
-        double y = *yp;
-        double* x = xd.dados;
+        double bi = *((double*)y.dados);
+        long b = bi;
 
-        double n = pow(y, *x);
-        push_double(s, n);
-    }
-    else if (xd.tipo == LONG && yd.tipo == LONG)
-    {
-        int a = 1;
-        long x = *((long*)xd.dados);
-        long y = *((long*)yd.dados);
-
-        while (x > 0)
+        while (a > 0)
         {
-          a = a * y;
-          (x)--;
+          r = r * b;
+          (a)--;
         }
         
-        push_long(s, a);
+        push_long(s, r);
+    }
+    else
+    {
+        double a = *((double*)x.dados);
+        double b = *((double*)y.dados);
+
+        double r = pow(b, a);
+        push_double(s, r);
     }
 
-    free(xd.dados);
-    free(yd.dados);
+    free(x.dados);
+    free(y.dados);
 }

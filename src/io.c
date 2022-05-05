@@ -10,6 +10,27 @@
 
 // Colocação de elementos na stack
 
+DADOS create_array(STACK* s, char* token, DADOS *var)
+{
+    STACK* array = new_stack();
+    char token_token[BUFSIZ]; 
+
+    ++token;
+    while(*token){
+        token = get_token(token, token_token);
+
+        if (token_token[0] == ']');  //Não faz nada
+        else {
+            handle_token(array, token_token, var);
+        }
+    }
+
+    DADOS d = {ARRAY, array};
+    s->sp++;
+    s->stack[s->sp] = d;
+    return d;
+}
+
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
  * 
@@ -45,8 +66,8 @@ void val(STACK* s, char* token)
         }
         else                           // Caso em que o operando é LONG (o input é apenas constituído por números)
         {
-            long num;
-            sscanf(token, "%li", &num);
+            double num;
+            sscanf(token, "%lf", &num);
             push_long(s, num);
         }
     }
@@ -126,60 +147,92 @@ void handle_variables(STACK* s, char* token, DADOS *var)
  */
 void handle_token(STACK* s, char* token, DADOS *var)
 {
-    // Expressões matemáticas
+    switch (token[0])
+    {
+        // Expressões matemáticas
 
-    if (token[0] == '+') add(s);
-    else if (token[0] == '-') subtract(s);
-    else if (token[0] == '*') multiply(s);
-    else if (token[0] == '/') divide(s);
-    else if (token[0] == '(') decr(s);
-    else if (token[0] == ')') incr(s);
-    else if (token[0] == '%') mod(s);
-    else if (token[0] == '#') expo(s);
-    else if (token[0] == '&') bit_and(s);
-    else if (token[0] == '|') bit_or(s);
-    else if (token[0] == '^') bit_xor(s);
-    else if (token[0] == '~') bit_not(s);
+        case '+': { add(s); return; }            // Também opera com arrays
+        case '*': { multiply(s); return; }       // Também opera com arrays
+        case '/': { divide(s); return; }
+        case '(': { decr(s); return; }           // Também opera com arrays
+        case ')': { incr(s); return; }           // Também opera com arrays
+        case '%': { mod(s); return; }
+        case '#': { expo(s); return; }           // Também opera com arrays
+        case '&': { bit_and(s); return; }
+        case '|': { bit_or(s); return; }
+        case '^': { bit_xor(s); return; }
+        case '~': { bit_not(s); return; }        // Também opera com arrays
+        
+        // Input/Output
 
-    // Input/Output
+        case 'l': { new_line(s); return; }
 
-    else if (token[0] == 'l') new_line(s);
+        // Conversões
 
-    // Conversões
+        case 'i': { conv_int(s); return; }
+        case 'f': { conv_double(s); return; }
+        case 'c': { conv_char(s); return; }
+        case 's': { conv_string(s); return; }
 
-    else if (token[0] == 'i') conv_int(s);
-    else if (token[0] == 'f') conv_double(s);
-    else if (token[0] == 'c') conv_char(s);
-    else if (token[0] == 's') conv_string(s);
+        // Stack
 
-    // Stack
+        case '_': { dup(s); return; }
+        case ';': { popS(s); return; }
+        case '\\': { swap(s); return; }
+        case '@': { spin(s); return; }
+        case '$': { ncopy(s); return; }
 
-    else if (token[0] == '_') dup(s);
-    else if (token[0] == ';') popS(s);
-    else if (token[0] == '\\') swap(s);
-    else if (token[0] == '@') spin(s);
-    else if (token[0] == '$') ncopy(s);
+        // Lógica
 
-    // Variáveis
+        case '=': { equal(s); return; }          // Também opera com arrays
+        case '<': { is_smaller(s); return; }     // Também opera com arrays
+        case '>': { is_bigger(s); return; }      // Também opera com arrays
+        case '!': { lnot(s); return; }
+        case '?': { if_else(s); return; }
+        case 'e':
+        {
+            switch (token[1])
+            {
+                case '&': { and(s); return; }
+                case '|': { or(s); return; }
+                case '<': { smaller(s); return; }
+                case '>': { bigger(s); return; }
+            }
+            return;
+        }
 
-    else if (token[0] == ':' || isVar(token[0])) handle_variables(s, token, var);
+        // Arrays e Strings
 
-    // Lógica
+        case '[': { create_array(s, token, var); return; }
+        /* case ',': { range(s); return; } */
+        
+        // Casos especiais
 
-    else if (token[0] == '=') equal(s);
-    else if (token[0] == '<') smaller(s);
-    else if (token[0] == '>') bigger(s);
-    else if (token[0] == '!') lnot(s);
-     else if (token[0] == '?') if_else(s);
-    else if (strcmp (token, "e&") == 0) and(s);
-    else if (strcmp (token, "e|") == 0) or(s);
-    else if (strcmp (token, "e<") == 0) menor2(s);
-    else if (strcmp (token, "e>") == 0) maior2(s);
-    else if (strcmp (token, "e>") == 0) maior2(s);
-    
-    // Operandos
+        default:
+        { 
+            // Expressões matemáticas
+            
+            if (strlen(token) == 1 && token[0] == '-')
+                subtract(s);
 
-    else val(s, token);
+            // Variáveis
+
+            else if (token[0] == ':' || isVar(token[0]))
+                handle_variables(s, token, var);
+            
+            // Arrays e Strings
+            
+            /* else if (strcmp (token, "N/") == 0) */
+            /*     div_newline(s); */
+            
+            // Operandos
+
+            else
+                val(s, token);
+            
+            return;
+        }
+    }
 }
 
 // Impressão da stack
@@ -200,13 +253,19 @@ void print_stack(STACK *s)
     {
         d = s->stack[i];
         if (d.tipo == LONG)           // Caso em que o elemento da stack é um LONG
-            printf("%li", *((long*)d.dados));
-        else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
-            printf("%c", *((char*)d.dados));
+        {
+            double *ri = d.dados;
+            long r = *ri;
+            printf("%ld", r);
+        }
         else if (d.tipo == DOUBLE)    // Caso em que o elemento da stack é um DOUBLE
             printf("%g", *((double*)d.dados));
+        else if (d.tipo == CHAR)      // Caso em que o elemento da stack é um CHAR
+            printf("%c", *((char*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             printf("%s", (char*)d.dados);
+        else if (d.tipo == ARRAY){
+            print_stack(d.dados);
+        }
     }
-    printf("\n");
 }
