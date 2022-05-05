@@ -87,7 +87,4 @@ void nline_array (STACK *s)
 
 }
 
-ver definição de array, sao stacks, tenho de ir dando push para essa stack
-+ : ir a função add e adicionar lá os casos do que esta n stack para fazer add ou concat, ver possibilidades no slack,
-
 */
