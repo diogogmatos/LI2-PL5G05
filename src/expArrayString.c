@@ -68,3 +68,26 @@ void range(STACK *s)
     free(x.dados);
 }
 
+/*
+void nline_array (STACK *s) 
+{
+    DADOS x = pop(s);
+    char str[] = x.dados;
+    char part[BUFSIZ];
+     arr[BUFSIZ];
+    int i;int j = 0;
+
+    for (i=0;i < strlen(str);i++)
+    {
+        if (str[i] == '\n')
+        {
+            arr[j] = part
+        }
+    }
+
+}
+
+ver definição de array, sao stacks, tenho de ir dando push para essa stack
++ : ir a função add e adicionar lá os casos do que esta n stack para fazer add ou concat, ver possibilidades no slack,
+
+*/

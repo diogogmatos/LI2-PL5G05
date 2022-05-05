@@ -87,6 +87,18 @@ void new_line (STACK *s)
         push_string (s,line);
 }
 
+void all_lines (STACK *s)
+{
+    char line[BUFSIZ]="";
+    char line2[BUFSIZ];
+    while (fgets (line2,BUFSIZ,stdin) != NULL)
+    {
+        strcat(line , line2);
+    }
+
+    push_string (s,line);
+}
+
 // Handling de inputs
 
 /**
@@ -165,7 +177,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
         
         // Input/Output
 
-        case 'l': { new_line(s); return; }
+        case 'l': { new_line(s); return;}
+        case 't': { all_lines(s); return;}
 
         // Conversões
 
@@ -204,7 +217,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Arrays e Strings
 
         case '[': { create_array(s, token, var); return; }
-        /* case ',': { range(s); return; } */
+        case ',': { range(s); return;}
+        case 'N/': {nline_array(s); return;}
         
         // Casos especiais
 
