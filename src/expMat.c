@@ -22,11 +22,137 @@ void add(STACK *s)
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    double *a = x.dados;
-    double *b = y.dados;
+    if (x.tipo == ARRAY && y.tipo == ARRAY)
+    {
+        STACK *array1 = y.dados;
+        STACK *array2 = x.dados;
+
+        STACK *r = new_stack();
+
+        int i,j,k;
+
+        for (i=1; i <= array1->sp; i++)
+        {
+            *(r->stack + i) = *(array1->stack + i);
+            r->sp++;
+        }
+
+        for (j=i,k=1;k <= array2->sp;j++,k++)
+        {
+            *(r->stack + j) = *(array2->stack + k);
+            r->sp++;
+        }
+
+        push_array(s,*r);
+    }
+
+    if (x.tipo == CHAR && y.tipo == ARRAY)
+    {
+        STACK *array = y.dados;
+        char *a = x.dados;
+        double c = *a;
+
+        STACK *r = new_stack();
+
+        int i;
+        for (i=1; i <= array->sp; i++)
+        {
+            *(r->stack + i) = *(array->stack + i);
+            r->sp++;
+        }
+
+        push_char(r,c);
+
+        push_array(s,*r);
+    }
+
+    if (x.tipo == ARRAY && y.tipo == CHAR)
+    {
+        STACK *array = x.dados;
+        char *a = y.dados;
+        double c = *a;
+
+        STACK *r = new_stack();
+        int i;
+
+        push_char(r,c);
+
+        for (i=2; i <= array->sp + 1; i++)
+        {
+            *(r->stack + i) = *(array->stack + i -1);
+            r->sp++;
+        }
+        push_array(s,*r);
+    }
+
+    if (x.tipo == STRING && y.tipo == STRING)
+    {
+            char* str1 = y.dados;
+            char* str2 = x.dados;
+
+            char* r = malloc(sizeof(char) * BUFSIZ);
+            int i, j, k;
+            for (i=0; *(str1 + i); i++)
+            {
+                *(r+i) = *(str1 + i);
+            }
+
+            for (j=i, k=0; *(str2 + k);j++,k++)
+            {
+                *(r+j) = *(str2 + k);
+            }
+            *(r+j) = '\0';
+            
+            push_string(s,r);   
+    }  
+    if (x.tipo == CHAR && y.tipo == STRING)
+    {
+        char *a = x.dados;
+        double c = *a;
+
+        char *str = y.dados;
+        char *r = malloc (sizeof(char) * BUFSIZ);
+        int tam = strlen(str);
+        
+        int i;
+        for (i=0; *(str + i); i++)
+        {
+            *(r+i) = *(str + i);
+        }
+
+        *(r + tam) = c;
+        *(r + tam + 1) = '\0';
+
+        push_string (s,r);
+    }
+
+    if (x.tipo == STRING && y.tipo == CHAR)
+    {
+        char *a = y.dados;
+        double c = *a;
+
+        char *str = x.dados;
+        char *r = malloc (sizeof(char) * BUFSIZ);
+        int tam = strlen(str);
+        int i,j=0;
+
+        *r = c;
+
+        for (i=1; *(str + j); i++,j++)
+        {
+            *(r+i) = *(str + j);
+        }
+
+        *(r + tam + 1) = '\0';
+        
+        push_string (s,r);
+    }
 
     if (x.tipo == LONG && y.tipo == LONG)
     {
+        double *a = x.dados;
+        double *b = y.dados;
+
         long ri = *b + *a;
         
         double r = ri;
@@ -34,12 +160,15 @@ void add(STACK *s)
     }
     else
     {
+        double *a = x.dados;
+        double *b = y.dados;
+
         double r = *b + *a;
         push_double(s, r);
     }
     
-    free(a);
-    free(b);
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
