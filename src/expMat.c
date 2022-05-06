@@ -46,7 +46,7 @@ void s_add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == CHAR && y.tipo == ARRAY)
+    else if (x.tipo == CHAR && y.tipo == ARRAY)
     {
         STACK *array = y.dados;
         char *a = x.dados;
@@ -66,7 +66,7 @@ void s_add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == ARRAY && y.tipo == CHAR)
+    else if (x.tipo == ARRAY && y.tipo == CHAR)
     {
         STACK *array = x.dados;
         char *a = y.dados;
@@ -85,7 +85,7 @@ void s_add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == STRING && y.tipo == STRING)
+    else if (x.tipo == STRING && y.tipo == STRING)
     {
             char* str1 = y.dados;
             char* str2 = x.dados;
@@ -105,7 +105,7 @@ void s_add(STACK *s)
             
             push_string(s,r);   
     }  
-    if (x.tipo == CHAR && y.tipo == STRING)
+    else if (x.tipo == CHAR && y.tipo == STRING)
     {
         char *a = x.dados;
         double c = *a;
@@ -126,7 +126,7 @@ void s_add(STACK *s)
         push_string (s,r);
     }
 
-    if (x.tipo == STRING && y.tipo == CHAR)
+    else if (x.tipo == STRING && y.tipo == CHAR)
     {
         char *a = y.dados;
         double c = *a;
@@ -148,7 +148,7 @@ void s_add(STACK *s)
         push_string (s,r);
     }
 
-    if (x.tipo == LONG && y.tipo == LONG)
+    else if (x.tipo == LONG && y.tipo == LONG)
     {
         double *a = x.dados;
         double *b = y.dados;
