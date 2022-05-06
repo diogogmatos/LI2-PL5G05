@@ -58,7 +58,7 @@ DADOS pop(STACK *s);
 
 // expMat.c
 
-void add(STACK *s);
+void s_add(STACK *s);
 void subtract(STACK *s);
 void multiply(STACK *s);
 void divide(STACK *s);

@@ -15,7 +15,7 @@
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  */
-void add(STACK *s)
+void s_add(STACK *s)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
@@ -29,6 +29,7 @@ void add(STACK *s)
         
         double r = ri;
         push_long(s, r);
+
     }
     else
     {
