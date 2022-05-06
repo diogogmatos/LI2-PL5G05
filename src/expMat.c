@@ -17,7 +17,7 @@
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  */
-void add(STACK *s)
+void s_add(STACK *s)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
@@ -46,7 +46,7 @@ void add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == CHAR && y.tipo == ARRAY)
+    else if (x.tipo == CHAR && y.tipo == ARRAY)
     {
         STACK *array = y.dados;
         char *a = x.dados;
@@ -66,7 +66,7 @@ void add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == ARRAY && y.tipo == CHAR)
+    else if (x.tipo == ARRAY && y.tipo == CHAR)
     {
         STACK *array = x.dados;
         char *a = y.dados;
@@ -85,7 +85,7 @@ void add(STACK *s)
         push_array(s,*r);
     }
 
-    if (x.tipo == STRING && y.tipo == STRING)
+    else if (x.tipo == STRING && y.tipo == STRING)
     {
             char* str1 = y.dados;
             char* str2 = x.dados;
@@ -105,7 +105,7 @@ void add(STACK *s)
             
             push_string(s,r);   
     }  
-    if (x.tipo == CHAR && y.tipo == STRING)
+    else if (x.tipo == CHAR && y.tipo == STRING)
     {
         char *a = x.dados;
         double c = *a;
@@ -126,7 +126,7 @@ void add(STACK *s)
         push_string (s,r);
     }
 
-    if (x.tipo == STRING && y.tipo == CHAR)
+    else if (x.tipo == STRING && y.tipo == CHAR)
     {
         char *a = y.dados;
         double c = *a;
@@ -148,7 +148,7 @@ void add(STACK *s)
         push_string (s,r);
     }
 
-    if (x.tipo == LONG && y.tipo == LONG)
+    else if (x.tipo == LONG && y.tipo == LONG)
     {
         double *a = x.dados;
         double *b = y.dados;
@@ -157,6 +157,7 @@ void add(STACK *s)
         
         double r = ri;
         push_long(s, r);
+
     }
     else
     {

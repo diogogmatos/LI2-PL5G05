@@ -163,7 +163,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
     {
         // Expressões matemáticas
 
-        case '+': { add(s); return; }            // Também opera com arrays
+        case '+': { s_add(s); return; }            // Também opera com arrays
         case '*': { multiply(s); return; }       // Também opera com arrays
         case '/': { divide(s); return; }
         case '(': { decr(s); return; }           // Também opera com arrays
