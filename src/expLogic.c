@@ -13,20 +13,37 @@
 /**
  * @brief Verifica se dois elementos da stack são iguais, retornando 1 caso sejam e 0 caso contrário (True ou False).
  * 
+ * - __Nota:__ Caso o primeiro operando do input seja um ARRAY, a função `equal()` retira do mesmo o elemento que se encontra no
+ * indíce fornecido pelo segundo operando e coloca-o na stack. 
+ * 
  * @param s Stack.
  */
 void equal(STACK *s)
 {
-    double *a = pop(s).dados;
-    double *b = pop(s).dados;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
 
-    if (*b == *a)
-        push_long(s, 1);
+    if (y.tipo == ARRAY)
+    {
+        double *i = x.dados;
+        long ind = *i;
+        STACK *array = y.dados;
+
+        push(s, array->stack[ind+1]);
+    }
     else
-        push_long(s, 0);
+    {
+        double *a = x.dados;
+        double *b = y.dados;
 
-    free(a);
-    free(b);
+        if (*b == *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+
+    free(x.dados);
+    free(y.dados);
 }
 
 /**

@@ -9,40 +9,35 @@
 #include "stack.h"
 
 /**
- * @brief Get the token object
+ * @brief 
  * 
  * @param line String contendo a totalidade do input.
  * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
  * @return char* Retorna o endereço da string `line`.
  */
-char* get_token(char* line, char token[]){
+char* get_token(char* line, char token[])
+{
     int index = 0;
     int flag = 0;
-    while (*line != '\n'){
+    while (*line != '\n')
+    {
         while (*line == ' ')
             line++;
 
-        while ((*line && *line != ' ' && *line != '\n' && flag == 0) || flag > 0){
-            if (*line == '['){
-                token[index] = *line; 
-                ++index;
-                ++line;
+        while ((*line && *line != ' ' && *line != '\n' && flag == 0) || flag > 0)
+        {   
+            token[index] = *line;
+
+            if (*line == '[')
                 ++flag;
-            }
-            else if (*line == ']'){
-                token[index] = *line; 
-                ++index;
-                ++line;
+            else if (*line == ']')
                 --flag;
-            }
-            else{   
-                token[index] = *line;
-                index++;
-                line++;
-            }  
+            
+            index++;
+            line++;
         }
         token[index] = '\0';
-        
+
         return line;
     }
     return line;
