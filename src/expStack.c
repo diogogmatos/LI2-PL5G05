@@ -46,16 +46,6 @@ void spin (STACK *s)
 }
 
 /**
- * @brief Permite que o utilizador execute a função `pop()`.
- * 
- * @param s Stack.
- */
-void popS(STACK *s)
-{
-    pop(s);
-}
-
-/**
  * @brief Troca os dois primeiros elementos da stack, introduzindo-os na mesma por ordem oposta com função `push()`.
  * 
  * @param s Stack.

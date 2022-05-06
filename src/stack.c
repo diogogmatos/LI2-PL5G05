@@ -21,17 +21,14 @@ STACK *new_stack()
     return s;
 }
 
-
 //Remoção de elementos da stack
 
-void remove_elem(STACK* s, int pos){
-    for (int i = pos; i+1 <= s->sp+1; ++i){
+void remove_elem(STACK* s, int pos)
+{
+    for (int i = pos; i+1 <= s->sp+1; ++i)
         s->stack[i] = s->stack[i+1];
-    }
     s->sp--;
 }
-
-
 
 // Armazenamento de variáveis
 

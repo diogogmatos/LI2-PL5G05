@@ -77,6 +77,8 @@ char* get_token(char* line, char token[]);
 void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
+void new_line (STACK *s);
+void all_lines (STACK *s);
 
 // conversions.c
 
@@ -108,5 +110,5 @@ void if_else(STACK* s);
 // expArrayString.c
 
 void div_newline(STACK *s);
+void div_whitespace(STACK *s);
 void range(STACK *s);
-

@@ -87,6 +87,18 @@ void new_line (STACK *s)
         push_string (s,line);
 }
 
+void all_lines (STACK *s)
+{
+    char line[BUFSIZ]="";
+    char line2[BUFSIZ];
+    while (fgets (line2,BUFSIZ,stdin) != NULL)
+    {
+        strcat(line , line2);
+    }
+
+    push_string (s,line);
+}
+
 // Handling de inputs
 
 /**
@@ -165,7 +177,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
         
         // Input/Output
 
-        case 'l': { new_line(s); return; }
+        case 'l': { new_line(s); return;}
+        case 't': { all_lines(s); return;}
 
         // Conversões
 
@@ -177,7 +190,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Stack
 
         case '_': { dup(s); return; }
-        case ';': { popS(s); return; }
+        case ';': { pop(s); return; }
         case '\\': { swap(s); return; }
         case '@': { spin(s); return; }
         case '$': { ncopy(s); return; }
@@ -204,7 +217,23 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Arrays e Strings
 
         case '[': { create_array(s, token, var); return; }
-        /* case ',': { range(s); return; } */
+        case ',': { range(s); return; }
+        case 'N':
+        {
+            switch (token[1])
+            {
+                case '/': { div_newline(s); return; }
+            }
+            return;
+        }
+        case 'S':
+        {
+            switch (token[1])
+            {
+                case '/': { div_whitespace(s); return; }
+            }
+            return;
+        }
         
         // Casos especiais
 
@@ -219,11 +248,6 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
             else if (token[0] == ':' || isVar(token[0]))
                 handle_variables(s, token, var);
-            
-            // Arrays e Strings
-            
-            /* else if (strcmp (token, "N/") == 0) */
-            /*     div_newline(s); */
             
             // Operandos
 
