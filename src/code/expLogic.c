@@ -61,46 +61,41 @@ void equal(STACK *s)
  */
 void is_smaller(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
-
-    if (y.tipo == ARRAY)
-    {   
-        double *a = x.dados;
-        double n = *a; 
+    DADOS a = pop(s);
+    DADOS b = pop(s);
     
-        STACK *array = y.dados;
-        STACK *r = new_stack();
-        int i;
-
-        for (i = 1; i <= n; i++)
-        {
-            *(r->stack + i) = *(array->stack + i);
-            r->sp++;
-        }
-        push_array (s,*r);
-        
-        free (x.dados);
-        free (y.dados);
-    }
-
-    else 
+    if (a.tipo == STRING && b.tipo == STRING)
     {
-        push(s,y); 
-        push(s,x);
+        int tam_a = 0;
+        int tam_b = 0;
+        char* str1 = a.dados;
+        char* str2 = b.dados;
 
-        double *a = pop(s).dados;
-        double *b = pop(s).dados;
+        for (int i = 0; *(str2+i); ++i)
+            tam_b += *(str2+i);
+        for (int i = 0; *(str2 + i); ++i)
+            tam_a += *(str1 + i);
         
-        if (*b < *a)
+        if (tam_b < tam_a)
             push_long(s, 1);
         else
             push_long(s, 0);
-
-        free(a);
-        free(b);
     }
+    else 
+    {
+        double a_int = *(double*)a.dados;
+        double b_int = *(double*)b.dados;
+
+        if (b_int < a_int)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+
+    free(a.dados);
+    free(b.dados);
 }
+
 /**
  * @brief Verifica se o elemento do topo da stack é menor que o elemento abaixo deste, retornando 1 caso seja e 0 caso contrário (True ou False).
  * 
@@ -108,46 +103,39 @@ void is_smaller(STACK *s)
  */
 void is_bigger(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
-
-    if (y.tipo == ARRAY)
-    {   
-        double *a = x.dados;
-        double n = *a; 
+    DADOS a = pop(s);
+    DADOS b = pop(s);
     
-        STACK *array = y.dados;
-        STACK *r = new_stack();
-        int i,j;
-
-        for (i=1,j= array->sp - n + 1;i <= n ;i++,j++)
-        {
-            *(r->stack + i) = *(array->stack + j);
-            r->sp++;
-        }
-
-        push_array (s,*r);
-        
-        free (x.dados);
-        free (y.dados);
-    }
-
-    else
+    if (a.tipo == STRING && b.tipo == STRING)
     {
-    
-        push (s,y);
-        push (s,x);
-        double *a = pop(s).dados;
-        double *b = pop(s).dados;
+        int tam_a = 0;
+        int tam_b = 0;
+        char* str1 = a.dados;
+        char* str2 = b.dados;
 
-        if (*b > *a)
+        for (int i = 0; *(str2+i); ++i)
+            tam_b += *(str2+i);
+        for (int i = 0; *(str2 + i); ++i)
+            tam_a += *(str1 + i);
+        
+        if (tam_b > tam_a)
             push_long(s, 1);
         else
             push_long(s, 0);
-
-        free(a);
-        free(b);
     }
+    else 
+    {
+        double a_int = *(double*)a.dados;
+        double b_int = *(double*)b.dados;
+
+        if (b_int > a_int)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+    }
+
+    free(a.dados);
+    free(b.dados);
 }
 
 /**
@@ -237,23 +225,39 @@ void bigger (STACK *s)
  */
 void smaller (STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
-
-
+    DADOS a = pop(s);
+    DADOS b = pop(s);
     
-    double *a = x.dados;
-    double *b = y.dados;
+    if (a.tipo == STRING && b.tipo == STRING)
+    {
+        int tam_a = 0;
+        int tam_b = 0;
+        char* str1 = a.dados;
+        char* str2 = b.dados;
 
-    if (*b < *a)
-        push(s, y);
-    else
-        push(s, x);
-    
-    
- 
-    free (x.dados);
-    free (y.dados);
+        for (int i = 0; *(str2+i); ++i)
+            tam_b += *(str2+i);
+        for (int i = 0; *(str2 + i); ++i)
+            tam_a += *(str1 + i);
+        
+        if (tam_b < tam_a)
+            push_string(s, str2);
+        else
+            push_string(s, str1);
+    }
+    else 
+    {
+        double x = *(double*)a.dados;
+        double y = *(double*)b.dados;
+
+        if (y < x)
+            push(s, b);
+        else
+            push(s, a);
+    }
+
+    free(a.dados);
+    free(b.dados);
 }
 
 void or (STACK *s)
