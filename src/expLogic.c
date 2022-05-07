@@ -53,18 +53,46 @@ void equal(STACK *s)
  */
 void is_smaller(STACK *s)
 {
-    double *a = pop(s).dados;
-    double *b = pop(s).dados;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
 
-    if (*b < *a)
-        push_long(s, 1);
-    else
-        push_long(s, 0);
+    if (y.tipo == ARRAY)
+    {   
+        double *a = x.dados;
+        double n = *a; 
+    
+        STACK *array = y.dados;
+        STACK *r = new_stack();
+        int i;
 
-    free(a);
-    free(b);
+        for (i = 1; i <= n; i++)
+        {
+            *(r->stack + i) = *(array->stack + i);
+            r->sp++;
+        }
+        push_array (s,*r);
+        
+        free (x.dados);
+        free (y.dados);
+    }
+
+    else 
+    {
+        push(s,y); 
+        push(s,x);
+
+        double *a = pop(s).dados;
+        double *b = pop(s).dados;
+        
+        if (*b < *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+
+        free(a);
+        free(b);
+    }
 }
-
 /**
  * @brief Verifica se o elemento do topo da stack é menor que o elemento abaixo deste, retornando 1 caso seja e 0 caso contrário (True ou False).
  * 
@@ -72,16 +100,46 @@ void is_smaller(STACK *s)
  */
 void is_bigger(STACK *s)
 {
-    double *a = pop(s).dados;
-    double *b = pop(s).dados;
+    DADOS x = pop(s);
+    DADOS y = pop(s);
 
-    if (*b > *a)
-        push_long(s, 1);
+    if (y.tipo == ARRAY)
+    {   
+        double *a = x.dados;
+        double n = *a; 
+    
+        STACK *array = y.dados;
+        STACK *r = new_stack();
+        int i,j;
+
+        for (i=1,j= array->sp - n + 1;i <= n ;i++,j++)
+        {
+            *(r->stack + i) = *(array->stack + j);
+            r->sp++;
+        }
+
+        push_array (s,*r);
+        
+        free (x.dados);
+        free (y.dados);
+    }
+
     else
-        push_long(s, 0);
+    {
+    
+        push (s,y);
+        push (s,x);
+        double *a = pop(s).dados;
+        double *b = pop(s).dados;
 
-    free(a);
-    free(b);
+        if (*b > *a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
+
+        free(a);
+        free(b);
+    }
 }
 
 /**
@@ -154,6 +212,8 @@ void smaller (STACK *s)
     DADOS x = pop(s);
     DADOS y = pop(s);
 
+
+    
     double *a = x.dados;
     double *b = y.dados;
 
@@ -162,6 +222,8 @@ void smaller (STACK *s)
     else
         push(s, x);
     
+    
+ 
     free (x.dados);
     free (y.dados);
 }

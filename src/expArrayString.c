@@ -95,3 +95,5 @@ void range(STACK *s)
 
     free(x.dados);
 }
+
+

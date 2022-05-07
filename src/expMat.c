@@ -152,7 +152,11 @@ void multiply(STACK *s)
     free(x.dados);
     free(y.dados);
 }
-
+void strback(char * str, int N)
+{
+    for (int i = 0; str[i + N - 1] != '\0'; i++)
+    str[i] = str[i + N];
+}
 /**
  * @brief A função `divide()` calcula o quociente entre dois números inteiros contidos na stack.
  *        
@@ -164,24 +168,66 @@ void divide(STACK *s)
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    double *a = x.dados;
-    double *b = y.dados;
-
-    if (x.tipo == LONG && y.tipo == LONG)
-    {
-        long ri = *b / *a;
+    if (x.tipo == STRING)
+    {   char * sub = x.dados; 
+        int subSiz = strlen(sub);
+        char * str = y.dados;
+        char * loc = strstr(str, sub);
+        STACK * arr = new_stack();
+        while(loc != NULL)
+        {
+            int ind = strlen(str) - strlen(loc);
+            char * newStr = malloc(BUFSIZ);
+            newStr = strcpy(newStr, str);
+            newStr[ind] = '\0';
+            newStr = realloc(newStr, strlen(newStr) + 1);
+            void * a = newStr;
+            push_string(arr, a);
+            strback(str, subSiz + ind);
+            loc = strstr(str, sub);
+        }
+        if (str != NULL)
+        {
+            void * a = str;
+            push_string(arr, a);
+        }
+        push_array(s, *arr);
         
-        double r = ri;
-        push_long(s, r);
+        free(x.dados);
+        free(y.dados);
     }
-    else
+
+    else 
     {
-        double r = *b / *a;
-        push_double(s, r);
+        push (s,y);
+        push (s,x);
+
+        if (x.tipo == LONG && y.tipo == LONG)
+        {
+
+            double *a = x.dados;
+            double *b = y.dados;
+
+            long ri = *b / *a;
+            
+            double r = ri;
+            push_long(s, r);
+
+            free(a);
+            free(b);
+        }
+        else
+        {
+            double *a = x.dados;
+            double *b = y.dados;
+
+            double r = *b / *a;
+            push_double(s, r);
+
+            free(a);
+            free(b);
+        }
     }
-    
-    free(a);
-    free(b);
 }
 
 /**
@@ -387,6 +433,7 @@ void incr(STACK *s)
  */
  void expo(STACK *s)
 {
+
     DADOS x = pop(s);
     DADOS y = pop(s);
 
