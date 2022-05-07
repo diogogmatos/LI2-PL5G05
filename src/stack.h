@@ -114,3 +114,5 @@ void div_whitespace(STACK *s);
 void range(STACK *s);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
+void slash_str(STACK* s, DADOS a, DADOS b);
+

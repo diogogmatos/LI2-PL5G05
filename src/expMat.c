@@ -324,6 +324,10 @@ void divide(STACK *s)
         double r = ri;
         push_long(s, r);
     }
+    else if (x.tipo == STRING && y.tipo == STRING)
+    {
+        slash_str(s, x, y);
+    }
     else
     {
         double r = *b / *a;
