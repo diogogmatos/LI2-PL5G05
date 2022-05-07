@@ -155,6 +155,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
     int i, f, j;
     int index = 0;
     char* acc = malloc(sizeof(char) * BUFSIZ);
+
     for (i = 0; *(str + i); ++i)
     {
         if (*(str + i) == *pat)
@@ -167,7 +168,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
                 *(acc + index) = '\0';
                 push_string(arr, acc);
                 index = 0;
-                i += f;
+                i += f-1;
             }
             else 
             {
@@ -181,6 +182,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
             ++index;
         }
     }
+    *(acc + index) = '\0';
     push_string(arr, acc);
 
     free(acc);
