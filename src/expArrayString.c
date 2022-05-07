@@ -103,6 +103,9 @@ void range(STACK *s)
     free(x.dados);
 }
 
+
+
+
 int substrings(STACK *s, DADOS b, DADOS a)
 {
     char* word = b.dados;
@@ -143,3 +146,4 @@ void create_string(STACK *s, char* token)
 
     push_string(s, str);
 }
+
