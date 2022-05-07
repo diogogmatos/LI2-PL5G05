@@ -168,7 +168,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
                 *(acc + index) = '\0';
                 push_string(arr, acc);
                 index = 0;
-                i += f;
+                i += f-1;
             }
             else 
             {
