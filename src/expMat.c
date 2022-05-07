@@ -181,15 +181,13 @@ void divide(STACK *s)
             newStr = strcpy(newStr, str);
             newStr[ind] = '\0';
             newStr = realloc(newStr, strlen(newStr) + 1);
-            void * a = newStr;
-            push_string(arr, a);
+            push_string(arr, newStr);
             strback(str, subSiz + ind);
             loc = strstr(str, sub);
         }
         if (str != NULL)
         {
-            void * a = str;
-            push_string(arr, a);
+            push_string(arr, str);
         }
         push_array(s, *arr);
         
