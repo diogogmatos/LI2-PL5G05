@@ -5,7 +5,7 @@
 
 // Definição de stack
 
-#define MAX_STACK  900000
+#define MAX_STACK  10000
 
 /**
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
