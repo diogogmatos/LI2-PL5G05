@@ -99,8 +99,6 @@ void range(STACK *s)
         for (i = 0; *(str + i); ++i);
         push_long(s, i);
     }
-
-    free(x.dados);
 }
 
 int substrings(STACK *s, DADOS b, DADOS a)

@@ -21,12 +21,15 @@ char* get_token(char* line, char token[])
     int index = 0;
     int flag = 0;
     int str_flag = 0;
+    int block_flag = 0;
+
     while (*line != '\n')
     {
         while (*line == ' ')
             line++;
 
-        while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0)) || (flag > 0 || str_flag > 0))
+        while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
+                (flag > 0 || str_flag > 0 || block_flag > 0))
         {   
             token[index] = *line;
             ++size;
@@ -35,8 +38,12 @@ char* get_token(char* line, char token[])
                 ++flag;
             else if (*line == '"' && str_flag == 0)
                 ++str_flag;
+            else if (*line == '{')
+                ++block_flag;
             else if (*line == '"' && str_flag > 0)
                 --str_flag;
+            else if (*line == '}')
+                -- block_flag;
             else if (*line == ']')
                 --flag;
             
@@ -62,8 +69,9 @@ char* get_token(char* line, char token[])
 int main()
 {
     STACK* s = new_stack();
-    DADOS var[26];
+    DADOS* var = malloc(sizeof(DADOS) * 26);
     initialize_var(var);
+    s->stack[0] = *var;
 
     char* line = malloc(sizeof(char) * BUFSIZ);
     char token[BUFSIZ];
