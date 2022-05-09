@@ -22,7 +22,6 @@ void dup (STACK *s)
     push(s, d);
     push(s, d);
 
-    free(d.dados);
 }
 
 /**
@@ -39,10 +38,6 @@ void spin (STACK *s)
     push(s, y);
     push(s, x);
     push(s, z);
-    
-    free(x.dados);
-    free(y.dados);
-    free(z.dados);
 }
 
 /**
@@ -57,9 +52,6 @@ void swap(STACK *s)
 
     push(s, x);
     push(s, y);
-      
-    free(x.dados);
-    free(y.dados);
 }
 
 /**
@@ -80,5 +72,5 @@ void ncopy(STACK *s)
 
     push(s, y);
 
-    free(t.dados);
+    /* free(t.dados); */
 }

@@ -410,6 +410,10 @@ void bit_not(STACK *s)
             push(s, r);
         }
     }
+    else if (x.tipo == BLOCK)
+    {
+        execute_block(s, x);
+    }
     else                      // Operação NOT binária
     {
         double *ai = x.dados;
