@@ -109,7 +109,6 @@ int substrings(STACK *s, DADOS b, DADOS a)
     char* sen = a.dados;
 
     int word_len = strlen(word);
-    /* int sen_len = strlen(sen); */
 
     int f, i , j;
     for (i = 0; *(sen + i); ++i)
@@ -142,4 +141,49 @@ void create_string(STACK *s, char* token)
     *(str+i) = '\0';
 
     push_string(s, str);
+}
+
+void slash_str(STACK* s, DADOS a, DADOS b)
+{
+    char* pat = a.dados;
+    char* str = b.dados;
+    
+    STACK* arr = new_stack();
+        
+    int tam = strlen(pat);
+    int i, f, j;
+    int index = 0;
+    char* acc = malloc(sizeof(char) * BUFSIZ);
+
+    for (i = 0; *(str + i); ++i)
+    {
+        if (*(str + i) == *pat)
+        {
+            
+            for (j = i, f = 0; *(str + j) && *(pat + f); ++j, ++f);
+
+            if (f == tam)
+            {
+                *(acc + index) = '\0';
+                push_string(arr, acc);
+                index = 0;
+                i += f-1;
+            }
+            else 
+            {
+                *(acc + index) = *(str + i);
+                ++index;
+            }
+        }
+        else 
+        {
+            *(acc + index) = *(str + i);
+            ++index;
+        }
+    }
+    *(acc + index) = '\0';
+    push_string(arr, acc);
+
+    free(acc);
+    push_array(s, *arr);
 }

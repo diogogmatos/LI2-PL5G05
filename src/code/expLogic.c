@@ -30,6 +30,7 @@ void equal(STACK *s)
         STACK *array = y.dados;
 
         push(s, array->stack[ind+1]);
+        free(x.dados);
     }
     else if (y.tipo == STRING && x.tipo == LONG)
     {
@@ -38,6 +39,7 @@ void equal(STACK *s)
         char* str = y.dados;
 
         push_char(s, *(str+ind));
+        free(x.dados);
     }
     else
     {
@@ -48,10 +50,11 @@ void equal(STACK *s)
             push_long(s, 1);
         else
             push_long(s, 0);
+
+        free(x.dados);
+        free(y.dados);
     }
 
-    free(x.dados);
-    free(y.dados);
 }
 
 /**

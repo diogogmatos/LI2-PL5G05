@@ -109,7 +109,6 @@ int substrings(STACK *s, DADOS b, DADOS a)
     char* sen = a.dados;
 
     int word_len = strlen(word);
-    /* int sen_len = strlen(sen); */
 
     int f, i , j;
     for (i = 0; *(sen + i); ++i)

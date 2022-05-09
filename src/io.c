@@ -81,15 +81,15 @@ void val(STACK* s, char* token)
  */
 void new_line (STACK *s)
 {
-    char line[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
     if (fgets (line, BUFSIZ, stdin) != NULL)
         push_string (s,line);
 }
 
 void all_lines (STACK *s)
 {
-    char line[BUFSIZ]="";
-    char line2[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    char* line2 = malloc(sizeof(char) * BUFSIZ);
     while (fgets (line2,BUFSIZ,stdin) != NULL)
     {
         strcat(line , line2);
@@ -223,6 +223,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
             switch (token[1])
             {
                 case '/': { div_newline(s); return; }
+                case '\0': { handle_variables(s, token, var); return; } 
             }
             return;
         }
@@ -231,7 +232,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
             switch (token[1])
             {
                 case '/': { div_whitespace(s); return; }
-                case '\0': { push_char(s, ' '); return; }
+                case '\0': { handle_variables(s, token, var); return; }
             }
             return;
         }

@@ -107,22 +107,11 @@ void s_add(STACK *s)
     }
     else if (x.tipo == STRING && y.tipo == STRING)
     {
-            char* str1 = y.dados;
-            char* str2 = x.dados;
-
-            char* r = malloc(sizeof(char) * BUFSIZ);
-            int i, j, k;
-            for (i=0; *(str1 + i); i++)
-            {
-                *(r+i) = *(str1 + i);
-            }
-
-            for (j=i, k=0; *(str2 + k);j++,k++)
-            {
-                *(r+j) = *(str2 + k);
-            }
-            *(r+j) = '\0';
-            
+            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+            char* a = x.dados;
+            char* b = y.dados;
+            memcpy(r, b, strlen(b));
+            strcat(r, a);
             push_string(s,r);   
     }  
     else if (x.tipo == CHAR && y.tipo == STRING)
@@ -324,6 +313,10 @@ void divide(STACK *s)
         double r = ri;
         push_long(s, r);
     }
+    else if (x.tipo == STRING && y.tipo == STRING)
+    {
+        slash_str(s, x, y);
+    }
     else
     {
         double r = *b / *a;
@@ -466,8 +459,6 @@ void decr(STACK *s)
     {
         push_double(s, (*(double*)x.dados) - 1);
     }
-
-    free(x.dados);
 }
 
 /**
@@ -495,11 +486,10 @@ void incr(STACK *s)
     else if (x.tipo == STRING)
     {
         char *str = x.dados;
-        char elem = 'd';
+        char elem;
         int i;
-        for (i = 0; *(str+i) != '\0'; ++i){
-            elem = *(str+i);
-        }
+        for (i = 0; *(str+i) != '\0'; ++i);
+        elem = *(str+i-1);
         *(str+i-1) = '\0';
         push_string(s, str);
         push_char(s, elem);
@@ -507,7 +497,6 @@ void incr(STACK *s)
     else
         push_double(s, (*(double*)x.dados) + 1);
     
-    free(x.dados);
 }
 
 /**
