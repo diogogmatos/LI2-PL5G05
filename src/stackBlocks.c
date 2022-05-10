@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
+#include <string.h>
 
 DADOS create_block(STACK* s, char* token)
 {
@@ -37,7 +38,25 @@ void execute_block(STACK* s, DADOS block)
     handle_token(s, token, &s->stack[0]);
 }
 
-void execute_block_array(STACK* s, DADOS block)
+void execute_block_array(STACK* s, DADOS block, DADOS array)
 {
-    //Completar
+    STACK* old_arr = array.dados;
+
+    STACK* new_arr = new_stack();
+    new_arr->cap = old_arr->cap;
+    new_arr->stack = malloc(sizeof(DADOS) * old_arr->cap);    
+    
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    line = block.dados;
+    for(int i = 1; i <= old_arr->sp; ++i)
+    {
+        push(new_arr, old_arr->stack[i]);
+        while ((line = get_token(line, token)) && *line != '\0'){
+            handle_token(new_arr, token, &s->stack[0]);
+        }
+        handle_token(new_arr, token, &s->stack[0]);
+        line = block.dados;
+    }
+    push_array(s, *new_arr);
 }
