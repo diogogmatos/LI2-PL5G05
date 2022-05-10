@@ -509,17 +509,25 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    double *ai = pop(s).dados;
-    long a = *ai;
+    DADOS x = pop(s);
 
-    double *bi = pop(s).dados;
-    long b = *bi;
+    DADOS y = pop(s);
 
-    double r = b % a;
-    push_long(s, r);
-    
-    free(ai);
-    free(bi);
+    if (x.tipo == BLOCK)
+        execute_block_array(s, x, y);
+        
+    else
+    {
+        double *ai = x.dados;
+        long a = *ai;
+        double *bi = y.dados;
+        long b = *bi;
+
+        double r = b % a;
+        push_long(s, r);
+        free(x.dados);
+        free(y.dados);
+    }
 }
 
 /**
