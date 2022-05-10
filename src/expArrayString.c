@@ -21,10 +21,13 @@
 void div_newline(STACK *s)
 {
     char *a = pop(s).dados;
+    char *str = malloc(sizeof(char) * BUFSIZ);
+    strcpy(str, a);
+
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(a, "\n");
+    token = strtok(str, "\n");
 
     while (token != NULL)
     {
@@ -33,9 +36,6 @@ void div_newline(STACK *s)
     }
     
     push_array(s, *r);
-
-    free(a);
-    free(token);
 }
 
 /**
@@ -48,21 +48,21 @@ void div_newline(STACK *s)
 void div_whitespace(STACK *s)
 {
     char *a = pop(s).dados;
+    char *str = malloc(sizeof(char) * BUFSIZ);
+    strcpy(str, a);
+
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(a, " \n");
+    token = strtok(str, " \t\r\n\v\f");
 
     while (token != NULL)
     {
         push_string(r, token);
-        token = strtok(NULL, " \n");
+        token = strtok(NULL, " \t\r\n\v\f");
     }
     
     push_array(s, *r);
-
-    free(a);
-    free(token);
 }
 
 /**
@@ -99,35 +99,14 @@ void range(STACK *s)
         for (i = 0; *(str + i); ++i);
         push_long(s, i);
     }
-
-    free(x.dados);
 }
 
-int substrings(STACK *s, DADOS b, DADOS a)
-{
-    char* word = b.dados;
-    char* sen = a.dados;
-
-    int word_len = strlen(word);
-
-    int f, i , j;
-    for (i = 0; *(sen + i); ++i)
-    {
-        if (*word == *(sen + i))
-        {
-            for (f = 0, j = i; *(sen + j) && *(word + f); ++f, ++j);
-
-            if (f == word_len)
-            {
-                push_long(s, i);
-                return i;
-            }
-        }
-    }
-    push_long(s, -1);
-    return -1;
-}
-
+/**
+ * @brief Responsável por criar uma nova string, de acordo com o input do programa, que é feito da forma: `"string de exemplo"`.
+ * 
+ * @param s Stack.
+ * @param token Input do programa.
+ */
 void create_string(STACK *s, char* token)
 {
     ++token;
@@ -143,47 +122,46 @@ void create_string(STACK *s, char* token)
     push_string(s, str);
 }
 
+/**
+ * @brief Separa uma string em substrings de acordo com um delimitador que é também uma string. As substrings são adicionadas a um array que é
+ * posterioremente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()` de
+ * modo a criar uma nova stack.
+ * 
+ * - __Exemplo de input:__ `"string-de-exemplo" " " /`
+ * 
+ * - __Nota:__ Esta função é usada como uma auxiliar de `divide()`.
+ * 
+ * @param s Stack.
+ * @param a String.
+ * @param b String delimitadora.
+ */
 void slash_str(STACK* s, DADOS a, DADOS b)
 {
-    char* pat = a.dados;
-    char* str = b.dados;
+    char *str2 = a.dados;
+    char *str1 = b.dados;
     
-    STACK* arr = new_stack();
-        
-    int tam = strlen(pat);
-    int i, f, j;
-    int index = 0;
-    char* acc = malloc(sizeof(char) * BUFSIZ);
-
-    for (i = 0; *(str + i); ++i)
+    STACK *r = new_stack();
+    
+    int ind;
+    while (strstr(str1, str2) != NULL)
     {
-        if (*(str + i) == *pat)
-        {
-            
-            for (j = i, f = 0; *(str + j) && *(pat + f); ++j, ++f);
+        char *aux = malloc(sizeof(char) * BUFSIZ);
+        ind = strstr(str1, str2) - str1;
 
-            if (f == tam)
-            {
-                *(acc + index) = '\0';
-                push_string(arr, acc);
-                index = 0;
-                i += f-1;
-            }
-            else 
-            {
-                *(acc + index) = *(str + i);
-                ++index;
-            }
-        }
-        else 
-        {
-            *(acc + index) = *(str + i);
-            ++index;
-        }
+        int i;
+        for (i=0; i < ind; i++)
+            aux[i] = str1[i];
+        aux[i] = '\0';
+
+        push_string(r, aux);
+        str1 = str1 + ind + strlen(str2);
     }
-    *(acc + index) = '\0';
-    push_string(arr, acc);
+    if (str1[0] != '\0')
+    {
+        char *aux = malloc(sizeof(char) * BUFSIZ);
+        strcpy(aux, str1);
+        push_string(r, aux);
+    }
 
-    free(acc);
-    push_array(s, *arr);
+    push_array(s, *r);
 }

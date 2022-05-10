@@ -23,15 +23,6 @@ STACK* new_stack()
     return s;
 }
 
-//Remoção de elementos da stack
-
-void remove_elem(STACK* s, int pos)
-{
-    for (int i = pos; i+1 <= s->sp+1; ++i)
-        s->stack[i] = s->stack[i+1];
-    s->sp--;
-}
-
 // Armazenamento de variáveis
 
 /**
@@ -206,7 +197,12 @@ DADOS pop(STACK* s)
     return d;
 }
 
-
+/**
+ * @brief Verifica se é necessário alocar mais memória para a stack, o que acontece quando esta atinge o limite de capacidade.
+ * 
+ * @param s Stack.
+ * @return DADOS* Retorna o endereço do array de dados da stack.
+ */
 DADOS* memory_checker(STACK* s)
 {
     if (s->sp == s->cap)

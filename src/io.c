@@ -86,6 +86,11 @@ void new_line (STACK *s)
         push_string (s,line);
 }
 
+/**
+ * @brief Esta função representa a ação do comando `t`, que recebe uma quantidade de linhas de input por cada ocorrência do comando.
+ * 
+ * @param s Stack.
+ */
 void all_lines (STACK *s)
 {
     char* line = malloc(sizeof(char) * BUFSIZ);
@@ -94,7 +99,6 @@ void all_lines (STACK *s)
     {
         strcat(line , line2);
     }
-
     push_string (s,line);
 }
 
@@ -132,8 +136,9 @@ void handle_variables(STACK* s, char* token, DADOS *var)
 {   
     if (token[0] == ':')
     {
-        DADOS d = pop(s);
+        DADOS d = pop(s);        
         int n = token[1];
+        
         var[n-65] = d;
         push(s, d);
     }
@@ -239,6 +244,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
         
         // Casos especiais
 
+        case 0: { return; }
+
         default:
         { 
             // Expressões matemáticas
@@ -290,8 +297,7 @@ void print_stack(STACK *s)
             printf("%c", *((char*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             printf("%s", (char*)d.dados);
-        else if (d.tipo == ARRAY){
+        else if (d.tipo == ARRAY)
             print_stack(d.dados);
-        }
     }
 }

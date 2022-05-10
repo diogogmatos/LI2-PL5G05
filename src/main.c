@@ -9,7 +9,7 @@
 #include "stack.h"
 
 /**
- * @brief 
+ * @brief ?
  * 
  * @param line String contendo a totalidade do input.
  * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
