@@ -288,9 +288,6 @@ void multiply(STACK *s)
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
- * 
- * - __Nota:__ Caso os operandos sejam strings, a função `divide()` irá executar o operador de strings `/`, que está definido e documentado na função
- * auxiliar `slash_str()`.
  */
 void divide(STACK *s)
 {   
@@ -308,7 +305,9 @@ void divide(STACK *s)
         push_long(s, r);
     }
     else if (x.tipo == STRING && y.tipo == STRING)
+    {
         slash_str(s, x, y);
+    }
     else
     {
         double r = *b / *a;
@@ -401,10 +400,6 @@ void bit_not(STACK *s)
             DADOS r = a->stack[i];
             push(s, r);
         }
-    }
-    else if (x.tipo == BLOCK)
-    {
-        execute_block(s, x);
     }
     else                      // Operação NOT binária
     {

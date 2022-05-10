@@ -7,6 +7,28 @@
 #include <string.h>
 #include "stack.h"
 
+// Colocação de elementos na stack
+
+DADOS create_array(STACK* s, char* token, DADOS *var)
+{
+    STACK* array = new_stack();
+    char token_token[BUFSIZ]; 
+
+    ++token;
+    while(*token){
+        token = get_token(token, token_token);
+
+        if (token_token[0] == ']');  //Não faz nada
+        else {
+            handle_token(array, token_token, var);
+        }
+    }
+
+    DADOS d = {ARRAY, array};
+    s->sp++;
+    s->stack[s->sp] = d;
+    return d;
+}
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
@@ -200,7 +222,6 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
-        case '{': { create_block(s, token); return; }
         case ',': { range(s); return; }
         case 'N':
         {
@@ -276,9 +297,7 @@ void print_stack(STACK *s)
             printf("%c", *((char*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             printf("%s", (char*)d.dados);
-        else if (d.tipo == ARRAY)     // Caso em que o elemento da stack é um ARRAY
+        else if (d.tipo == ARRAY)
             print_stack(d.dados);
-        else if (d.tipo == BLOCK)     // Caso em que o elemento da stack é um BLOCK
-            printf("{ %s }", (char*)d.dados);
     }
 }

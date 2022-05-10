@@ -11,29 +11,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Colocação de elementos na stack
-
-DADOS create_array(STACK* s, char* token, DADOS *var)
-{
-    STACK* array = new_stack();
-    char token_token[BUFSIZ]; 
-
-    ++token;
-    while(*token){
-        token = get_token(token, token_token);
-
-        if (token_token[0] == ']');  //Não faz nada
-        else {
-            handle_token(array, token_token, var);
-        }
-    }
-
-    DADOS d = {ARRAY, array};
-    s->sp++;
-    s->stack[s->sp] = d;
-    return d;
-}
-
 /**
  * @brief Separa uma string em substrings de acordo com o caracter '\n' (parágrafo), adicionando cada substring a um array que é
  * posteriormente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()`
@@ -73,7 +50,7 @@ void div_whitespace(STACK *s)
     char *a = pop(s).dados;
     char *str = malloc(sizeof(char) * BUFSIZ);
     strcpy(str, a);
-
+    
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
@@ -124,12 +101,6 @@ void range(STACK *s)
     }
 }
 
-/**
- * @brief Responsável por criar uma nova string, de acordo com o input do programa, que é feito da forma: `"string de exemplo"`.
- * 
- * @param s Stack.
- * @param token Input do programa.
- */
 void create_string(STACK *s, char* token)
 {
     ++token;
@@ -145,19 +116,6 @@ void create_string(STACK *s, char* token)
     push_string(s, str);
 }
 
-/**
- * @brief Separa uma string em substrings de acordo com um delimitador que é também uma string. As substrings são adicionadas a um array que é
- * posterioremente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()` de
- * modo a criar uma nova stack.
- * 
- * - __Exemplo de input:__ `"string-de-exemplo" " " /`
- * 
- * - __Nota:__ Esta função é usada como uma auxiliar de `divide()`.
- * 
- * @param s Stack.
- * @param a String.
- * @param b String delimitadora.
- */
 void slash_str(STACK* s, DADOS a, DADOS b)
 {
     char *str2 = a.dados;

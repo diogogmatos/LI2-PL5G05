@@ -9,7 +9,6 @@
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /**
  * @brief Verifica se dois elementos da stack são iguais, retornando 1 caso sejam e 0 caso contrário (True ou False).
@@ -55,6 +54,7 @@ void equal(STACK *s)
         free(x.dados);
         free(y.dados);
     }
+
 }
 
 /**
@@ -64,57 +64,39 @@ void equal(STACK *s)
  */
 void is_smaller(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
+    DADOS a = pop(s);
+    DADOS b = pop(s);
     
-    if (x.tipo == STRING && y.tipo == STRING)
+    if (a.tipo == STRING && b.tipo == STRING)
     {
-        char *a = x.dados;
-        char *b = y.dados;
+        int tam_a = 0;
+        int tam_b = 0;
+        char* str1 = a.dados;
+        char* str2 = b.dados;
 
-        if (strcmp (b, a) > 0)
-            push_long(s, 0);
-        else
-            push_long(s, 1);
-    }
-    else if (x.tipo == LONG && y.tipo == ARRAY)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        STACK *array = y.dados;
-
-        STACK *r = new_stack();
+        for (int i = 0; *(str2+i); ++i)
+            tam_b += *(str2+i);
+        for (int i = 0; *(str2 + i); ++i)
+            tam_a += *(str1 + i);
         
-        for (int j = 1; j <= i; j++)
-            push(r, array->stack[j]);
-
-        push_array(s, *r);
-    }
-    else if (x.tipo == LONG && y.tipo == STRING)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        char *str = y.dados;
-
-        char *r = malloc(sizeof(str) + BUFSIZ);
-
-        int j;
-        for (j = 0; j < i; j++)
-            r[j] = str[j];
-        r[j] = '\0';
-
-        push_string(s, r);
+        if (tam_b < tam_a)
+            push_long(s, 1);
+        else
+            push_long(s, 0);
     }
     else 
     {
-        double a_int = *(double*)x.dados;
-        double b_int = *(double*)y.dados;
+        double a_int = *(double*)a.dados;
+        double b_int = *(double*)b.dados;
 
         if (b_int < a_int)
             push_long(s, 1);
         else
             push_long(s, 0);
     }
+
+    free(a.dados);
+    free(b.dados);
 }
 
 /**
@@ -124,57 +106,39 @@ void is_smaller(STACK *s)
  */
 void is_bigger(STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
+    DADOS a = pop(s);
+    DADOS b = pop(s);
     
-    if (x.tipo == STRING && y.tipo == STRING)
+    if (a.tipo == STRING && b.tipo == STRING)
     {
-        char *a = x.dados;
-        char *b = y.dados;
+        int tam_a = 0;
+        int tam_b = 0;
+        char* str1 = a.dados;
+        char* str2 = b.dados;
 
-        if (strcmp (b, a) > 0)
+        for (int i = 0; *(str2+i); ++i)
+            tam_b += *(str2+i);
+        for (int i = 0; *(str2 + i); ++i)
+            tam_a += *(str1 + i);
+        
+        if (tam_b > tam_a)
             push_long(s, 1);
         else
             push_long(s, 0);
     }
-    else if (x.tipo == LONG && y.tipo == ARRAY)
+    else 
     {
-        double *ii = x.dados;
-        int i = *ii;
-        STACK *array = y.dados;
-
-        STACK *r = new_stack();
-
-        for (int j = array->sp - i + 1; j <= array->sp; j++)
-            push(r, array->stack[j]);
-
-        push_array(s, *r);
-    }
-    else if (x.tipo == LONG && y.tipo == STRING)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        char *str = y.dados;
-
-        char *r = malloc(sizeof(str) + BUFSIZ);
-
-        int j, k, tam = strlen(str);
-        for (j = tam - i, k = 0; j < tam; j++, k++)
-            r[k] = str[j];
-        r[k] = '\0';
-
-        push_string(s, r);
-    }
-    else
-    {
-        double a_int = *(double*)x.dados;
-        double b_int = *(double*)y.dados;
+        double a_int = *(double*)a.dados;
+        double b_int = *(double*)b.dados;
 
         if (b_int > a_int)
             push_long(s, 1);
         else
             push_long(s, 0);
     }
+
+    free(a.dados);
+    free(b.dados);
 }
 
 /**
@@ -299,12 +263,6 @@ void smaller (STACK *s)
     free(b.dados);
 }
 
-/**
- * @brief Faz a disjunção lógica de dois elementos do topo da stack, ou seja, se ambos os elementos forem 0 dá push a 0, caso contrário
- * se um dos elementos for 0 dá push ao outro elemento, caso contrário dá push ao 2º elemento.
- * 
- * @param s Stack.
- */
 void or (STACK *s)
 {
     DADOS x = pop(s);
@@ -324,13 +282,6 @@ void or (STACK *s)
     free(b);
 }
 
-/**
- * @brief Realiza a operação if-then-else (se, então, senão), recebendo 3 elementos, onde o primeiro é condicional (0 - Falso, != 0 - Verdadeiro) e
- * os restantes correspondem ás consequências da condição. Por exemplo, um input `$ 1 2 3` daria como output `2`, uma vez que a condição é verdadeira,
- * e `3` caso o valor da condição fosse 0.
- * 
- * @param s Stack.
- */
 void if_else (STACK* s)
 {
     DADOS else_this = pop(s);
@@ -370,3 +321,4 @@ void if_else (STACK* s)
         }
     }
 }
+
