@@ -299,12 +299,6 @@ void smaller (STACK *s)
     free(b.dados);
 }
 
-/**
- * @brief Faz a disjunção lógica de dois elementos do topo da stack, ou seja, se ambos os elementos forem 0 dá push a 0, caso contrário
- * se um dos elementos for 0 dá push ao outro elemento, caso contrário dá push ao 2º elemento.
- * 
- * @param s Stack.
- */
 void or (STACK *s)
 {
     DADOS x = pop(s);
@@ -324,13 +318,6 @@ void or (STACK *s)
     free(b);
 }
 
-/**
- * @brief Realiza a operação if-then-else (se, então, senão), recebendo 3 elementos, onde o primeiro é condicional (0 - Falso, != 0 - Verdadeiro) e
- * os restantes correspondem ás consequências da condição. Por exemplo, um input `$ 1 2 3` daria como output `2`, uma vez que a condição é verdadeira,
- * e `3` caso o valor da condição fosse 0.
- * 
- * @param s Stack.
- */
 void if_else (STACK* s)
 {
     DADOS else_this = pop(s);
@@ -370,3 +357,4 @@ void if_else (STACK* s)
         }
     }
 }
+

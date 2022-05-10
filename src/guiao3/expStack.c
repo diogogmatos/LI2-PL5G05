@@ -17,10 +17,12 @@
  */
 void dup (STACK *s)
 {
-    DADOS d = pop(s);
+    DADOS d = pop (s);
 
     push(s, d);
     push(s, d);
+
+    free(d.dados);
 }
 
 /**
@@ -30,13 +32,17 @@ void dup (STACK *s)
  */
 void spin (STACK *s)
 {
-    DADOS x = pop(s);
-    DADOS y = pop(s);
-    DADOS z = pop(s);
+    DADOS x = pop (s);
+    DADOS y = pop (s);
+    DADOS z = pop (s);
 
     push(s, y);
     push(s, x);
     push(s, z);
+    
+    free(x.dados);
+    free(y.dados);
+    free(z.dados);
 }
 
 /**
@@ -51,6 +57,9 @@ void swap(STACK *s)
 
     push(s, x);
     push(s, y);
+      
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -70,4 +79,6 @@ void ncopy(STACK *s)
     DADOS y = s->stack[(s->sp) - i];
 
     push(s, y);
+
+    free(t.dados);
 }

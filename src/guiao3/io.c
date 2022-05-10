@@ -7,6 +7,28 @@
 #include <string.h>
 #include "stack.h"
 
+// Colocação de elementos na stack
+
+DADOS create_array(STACK* s, char* token, DADOS *var)
+{
+    STACK* array = new_stack();
+    char token_token[BUFSIZ]; 
+
+    ++token;
+    while(*token){
+        token = get_token(token, token_token);
+
+        if (token_token[0] == ']');  //Não faz nada
+        else {
+            handle_token(array, token_token, var);
+        }
+    }
+
+    DADOS d = {ARRAY, array};
+    s->sp++;
+    s->stack[s->sp] = d;
+    return d;
+}
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
@@ -64,11 +86,6 @@ void new_line (STACK *s)
         push_string (s,line);
 }
 
-/**
- * @brief Esta função representa a ação do comando `t`, que recebe uma quantidade de linhas de input por cada ocorrência do comando.
- * 
- * @param s Stack.
- */
 void all_lines (STACK *s)
 {
     char* line = malloc(sizeof(char) * BUFSIZ);
@@ -77,6 +94,7 @@ void all_lines (STACK *s)
     {
         strcat(line , line2);
     }
+
     push_string (s,line);
 }
 
@@ -114,9 +132,8 @@ void handle_variables(STACK* s, char* token, DADOS *var)
 {   
     if (token[0] == ':')
     {
-        DADOS d = pop(s);        
+        DADOS d = pop(s);
         int n = token[1];
-        
         var[n-65] = d;
         push(s, d);
     }
@@ -200,7 +217,6 @@ void handle_token(STACK* s, char* token, DADOS *var)
 
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
-        case '{': { create_block(s, token); return; }
         case ',': { range(s); return; }
         case 'N':
         {
@@ -222,8 +238,6 @@ void handle_token(STACK* s, char* token, DADOS *var)
         }
         
         // Casos especiais
-
-        case 0: { return; }
 
         default:
         { 
@@ -276,9 +290,8 @@ void print_stack(STACK *s)
             printf("%c", *((char*)d.dados));
         else if (d.tipo == STRING)    // Caso em que o elemento da stack é uma STRING
             printf("%s", (char*)d.dados);
-        else if (d.tipo == ARRAY)     // Caso em que o elemento da stack é um ARRAY
+        else if (d.tipo == ARRAY){
             print_stack(d.dados);
-        else if (d.tipo == BLOCK)     // Caso em que o elemento da stack é um BLOCK
-            printf("{ %s }", (char*)d.dados);
+        }
     }
 }

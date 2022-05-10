@@ -43,8 +43,9 @@ void s_add(STACK *s)
             r->sp++;
         }
 
-        push_array(s, *r);
+        push_array(s,*r);
     }
+
     else if (x.tipo == CHAR && y.tipo == ARRAY)
     {
         STACK *array = y.dados;
@@ -60,9 +61,11 @@ void s_add(STACK *s)
             r->sp++;
         }
 
-        push_char(r, c);
-        push_array(s, *r);
+        push_char(r,c);
+
+        push_array(s,*r);
     }
+
     else if (x.tipo == ARRAY && y.tipo == CHAR)
     {
         STACK *array = x.dados;
@@ -79,7 +82,7 @@ void s_add(STACK *s)
             *(r->stack + i) = *(array->stack + i -1);
             r->sp++;
         }
-        push_array(s, *r);
+        push_array(s,*r);
     }
     else if ((x.tipo == LONG || x.tipo == DOUBLE) && y.tipo == ARRAY)
     {
@@ -104,12 +107,12 @@ void s_add(STACK *s)
     }
     else if (x.tipo == STRING && y.tipo == STRING)
     {
-            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
+            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
             char* a = x.dados;
             char* b = y.dados;
             memcpy(r, b, strlen(b));
             strcat(r, a);
-            push_string(s, r);
+            push_string(s,r);   
     }  
     else if (x.tipo == CHAR && y.tipo == STRING)
     {
@@ -117,7 +120,7 @@ void s_add(STACK *s)
         double c = *a;
 
         char *str = y.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        char *r = malloc (sizeof(char) * BUFSIZ);
         int tam = strlen(str);
         
         int i;
@@ -129,15 +132,16 @@ void s_add(STACK *s)
         *(r + tam) = c;
         *(r + tam + 1) = '\0';
 
-        push_string (s, r);
+        push_string (s,r);
     }
+
     else if (x.tipo == STRING && y.tipo == CHAR)
     {
         char *a = y.dados;
         double c = *a;
 
         char *str = x.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        char *r = malloc (sizeof(char) * BUFSIZ);
         int tam = strlen(str);
         int i,j=0;
 
@@ -150,8 +154,9 @@ void s_add(STACK *s)
 
         *(r + tam + 1) = '\0';
         
-        push_string (s, r);
+        push_string (s,r);
     }
+
     else if (x.tipo == LONG && y.tipo == LONG)
     {
         double *a = x.dados;
@@ -161,6 +166,7 @@ void s_add(STACK *s)
         
         double r = ri;
         push_long(s, r);
+
     }
     else
     {
@@ -170,6 +176,9 @@ void s_add(STACK *s)
         double r = *b + *a;
         push_double(s, r);
     }
+    
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -288,9 +297,6 @@ void multiply(STACK *s)
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
- * 
- * - __Nota:__ Caso os operandos sejam strings, a função `divide()` irá executar o operador de strings `/`, que está definido e documentado na função
- * auxiliar `slash_str()`.
  */
 void divide(STACK *s)
 {   
@@ -308,7 +314,9 @@ void divide(STACK *s)
         push_long(s, r);
     }
     else if (x.tipo == STRING && y.tipo == STRING)
+    {
         slash_str(s, x, y);
+    }
     else
     {
         double r = *b / *a;
@@ -402,10 +410,6 @@ void bit_not(STACK *s)
             push(s, r);
         }
     }
-    else if (x.tipo == BLOCK)
-    {
-        execute_block(s, x);
-    }
     else                      // Operação NOT binária
     {
         double *ai = x.dados;
@@ -438,23 +442,16 @@ void decr(STACK *s)
     }
     else if (x.tipo == ARRAY)
     {
-        STACK *array = x.dados;
-        STACK *new_array = new_stack();
-
-        new_array->sp = array->sp-1;
-        for (int i=2, j=1; i <= array->sp; i++, j++)
-            new_array->stack[j] = array->stack[i];
-        
-        push_array(s, *new_array);
-        push(s, array->stack[1]);
-
-        free(array);
-    }
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[1];
+        remove_elem(n_stack, 1);
+        push_array(s, *n_stack);
+        push(s, elem);
+    }    
     else if (x.tipo == STRING)
     {
         char *str = x.dados;
         char elem = *str;
-
         push_string(s, ++str);
         push_char(s, elem);
     }
@@ -480,11 +477,10 @@ void incr(STACK *s)
         push_char(s, (*(char*)x.dados) + 1);
     else if (x.tipo == ARRAY)
     {
-        STACK* new_array = x.dados;
-        DADOS elem = new_array->stack[new_array->sp];
-        new_array->sp--;
-        
-        push_array(s, *new_array);
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[n_stack->sp];
+        n_stack->sp--;            
+        push_array(s, *n_stack);
         push(s, elem);
     }
     else if (x.tipo == STRING)
@@ -500,6 +496,7 @@ void incr(STACK *s)
     }
     else
         push_double(s, (*(double*)x.dados) + 1);
+    
 }
 
 /**
@@ -509,25 +506,17 @@ void incr(STACK *s)
  */
  void mod(STACK *s)
 {
-    DADOS x = pop(s);
+    double *ai = pop(s).dados;
+    long a = *ai;
 
-    DADOS y = pop(s);
+    double *bi = pop(s).dados;
+    long b = *bi;
 
-    if (x.tipo == BLOCK)
-        execute_block_array(s, x, y);
-        
-    else
-    {
-        double *ai = x.dados;
-        long a = *ai;
-        double *bi = y.dados;
-        long b = *bi;
-
-        double r = b % a;
-        push_long(s, r);
-        free(x.dados);
-        free(y.dados);
-    }
+    double r = b % a;
+    push_long(s, r);
+    
+    free(ai);
+    free(bi);
 }
 
 /**
@@ -557,23 +546,9 @@ void incr(STACK *s)
         }
         
         push_long(s, r);
-
-        free(x.dados);
-        free(y.dados);
     }
     else if (x.tipo == STRING && y.tipo == STRING)
-    {
-        char *a = x.dados;
-        char *b = y.dados;
-
-        if (strstr(b, a) == NULL)
-            push_long(s, -1);
-        else
-            push_long(s, strstr(b, a) - b);
-
-        free(x.dados);
-        free(y.dados);
-    }
+        substrings(s, x, y);
     else
     {
         double a = *((double*)x.dados);
@@ -581,8 +556,8 @@ void incr(STACK *s)
 
         double r = pow(b, a);
         push_double(s, r);
-
-        free(x.dados);
-        free(y.dados);
     }
+
+    free(x.dados);
+    free(y.dados);
 }

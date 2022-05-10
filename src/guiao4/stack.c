@@ -197,12 +197,7 @@ DADOS pop(STACK* s)
     return d;
 }
 
-/**
- * @brief Verifica se é necessário alocar mais memória para a stack, o que acontece quando esta atinge o limite de capacidade.
- * 
- * @param s Stack.
- * @return DADOS* Retorna o endereço do array de dados da stack.
- */
+
 DADOS* memory_checker(STACK* s)
 {
     if (s->sp == s->cap)
