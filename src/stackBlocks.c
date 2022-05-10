@@ -36,3 +36,8 @@ void execute_block(STACK* s, DADOS block)
     }
     handle_token(s, token, &s->stack[0]);
 }
+
+void execute_block_array(STACK* s, DADOS block)
+{
+    //Completar
+}
