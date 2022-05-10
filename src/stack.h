@@ -12,7 +12,7 @@
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
  * 
  */
-typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY} TIPO;
+typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY, BLOCK} TIPO;
 
 /**
  * @brief Definição de uma estrutura "__DADOS__" que constitui os elementos da stack.
@@ -112,10 +112,16 @@ void if_else(STACK* s);
 
 // expArrayString.c
 
+DADOS create_array(STACK* s, char* token, DADOS *var);
 void div_newline(STACK *s);
 void div_whitespace(STACK *s);
 void range(STACK *s);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
 void slash_str(STACK* s, DADOS a, DADOS b);
+
+// stackBlocks.c
+DADOS create_block(STACK* s, char* token);
+void execute_block(STACK* s, DADOS block);
+
 

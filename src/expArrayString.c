@@ -11,6 +11,29 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Colocação de elementos na stack
+
+DADOS create_array(STACK* s, char* token, DADOS *var)
+{
+    STACK* array = new_stack();
+    char token_token[BUFSIZ]; 
+
+    ++token;
+    while(*token){
+        token = get_token(token, token_token);
+
+        if (token_token[0] == ']');  //Não faz nada
+        else {
+            handle_token(array, token_token, var);
+        }
+    }
+
+    DADOS d = {ARRAY, array};
+    s->sp++;
+    s->stack[s->sp] = d;
+    return d;
+}
+
 /**
  * @brief Separa uma string em substrings de acordo com o caracter '\n' (parágrafo), adicionando cada substring a um array que é
  * posteriormente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()`
