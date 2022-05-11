@@ -92,6 +92,9 @@ void div_whitespace(STACK *s)
  * @brief Quando o input é um inteiro N, cria um ARRAY de inteiros com os elementos no intervalo de 0 até N-1, e coloca-o na stack com a função `push_array()`
  * Caso o input seja um ARRAY, devolve à stack o tamanho do mesmo na forma de inteiro (LONG), utilizando `push_long()`.
  * 
+ * - __Nota:__ Quando o input é um bloco (BLOCK), realiza a operação de filtragem de arrays/strings de acordo com um bloco, utilizando por
+ * isso as funções `filter_array()` e `filter_string()`, cujo objetivo e funcionamento está documentado em stackBlocks.c.
+ * 
  * @param s Stack.
  */
 void range(STACK *s)
