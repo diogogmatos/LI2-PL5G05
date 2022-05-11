@@ -122,6 +122,15 @@ void range(STACK *s)
         for (i = 0; *(str + i); ++i);
         push_long(s, i);
     }
+    else if (x.tipo == BLOCK)
+    {
+        DADOS y = pop(s);
+
+        if (y.tipo == ARRAY)
+            filter_array(s, x, y);
+        else
+            filter_string(s, x, y);
+    }
 }
 
 /**
