@@ -515,7 +515,6 @@ void incr(STACK *s)
 
     if (x.tipo == BLOCK)
         execute_block_array(s, x, y);
-        
     else
     {
         double *ai = x.dados;
