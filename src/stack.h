@@ -122,8 +122,10 @@ void create_string(STACK *s, char* token);
 void slash_str(STACK* s, DADOS a, DADOS b);
 
 // stackBlocks.c
+
 DADOS create_block(STACK* s, char* token);
 void execute_block_array(STACK* s, DADOS block, DADOS array);
 void execute_block(STACK* s, DADOS block);
 void execute_block_string(STACK* s, DADOS block, DADOS string);
-
+void filter_array(STACK* s, DADOS b, DADOS a);
+void filter_string(STACK* s, DADOS b, DADOS a);
