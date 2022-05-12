@@ -13,14 +13,9 @@
 #include <string.h>
 
 /** 
- * @brief A função `s_add()` soma dois números inteiros contidos na stack.
+ * @brief A função `add()` soma dois números inteiros contidos na stack.
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
- * 
- * - __Nota:__ Caso os inputs sejam uma combinação de arrays com arrays/inteiros/doubles ou de strings com strings/caracteres, a função efetua a
- * operação de concatenar arrays ou strings.
- * 
- * @param s Stack.
  */
 void s_add(STACK *s)
 {   
@@ -48,8 +43,9 @@ void s_add(STACK *s)
             r->sp++;
         }
 
-        push_array(s, *r);
+        push_array(s,*r);
     }
+
     else if (x.tipo == CHAR && y.tipo == ARRAY)
     {
         STACK *array = y.dados;
@@ -65,9 +61,11 @@ void s_add(STACK *s)
             r->sp++;
         }
 
-        push_char(r, c);
-        push_array(s, *r);
+        push_char(r,c);
+
+        push_array(s,*r);
     }
+
     else if (x.tipo == ARRAY && y.tipo == CHAR)
     {
         STACK *array = x.dados;
@@ -84,7 +82,7 @@ void s_add(STACK *s)
             *(r->stack + i) = *(array->stack + i -1);
             r->sp++;
         }
-        push_array(s, *r);
+        push_array(s,*r);
     }
     else if ((x.tipo == LONG || x.tipo == DOUBLE) && y.tipo == ARRAY)
     {
@@ -109,12 +107,12 @@ void s_add(STACK *s)
     }
     else if (x.tipo == STRING && y.tipo == STRING)
     {
-            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
+            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
             char* a = x.dados;
             char* b = y.dados;
             memcpy(r, b, strlen(b));
             strcat(r, a);
-            push_string(s, r);
+            push_string(s,r);   
     }  
     else if (x.tipo == CHAR && y.tipo == STRING)
     {
@@ -122,7 +120,7 @@ void s_add(STACK *s)
         double c = *a;
 
         char *str = y.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        char *r = malloc (sizeof(char) * BUFSIZ);
         int tam = strlen(str);
         
         int i;
@@ -134,15 +132,16 @@ void s_add(STACK *s)
         *(r + tam) = c;
         *(r + tam + 1) = '\0';
 
-        push_string (s, r);
+        push_string (s,r);
     }
+
     else if (x.tipo == STRING && y.tipo == CHAR)
     {
         char *a = y.dados;
         double c = *a;
 
         char *str = x.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        char *r = malloc (sizeof(char) * BUFSIZ);
         int tam = strlen(str);
         int i,j=0;
 
@@ -155,8 +154,9 @@ void s_add(STACK *s)
 
         *(r + tam + 1) = '\0';
         
-        push_string (s, r);
+        push_string (s,r);
     }
+
     else if (x.tipo == LONG && y.tipo == LONG)
     {
         double *a = x.dados;
@@ -166,6 +166,7 @@ void s_add(STACK *s)
         
         double r = ri;
         push_long(s, r);
+
     }
     else
     {
@@ -175,6 +176,9 @@ void s_add(STACK *s)
         double r = *b + *a;
         push_double(s, r);
     }
+    
+    free(x.dados);
+    free(y.dados);
 }
 
 /**
@@ -182,8 +186,6 @@ void s_add(STACK *s)
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
- * 
- * @param s Stack.
  */
 void subtract(STACK *s)
 {   
@@ -219,16 +221,13 @@ void subtract(STACK *s)
  * do array/string original, onde 'n' é o valor do segundo operando. Por exemplo, o input `$ [ 1 2 3 ] 2 *` teria como resultado: `123123`, tal
  * como `$ "abc" 2 *` teria como resultado `abcabc`.
  * 
- * @param s Stack.
  */
-void multiply(STACK *s, DADOS *var)
+void multiply(STACK *s)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    if (x.tipo == BLOCK)
-        fold_array(s, x, y, var);
-    else if (y.tipo == ARRAY)
+    if (y.tipo == ARRAY)
     {
         double *a = x.dados;
         long n = *a;
@@ -298,11 +297,6 @@ void multiply(STACK *s, DADOS *var)
  *        
  * Faz uso da função `pop()` para aceder aos operandos, ou seja, ao valor que se encontra no topo da stack e ao valor que se encontra abaixo deste.
  * Assim, __x__ será o segundo valor introduzido pelo utilizador e __y__ o primeiro, pelo que fazemos __y - x__.
- * 
- * - __Nota:__ Caso os operandos sejam strings, a função `divide()` irá executar o operador de strings `/`, que está definido e documentado na função
- * auxiliar `slash_str()`.
- * 
- * @param s Stack.
  */
 void divide(STACK *s)
 {   
@@ -320,7 +314,9 @@ void divide(STACK *s)
         push_long(s, r);
     }
     else if (x.tipo == STRING && y.tipo == STRING)
+    {
         slash_str(s, x, y);
+    }
     else
     {
         double r = *b / *a;
@@ -336,8 +332,6 @@ void divide(STACK *s)
  *        
  * O resultado de AND é 1 apenas se os dois bits forem 1.
  * No final, o resultado obtido é colocado na stack através da função `push_long()`.
- * 
- * @param s Stack.
  */
 void bit_and(STACK *s)
 {
@@ -358,8 +352,6 @@ void bit_and(STACK *s)
  *        
  * O resultado de OR é 1 se um dos dois bits for 1.
  * No final, o resultado obtido é colocado na stack através da função `push_long()`.
- * 
- * @param s Stack.
  */
 void bit_or(STACK *s)
 {
@@ -380,8 +372,6 @@ void bit_or(STACK *s)
  *        
  * O resultado de XOR é 1 se os dois bits forem diferentes.
  * No final, o resultado obtido é colocado na stack através da função `push_long()`.
- * 
- * @param s Stack.
  */
 void bit_xor(STACK *s)
 {
@@ -405,10 +395,8 @@ void bit_xor(STACK *s)
  * 
  * - __Nota:__ No caso de o input ser um ARRAY, a função `bit_not()` coloca na stack todos os elementos do mesmo. É usada a mesma
  * função para ambas estas operações uma vez que os operadores (`~`) são idênticos.
- * 
- * @param s Stack.
  */
-void bit_not(STACK *s, DADOS *var)
+void bit_not(STACK *s)
 {
     DADOS x = pop(s);
     
@@ -422,8 +410,6 @@ void bit_not(STACK *s, DADOS *var)
             push(s, r);
         }
     }
-    else if (x.tipo == BLOCK)
-        execute_block(s, x, var);
     else                      // Operação NOT binária
     {
         double *ai = x.dados;
@@ -441,10 +427,6 @@ void bit_not(STACK *s, DADOS *var)
  *        
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
  * No final, após a subtração, o resultado obtido é colocado na stack através da função `push_long()` ou `push_double()`.
- * 
- * - __Nota:__ Para arrays ou strings, a função `decr()` retira o primeiro elemento do array ou string e coloca-o na stack.
- * 
- * @param s Stack.
  */
 void decr(STACK *s)
 {
@@ -460,23 +442,16 @@ void decr(STACK *s)
     }
     else if (x.tipo == ARRAY)
     {
-        STACK *array = x.dados;
-        STACK *new_array = new_stack();
-
-        new_array->sp = array->sp-1;
-        for (int i=2, j=1; i <= array->sp; i++, j++)
-            new_array->stack[j] = array->stack[i];
-        
-        push_array(s, *new_array);
-        push(s, array->stack[1]);
-
-        free(array);
-    }
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[1];
+        remove_elem(n_stack, 1);
+        push_array(s, *n_stack);
+        push(s, elem);
+    }    
     else if (x.tipo == STRING)
     {
         char *str = x.dados;
         char elem = *str;
-
         push_string(s, ++str);
         push_char(s, elem);
     }
@@ -491,10 +466,6 @@ void decr(STACK *s)
  *        
  * Para tal, é utilizada a função `pop()`, retirando da stack o elemento a ser trabalhado.
  * No final, após a adição, o resultado obtido é colocado na stack através da função `push_long()` ou `push_double()`.
- * 
- * - __Nota:__ Para arrays ou strings, a função `incr()` retira o último elemento do array ou string e coloca-o na stack.
- * 
- * @param s Stack.
  */
 void incr(STACK *s)
 {
@@ -506,11 +477,10 @@ void incr(STACK *s)
         push_char(s, (*(char*)x.dados) + 1);
     else if (x.tipo == ARRAY)
     {
-        STACK* new_array = x.dados;
-        DADOS elem = new_array->stack[new_array->sp];
-        new_array->sp--;
-        
-        push_array(s, *new_array);
+        STACK* n_stack = x.dados;
+        DADOS elem = n_stack->stack[n_stack->sp];
+        n_stack->sp--;            
+        push_array(s, *n_stack);
         push(s, elem);
     }
     else if (x.tipo == STRING)
@@ -526,50 +496,33 @@ void incr(STACK *s)
     }
     else
         push_double(s, (*(double*)x.dados) + 1);
+    
 }
 
 /**
  * @brief A função `mod()` dá-nos o módulo da divisão do segundo número da stack a contar do topo pelo que se encontra no topo.
  *        
  * Para esse fim usa `pop()` para obter os mesmos e `push()` para returnar o resultado da operação.
- * 
- * - __Nota:__ Quando o input é um bloco (BLOCK), realiza a operação de aplicar um bloco a um array/string, utilizando por isso
- * as funções `execute_block_array()` e `execute_block_string()`, cujo objetivo e funcionamento está documentado em stackBlocks.c.
- * 
- * @param s Stack.
  */
- void mod(STACK *s, DADOS *var)
+ void mod(STACK *s)
 {
-    DADOS x = pop(s);
+    double *ai = pop(s).dados;
+    long a = *ai;
 
-    DADOS y = pop(s);
+    double *bi = pop(s).dados;
+    long b = *bi;
 
-    if (x.tipo == BLOCK && y.tipo == ARRAY)
-        execute_block_array(s, x, y, var);
-    else if (x.tipo == BLOCK && y.tipo == STRING)
-        execute_block_string(s, x, y, var);
-    else
-    {
-        double *ai = x.dados;
-        long a = *ai;
-        double *bi = y.dados;
-        long b = *bi;
-
-        double r = b % a;
-        push_long(s, r);
-        free(x.dados);
-        free(y.dados);
-    }
+    double r = b % a;
+    push_long(s, r);
+    
+    free(ai);
+    free(bi);
 }
 
 /**
  * @brief Esta função tem como objetivo obter a exponenciação de valores da stack.
  *        
  * Este valor é obtido elevando o segundo número a contar de cima da stack por o do topo.
- * 
- * - __Nota:__ Caso os inputs sejam strings, a função `exp()` efetua a operação de procura de substrings em strings, devolvendo o índice do primeiro caracter da substring encontrada.
- * 
- * @param s Stack.
  */
  void expo(STACK *s)
 {
@@ -593,23 +546,9 @@ void incr(STACK *s)
         }
         
         push_long(s, r);
-
-        free(x.dados);
-        free(y.dados);
     }
     else if (x.tipo == STRING && y.tipo == STRING)
-    {
-        char *a = x.dados;
-        char *b = y.dados;
-
-        if (strstr(b, a) == NULL)
-            push_long(s, -1);
-        else
-            push_long(s, strstr(b, a) - b);
-
-        free(x.dados);
-        free(y.dados);
-    }
+        substrings(s, x, y);
     else
     {
         double a = *((double*)x.dados);
@@ -617,8 +556,8 @@ void incr(STACK *s)
 
         double r = pow(b, a);
         push_double(s, r);
-
-        free(x.dados);
-        free(y.dados);
     }
+
+    free(x.dados);
+    free(y.dados);
 }

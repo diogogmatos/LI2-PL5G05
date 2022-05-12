@@ -11,29 +11,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Colocação de elementos na stack
-
-DADOS create_array(STACK* s, char* token, DADOS *var)
-{
-    STACK* array = new_stack();
-    char token_token[BUFSIZ]; 
-
-    ++token;
-    while(*token){
-        token = get_token(token, token_token);
-
-        if (token_token[0] == ']');  //Não faz nada
-        else {
-            handle_token(array, token_token, var);
-        }
-    }
-
-    DADOS d = {ARRAY, array};
-    s->sp++;
-    s->stack[s->sp] = d;
-    return d;
-}
-
 /**
  * @brief Separa uma string em substrings de acordo com o caracter '\n' (parágrafo), adicionando cada substring a um array que é
  * posteriormente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()`
@@ -44,13 +21,10 @@ DADOS create_array(STACK* s, char* token, DADOS *var)
 void div_newline(STACK *s)
 {
     char *a = pop(s).dados;
-    char *str = malloc(sizeof(char) * BUFSIZ);
-    strcpy(str, a);
-
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(str, "\n");
+    token = strtok(a, "\n");
 
     while (token != NULL)
     {
@@ -59,6 +33,9 @@ void div_newline(STACK *s)
     }
     
     push_array(s, *r);
+
+    free(a);
+    free(token);
 }
 
 /**
@@ -71,33 +48,30 @@ void div_newline(STACK *s)
 void div_whitespace(STACK *s)
 {
     char *a = pop(s).dados;
-    char *str = malloc(sizeof(char) * BUFSIZ);
-    strcpy(str, a);
-    
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(str, " \t\r\n\v\f");
+    token = strtok(a, " \n");
 
     while (token != NULL)
     {
         push_string(r, token);
-        token = strtok(NULL, " \t\r\n\v\f");
+        token = strtok(NULL, " \n");
     }
     
     push_array(s, *r);
+
+    free(a);
+    free(token);
 }
 
 /**
  * @brief Quando o input é um inteiro N, cria um ARRAY de inteiros com os elementos no intervalo de 0 até N-1, e coloca-o na stack com a função `push_array()`
  * Caso o input seja um ARRAY, devolve à stack o tamanho do mesmo na forma de inteiro (LONG), utilizando `push_long()`.
  * 
- * - __Nota:__ Quando o input é um bloco (BLOCK), realiza a operação de filtragem de arrays/strings de acordo com um bloco, utilizando por
- * isso as funções `filter_array()` e `filter_string()`, cujo objetivo e funcionamento está documentado em stackBlocks.c.
- * 
  * @param s Stack.
  */
-void range(STACK *s, DADOS *var)
+void range(STACK *s)
 {
     DADOS x = pop(s);
     
@@ -125,25 +99,35 @@ void range(STACK *s, DADOS *var)
         for (i = 0; *(str + i); ++i);
         push_long(s, i);
     }
-    else if (x.tipo == BLOCK)
-    {
-        DADOS y = pop(s);
 
-        if (y.tipo == ARRAY)
-            filter_array(s, x, y, var);
-        else
-            filter_string(s, x, y, var);
-
-        free(y.dados);
-    }
+    free(x.dados);
 }
 
-/**
- * @brief Responsável por criar uma nova string, de acordo com o input do programa, que é feito da forma: `"string de exemplo"`.
- * 
- * @param s Stack.
- * @param token Input do programa.
- */
+int substrings(STACK *s, DADOS b, DADOS a)
+{
+    char* word = b.dados;
+    char* sen = a.dados;
+
+    int word_len = strlen(word);
+
+    int f, i , j;
+    for (i = 0; *(sen + i); ++i)
+    {
+        if (*word == *(sen + i))
+        {
+            for (f = 0, j = i; *(sen + j) && *(word + f); ++f, ++j);
+
+            if (f == word_len)
+            {
+                push_long(s, i);
+                return i;
+            }
+        }
+    }
+    push_long(s, -1);
+    return -1;
+}
+
 void create_string(STACK *s, char* token)
 {
     ++token;
@@ -159,46 +143,47 @@ void create_string(STACK *s, char* token)
     push_string(s, str);
 }
 
-/**
- * @brief Separa uma string em substrings de acordo com um delimitador que é também uma string. As substrings são adicionadas a um array que é
- * posterioremente colocado na stack com a função `push_array()`. Como o tipo ARRAY é definido por uma stack, é utilizada a função `new_stack()` de
- * modo a criar uma nova stack.
- * 
- * - __Exemplo de input:__ `"string-de-exemplo" " " /`
- * 
- * - __Nota:__ Esta função é usada como uma auxiliar de `divide()`.
- * 
- * @param s Stack.
- * @param a String.
- * @param b String delimitadora.
- */
 void slash_str(STACK* s, DADOS a, DADOS b)
 {
-    char *str2 = a.dados;
-    char *str1 = b.dados;
+    char* pat = a.dados;
+    char* str = b.dados;
     
-    STACK *r = new_stack();
-    
-    int ind;
-    while (strstr(str1, str2) != NULL)
+    STACK* arr = new_stack();
+        
+    int tam = strlen(pat);
+    int i, f, j;
+    int index = 0;
+    char* acc = malloc(sizeof(char) * BUFSIZ);
+
+    for (i = 0; *(str + i); ++i)
     {
-        char *aux = malloc(sizeof(char) * BUFSIZ);
-        ind = strstr(str1, str2) - str1;
+        if (*(str + i) == *pat)
+        {
+            
+            for (j = i, f = 0; *(str + j) && *(pat + f); ++j, ++f);
 
-        int i;
-        for (i=0; i < ind; i++)
-            aux[i] = str1[i];
-        aux[i] = '\0';
-
-        push_string(r, aux);
-        str1 = str1 + ind + strlen(str2);
+            if (f == tam)
+            {
+                *(acc + index) = '\0';
+                push_string(arr, acc);
+                index = 0;
+                i += f-1;
+            }
+            else 
+            {
+                *(acc + index) = *(str + i);
+                ++index;
+            }
+        }
+        else 
+        {
+            *(acc + index) = *(str + i);
+            ++index;
+        }
     }
-    if (str1[0] != '\0')
-    {
-        char *aux = malloc(sizeof(char) * BUFSIZ);
-        strcpy(aux, str1);
-        push_string(r, aux);
-    }
+    *(acc + index) = '\0';
+    push_string(arr, acc);
 
-    push_array(s, *r);
+    free(acc);
+    push_array(s, *arr);
 }
