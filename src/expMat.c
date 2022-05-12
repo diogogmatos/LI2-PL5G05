@@ -226,7 +226,16 @@ void multiply(STACK *s)
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    if (y.tipo == ARRAY)
+    if (x.tipo == BLOCK)
+    {
+        DADOS *var = malloc(sizeof(DADOS) * 26);
+        initialize_var(var);
+        
+        fold_array(s, x, y, var);
+
+        free(var);
+    }
+    else if (y.tipo == ARRAY)
     {
         double *a = x.dados;
         long n = *a;
@@ -422,7 +431,11 @@ void bit_not(STACK *s)
     }
     else if (x.tipo == BLOCK)
     {
-        execute_block(s, x);
+        DADOS *var = malloc(sizeof(DADOS) * 26);
+        initialize_var(var);
+        execute_block(s, x, var);
+
+        free(var);
     }
     else                      // Operação NOT binária
     {
@@ -545,7 +558,14 @@ void incr(STACK *s)
     DADOS y = pop(s);
 
     if (x.tipo == BLOCK && y.tipo == ARRAY)
-        execute_block_array(s, x, y);
+    {
+        DADOS *var = malloc(sizeof(DADOS) * 26);
+        initialize_var(var);
+
+        execute_block_array(s, x, y, var);
+
+        free(var);
+    }
     else if (x.tipo == BLOCK && y.tipo == STRING)
         execute_block_string(s, x, y);
     else

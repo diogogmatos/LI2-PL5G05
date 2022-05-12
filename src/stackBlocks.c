@@ -46,16 +46,16 @@ DADOS create_block(STACK* s, char* token)
  * @param s Stack.
  * @param block Bloco.
  */
-void execute_block(STACK* s, DADOS block)
+void execute_block(STACK* s, DADOS block, DADOS *var)
 {
     char* line = block.dados; 
     char* token = malloc(sizeof(char) * BUFSIZ);
 
     while ((line = get_token(line, token)) && *line != '\0'){
         s->stack = memory_checker(s);
-        handle_token(s, token, &s->stack[0]);
+        handle_token(s, token, var);
     }
-    handle_token(s, token, &s->stack[0]);
+    handle_token(s, token, var);
 }
 
 /**
@@ -65,7 +65,7 @@ void execute_block(STACK* s, DADOS block)
  * @param block Bloco.
  * @param array Array.
  */
-void execute_block_array(STACK* s, DADOS block, DADOS array)
+void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
 {
     STACK* old_arr = array.dados;
 
@@ -74,21 +74,19 @@ void execute_block_array(STACK* s, DADOS block, DADOS array)
     new_arr->stack = malloc(sizeof(DADOS) * old_arr->cap);    
     
     char token[BUFSIZ];
-    /* char* line = malloc(sizeof(char) * BUFSIZ); */
     char* line = malloc(sizeof(char) * BUFSIZ);
     line = block.dados;
     for(int i = 1; i <= old_arr->sp; ++i)
     {
         push(new_arr, old_arr->stack[i]);
         while ((line = get_token(line, token)) && *line != '\0'){
-            handle_token(new_arr, token, &s->stack[0]);
+            handle_token(new_arr, token, var);
         }
-        handle_token(new_arr, token, &s->stack[0]);
+        handle_token(new_arr, token, var);
         line = block.dados;
     }
     push_array(s, *new_arr);
 } //TENHO DE DAR FREE EM ALGUMA COISA MAS NAO ME LEMBRO NO QUE
-
 
 void execute_block_string(STACK* s, DADOS block, DADOS string)
 {
@@ -104,8 +102,6 @@ void execute_block_string(STACK* s, DADOS block, DADOS string)
     push_block(s, block.dados);
     mod(s);
 }
-    
-
 
 /**
  * @brief Filtra um array de acordo com a condição contida num bloco. Os elementos do array que cumprem a condição, ou seja, que dão um valor
@@ -115,7 +111,7 @@ void execute_block_string(STACK* s, DADOS block, DADOS string)
  * @param b Bloco.
  * @param a Array.
  */
-void filter_array(STACK* s, DADOS b, DADOS a)
+void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 {
     STACK *array = a.dados;
     STACK *stack = new_stack();
@@ -128,9 +124,9 @@ void filter_array(STACK* s, DADOS b, DADOS a)
     {
         push(stack, array->stack[i]);
         while ((line = get_token(line, token)) && *line != '\0'){
-            handle_token(stack, token, &s->stack[0]);
+            handle_token(stack, token, var);
         }
-        handle_token(stack, token, &s->stack[0]);
+        handle_token(stack, token, var);
         
         double *result = pop(stack).dados;
         if (*result != 0)
@@ -150,7 +146,7 @@ void filter_array(STACK* s, DADOS b, DADOS a)
  * @param block Bloco.
  * @param string String.
  */
-void filter_string(STACK* s, DADOS block, DADOS string)
+void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
 {
     char *str = string.dados;
     STACK *stack = new_stack();
@@ -164,9 +160,9 @@ void filter_string(STACK* s, DADOS block, DADOS string)
     {
         push_char(stack, str[i]);
         while ((line = get_token(line, token)) && *line != '\0'){
-            handle_token(stack, token, &s->stack[0]);
+            handle_token(stack, token, var);
         }
-        handle_token(stack, token, &s->stack[0]);
+        handle_token(stack, token, var);
         
         double *result = pop(stack).dados;
         if (*result != 0)
@@ -180,4 +176,36 @@ void filter_string(STACK* s, DADOS block, DADOS string)
     r[j] = '\0';
 
     push_string(s, r);
+}
+
+/**
+ * @brief Aplica as operações contidas num bloco iterativamente aos elementos de um array. Por exemplo, o input: `[ 1 2 3 ] { + } *` daria o output: `6`
+ * (soma de todos os elemetnos do array). 
+ * 
+ * @param s Stack.
+ * @param b Bloco.
+ * @param a Array.
+ */
+void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
+{
+    STACK *array = a.dados;
+    STACK *stack = new_stack();
+
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    line = b.dados;
+
+    push(stack, array->stack[1]);
+    for(int i = 2; i <= array->sp; i++)
+    {
+        push(stack, array->stack[i]);
+        while ((line = get_token(line, token)) && *line != '\0'){
+            handle_token(stack, token, var);
+        }
+        handle_token(stack, token, var);
+
+        line = b.dados;
+    }
+    
+    push(s, pop(stack));
 }

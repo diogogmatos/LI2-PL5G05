@@ -130,9 +130,25 @@ void range(STACK *s)
         DADOS y = pop(s);
 
         if (y.tipo == ARRAY)
-            filter_array(s, x, y);
+        {
+            DADOS *var = malloc(sizeof(DADOS) * 26);
+            initialize_var(var);
+
+            filter_array(s, x, y, var);
+
+            free(var);
+        }
         else
-            filter_string(s, x, y);
+        {
+            DADOS *var = malloc(sizeof(DADOS) * 26);
+            initialize_var(var);
+
+            filter_string(s, x, y, var);
+
+            free(var);
+        }
+
+        free(y.dados);
     }
 }
 

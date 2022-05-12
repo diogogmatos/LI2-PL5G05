@@ -151,7 +151,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case '(': { decr(s); return; }           // Também opera com arrays/strings
         case ')': { incr(s); return; }           // Também opera com arrays/strings
         case '%': { mod(s); return; }            // Também opera com blocos
-        case '#': { expo(s); return; }           // Também opera com arrays/strings e blocos
+        case '#': { expo(s); return; }           // Também opera com arrays/strings
         case '&': { bit_and(s); return; }
         case '|': { bit_or(s); return; }
         case '^': { bit_xor(s); return; }
