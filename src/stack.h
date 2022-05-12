@@ -64,15 +64,15 @@ void push_block(STACK* s, char* elem);
 
 void s_add(STACK *s);
 void subtract(STACK *s);
-void multiply(STACK *s);
+void multiply(STACK *s, DADOS *var);
 void divide(STACK *s);
 void bit_and(STACK *s);
 void bit_or(STACK *s);
 void bit_xor(STACK *s);
-void bit_not(STACK *s);
+void bit_not(STACK *s, DADOS *var);
 void decr(STACK *s);
 void incr(STACK *s);
-void mod(STACK *s);
+void mod(STACK *s, DADOS *var);
 void expo(STACK *s);
 
 // io.c
@@ -116,7 +116,7 @@ void if_else(STACK* s);
 DADOS create_array(STACK* s, char* token, DADOS *var);
 void div_newline(STACK *s);
 void div_whitespace(STACK *s);
-void range(STACK *s);
+void range(STACK *s, DADOS *var);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
 void slash_str(STACK* s, DADOS a, DADOS b);
@@ -124,8 +124,9 @@ void slash_str(STACK* s, DADOS a, DADOS b);
 // stackBlocks.c
 
 DADOS create_block(STACK* s, char* token);
-void execute_block_array(STACK* s, DADOS block, DADOS array);
-void execute_block(STACK* s, DADOS block);
-void execute_block_string(STACK* s, DADOS block, DADOS string);
-void filter_array(STACK* s, DADOS b, DADOS a);
-void filter_string(STACK* s, DADOS b, DADOS a);
+void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var);
+void execute_block(STACK* s, DADOS block, DADOS *var);
+void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var);
+void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var);
+void filter_string(STACK* s, DADOS b, DADOS a, DADOS *var);
+void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var);

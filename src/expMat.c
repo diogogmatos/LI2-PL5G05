@@ -221,12 +221,14 @@ void subtract(STACK *s)
  * 
  * @param s Stack.
  */
-void multiply(STACK *s)
+void multiply(STACK *s, DADOS *var)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    if (y.tipo == ARRAY)
+    if (x.tipo == BLOCK)
+        fold_array(s, x, y, var);
+    else if (y.tipo == ARRAY)
     {
         double *a = x.dados;
         long n = *a;
@@ -406,7 +408,7 @@ void bit_xor(STACK *s)
  * 
  * @param s Stack.
  */
-void bit_not(STACK *s)
+void bit_not(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
     
@@ -421,9 +423,7 @@ void bit_not(STACK *s)
         }
     }
     else if (x.tipo == BLOCK)
-    {
-        execute_block(s, x);
-    }
+        execute_block(s, x, var);
     else                      // Operação NOT binária
     {
         double *ai = x.dados;
@@ -538,16 +538,16 @@ void incr(STACK *s)
  * 
  * @param s Stack.
  */
- void mod(STACK *s)
+ void mod(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
 
     DADOS y = pop(s);
 
     if (x.tipo == BLOCK && y.tipo == ARRAY)
-        execute_block_array(s, x, y);
+        execute_block_array(s, x, y, var);
     else if (x.tipo == BLOCK && y.tipo == STRING)
-        execute_block_string(s, x, y);
+        execute_block_string(s, x, y, var);
     else
     {
         double *ai = x.dados;

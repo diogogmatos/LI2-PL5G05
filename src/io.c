@@ -7,6 +7,7 @@
 #include <string.h>
 #include "stack.h"
 
+// Colocação de elementos na stack
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
@@ -146,16 +147,16 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Expressões matemáticas
 
         case '+': { s_add(s); return; }          // Também opera com arrays/strings
-        case '*': { multiply(s); return; }       // Também opera com arrays/strings e blocos
+        case '*': { multiply(s, var); return; }  // Também opera com arrays/strings e blocos
         case '/': { divide(s); return; }
         case '(': { decr(s); return; }           // Também opera com arrays/strings
         case ')': { incr(s); return; }           // Também opera com arrays/strings
-        case '%': { mod(s); return; }            // Também opera com blocos
-        case '#': { expo(s); return; }           // Também opera com arrays/strings e blocos
+        case '%': { mod(s, var); return; }       // Também opera com blocos
+        case '#': { expo(s); return; }           // Também opera com arrays/strings
         case '&': { bit_and(s); return; }
         case '|': { bit_or(s); return; }
         case '^': { bit_xor(s); return; }
-        case '~': { bit_not(s); return; }        // Também opera com arrays/blocos
+        case '~': { bit_not(s, var); return; }   // Também opera com arrays/blocos
         
         // Input/Output
 
@@ -201,7 +202,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
         case '{': { create_block(s, token); return; }
-        case ',': { range(s); return; }          // Também opera com blocos
+        case ',': { range(s, var); return; }     // Também opera com blocos
         case 'N':
         {
             switch (token[1])
