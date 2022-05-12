@@ -58,6 +58,7 @@ void push_string(STACK *s, char elem[]);
 void push_array(STACK *s, STACK elem);
 void push(STACK *s, DADOS elem);
 DADOS pop(STACK *s);
+void push_block(STACK* s, char* elem);
 
 // expMat.c
 
@@ -124,4 +125,5 @@ void slash_str(STACK* s, DADOS a, DADOS b);
 DADOS create_block(STACK* s, char* token);
 void execute_block_array(STACK* s, DADOS block, DADOS array);
 void execute_block(STACK* s, DADOS block);
+void execute_block_string(STACK* s, DADOS block, DADOS string);
 

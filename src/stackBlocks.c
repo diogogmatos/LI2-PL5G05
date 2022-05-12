@@ -47,6 +47,7 @@ void execute_block_array(STACK* s, DADOS block, DADOS array)
     new_arr->stack = malloc(sizeof(DADOS) * old_arr->cap);    
     
     char token[BUFSIZ];
+    /* char* line = malloc(sizeof(char) * BUFSIZ); */
     char* line = malloc(sizeof(char) * BUFSIZ);
     line = block.dados;
     for(int i = 1; i <= old_arr->sp; ++i)
@@ -59,4 +60,19 @@ void execute_block_array(STACK* s, DADOS block, DADOS array)
         line = block.dados;
     }
     push_array(s, *new_arr);
+} //TENHO DE DAR FREE EM ALGUMA COISA MAS NAO ME LEMBRO NO QUE
+
+void execute_block_string(STACK* s, DADOS block, DADOS string)
+{
+    char* str = string.dados;
+    STACK* new_arr = new_stack();
+    
+    for (int i = 0; *(str + i); ++i)
+        push_char(new_arr, *(str+i));
+    
+    push_array(s, *new_arr);
+    push_block(s, block.dados);
+    mod(s);
 }
+    
+
