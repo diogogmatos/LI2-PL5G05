@@ -146,6 +146,12 @@ void push_array(STACK *s, STACK elem)
     s->stack[s->sp] = d;
 }
 
+void push_block(STACK* s, char* elem)
+{
+    DADOS d = {BLOCK, elem};
+    s->sp++;
+    s->stack[s->sp] = d;
+}
 /**
  * @brief Introduz um elemento na stack, direcionando para a função push correspondente de acordo com o seu tipo.
  * 

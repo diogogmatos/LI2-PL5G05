@@ -544,8 +544,10 @@ void incr(STACK *s)
 
     DADOS y = pop(s);
 
-    if (x.tipo == BLOCK)
+    if (x.tipo == BLOCK && y.tipo == ARRAY)
         execute_block_array(s, x, y);
+    if (x.tipo == BLOCK && y.tipo == STRING)
+        execute_block_string(s, x, y);
     else
     {
         double *ai = x.dados;
