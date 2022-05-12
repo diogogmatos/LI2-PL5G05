@@ -97,7 +97,7 @@ void div_whitespace(STACK *s)
  * 
  * @param s Stack.
  */
-void range(STACK *s)
+void range(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
     
@@ -130,23 +130,9 @@ void range(STACK *s)
         DADOS y = pop(s);
 
         if (y.tipo == ARRAY)
-        {
-            DADOS *var = malloc(sizeof(DADOS) * 26);
-            initialize_var(var);
-
             filter_array(s, x, y, var);
-
-            free(var);
-        }
         else
-        {
-            DADOS *var = malloc(sizeof(DADOS) * 26);
-            initialize_var(var);
-
             filter_string(s, x, y, var);
-
-            free(var);
-        }
 
         free(y.dados);
     }

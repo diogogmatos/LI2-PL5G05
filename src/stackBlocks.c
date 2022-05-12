@@ -88,7 +88,7 @@ void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
     push_array(s, *new_arr);
 } //TENHO DE DAR FREE EM ALGUMA COISA MAS NAO ME LEMBRO NO QUE
 
-void execute_block_string(STACK* s, DADOS block, DADOS string)
+void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var)
 {
     char* str = string.dados;
     STACK* new_arr = new_stack();
@@ -100,7 +100,7 @@ void execute_block_string(STACK* s, DADOS block, DADOS string)
 
     push_array(s, *new_arr);
     push_block(s, block.dados);
-    mod(s);
+    mod(s, var);
 }
 
 /**

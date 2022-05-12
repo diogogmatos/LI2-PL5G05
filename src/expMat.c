@@ -221,20 +221,13 @@ void subtract(STACK *s)
  * 
  * @param s Stack.
  */
-void multiply(STACK *s)
+void multiply(STACK *s, DADOS *var)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
     
     if (x.tipo == BLOCK)
-    {
-        DADOS *var = malloc(sizeof(DADOS) * 26);
-        initialize_var(var);
-        
         fold_array(s, x, y, var);
-
-        free(var);
-    }
     else if (y.tipo == ARRAY)
     {
         double *a = x.dados;
@@ -415,7 +408,7 @@ void bit_xor(STACK *s)
  * 
  * @param s Stack.
  */
-void bit_not(STACK *s)
+void bit_not(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
     
@@ -430,13 +423,7 @@ void bit_not(STACK *s)
         }
     }
     else if (x.tipo == BLOCK)
-    {
-        DADOS *var = malloc(sizeof(DADOS) * 26);
-        initialize_var(var);
         execute_block(s, x, var);
-
-        free(var);
-    }
     else                      // Operação NOT binária
     {
         double *ai = x.dados;
@@ -551,23 +538,16 @@ void incr(STACK *s)
  * 
  * @param s Stack.
  */
- void mod(STACK *s)
+ void mod(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
 
     DADOS y = pop(s);
 
     if (x.tipo == BLOCK && y.tipo == ARRAY)
-    {
-        DADOS *var = malloc(sizeof(DADOS) * 26);
-        initialize_var(var);
-
         execute_block_array(s, x, y, var);
-
-        free(var);
-    }
     else if (x.tipo == BLOCK && y.tipo == STRING)
-        execute_block_string(s, x, y);
+        execute_block_string(s, x, y, var);
     else
     {
         double *ai = x.dados;
