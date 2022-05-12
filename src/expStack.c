@@ -70,6 +70,4 @@ void ncopy(STACK *s)
     DADOS y = s->stack[(s->sp) - i];
 
     push(s, y);
-
-    free(t.dados);
 }
