@@ -132,10 +132,7 @@ void push_char(STACK* s, char elem)
  */
 void push_string(STACK *s, char* elem)
 {   
-    char *elemP = malloc(sizeof(elem)+1);
-    strcpy(elemP, elem);
-    
-    DADOS d = {STRING, elemP};
+    DADOS d = {STRING, elem};
     s->sp++;
     s->stack[s->sp] = d;
 }

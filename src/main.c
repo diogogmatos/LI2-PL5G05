@@ -71,7 +71,6 @@ int main()
     STACK* s = new_stack();
     DADOS* var = malloc(sizeof(DADOS) * 26);
     initialize_var(var);
-    s->stack[0] = *var;
 
     char* line = malloc(sizeof(char) * BUFSIZ);
     char token[BUFSIZ];

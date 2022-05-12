@@ -7,6 +7,7 @@
 #include <string.h>
 #include "stack.h"
 
+// Colocação de elementos na stack
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.

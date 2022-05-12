@@ -73,7 +73,7 @@ void div_whitespace(STACK *s)
     char *a = pop(s).dados;
     char *str = malloc(sizeof(char) * BUFSIZ);
     strcpy(str, a);
-
+    
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
