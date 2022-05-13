@@ -256,25 +256,6 @@ void swap_sort(STACK* s, int i)
     s->stack[i+1] = t;
 }
 
-/* void bubble_sort(STACK* target, STACK* tool, int N) */
-/* { */
-/*     double a, b; */
-
-/*     int i, j; */
-/*     for (i = 1; i <= N-1; ++i) */
-/*     { */
-/*         for (j = 1; j < N - i + - 1; ++j) */
-/*         { */
-/*             a = *(double*)(tool->stack[i].dados); */
-/*             b = *(double*)(tool->stack[i+1].dados); */
-/*             if (a > b) */
-/*             { */
-/*                 swap_sort(target, i); */
-/*                 swap_sort(tool, i); */
-/*             } */
-/*         } */
-/*     } */
-/* } */
 void bubble_sort(STACK* target, STACK* tool, int N)
 {
     double a, b;
@@ -321,23 +302,22 @@ void sort(STACK* s, DADOS array, DADOS block, DADOS *var)
 {
     STACK* target = new_stack();
     target = copy_stack(array.dados, target);
-
+    
     if (array.tipo == STRING)
     {
         STACK* new_array = new_stack();
         char* str = array.dados;
         for (int i = 1; *(str+i); ++i)
-        
             push_char(new_array, *(str+i));
+
         array.dados = new_array;
     }
-
+   
     push_array(s, *(STACK*)array.dados);
     push_block(s, block.dados);
     mod(s, var);
 
     STACK* tool = pop(s).dados;
-    
     bubble_sort(target, tool, tool->sp);
 
     push_array(s, *target);

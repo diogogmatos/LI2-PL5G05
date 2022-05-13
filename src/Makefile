@@ -18,6 +18,8 @@ run: $(TARGET)
 
 clean:
 	@rm -f $(TARGET) $(OBJS)
+	rm a.out
+	rm -r a.out.dSYM
 
 test:
 	$(value script)
@@ -30,3 +32,8 @@ doc: $(DOC_FILE)
 
 complex:
 	pmccabe *.c | awk -v OFS='\t' 'BEGIN {printf "%s\t%s\t%s\n", "CC", "NOI", "FUNCTION"} {print $1, $3, $6 $7}' | sort -n
+
+debug:
+	gcc -g *.c *.h
+	lldb a.out
+
