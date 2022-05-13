@@ -180,11 +180,6 @@ void push(STACK* s, DADOS elem)
         char *n = elem.dados;
         push_string(s, n);
     }
-    else if (elem.tipo == BLOCK)
-    {
-        char* n = elem.dados;
-        push_block(s, n);
-    }
     else if (elem.tipo == ARRAY)
     {
         STACK *n = elem.dados;

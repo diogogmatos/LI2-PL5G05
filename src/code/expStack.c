@@ -63,19 +63,11 @@ void swap(STACK *s)
 void ncopy(STACK *s)
 {
     DADOS t = pop(s);
-    
-    if (t.tipo == BLOCK)
-    {
-        DADOS f = pop(s);
-        sort(s, f, t);
-    }
-    else
-    {
-        double *ii = (double*)t.dados;
-        long i = *ii;
-        
-        DADOS y = s->stack[(s->sp) - i];
 
-        push(s, y);
-    }
+    double *ii = (double*)t.dados;
+    long i = *ii;
+    
+    DADOS y = s->stack[(s->sp) - i];
+
+    push(s, y);
 }

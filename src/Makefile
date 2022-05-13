@@ -14,6 +14,7 @@ $(TARGET): $(OBJS)
 
 run: $(TARGET)
 	./main
+	@rm -f $(TARGET) $(OBJS)
 
 clean:
 	@rm -f $(TARGET) $(OBJS)

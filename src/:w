@@ -182,49 +182,29 @@ void filter_string(STACK* s, DADOS block, DADOS string)
     push_string(s, r);
 }
 
-
-void swap_sort(STACK* s, int i)
+void swap_sort(DADOS* a, DADOS* b)
 {
-    DADOS t = s->stack[i];
+    DADOS t = *a;
 
-    s->stack[i] = s->stack[i+1]; 
-    s->stack[i+1] = t;
+    *a = *b;
+    *b = t;
 }
 
-/* void bubble_sort(STACK* target, STACK* tool, int N) */
-/* { */
-/*     double a, b; */
-
-/*     int i, j; */
-/*     for (i = 1; i <= N-1; ++i) */
-/*     { */
-/*         for (j = 1; j < N - i + - 1; ++j) */
-/*         { */
-/*             a = *(double*)(tool->stack[i].dados); */
-/*             b = *(double*)(tool->stack[i+1].dados); */
-/*             if (a > b) */
-/*             { */
-/*                 swap_sort(target, i); */
-/*                 swap_sort(tool, i); */
-/*             } */
-/*         } */
-/*     } */
-/* } */
 void bubble_sort(STACK* target, STACK* tool, int N)
 {
     double a, b;
 
     int i, j;
-    for (i = 1; i <= N; ++i)
+    for (i = 1; i <= N-1; ++i)
     {
-        for (j = 1; j <= N - i; ++j)
+        for (j = 1; j < N - i + - 1; ++j)
         {
-            a = *(double*)(tool->stack[j].dados);
-            b = *(double*)(tool->stack[j+1].dados);
+            a = *(double*)(tool->stack[i].dados);
+            b = *(double*)(tool->stack[i+1].dados);
             if (a > b)
             {
-                swap_sort(target, j);
-                swap_sort(tool, j);
+                swap_sort(&target->stack[i], &target->stack[i+1]);
+                swap_sort(&tool->stack[i], &tool->stack[i+1]);
             }
         }
     }
@@ -232,6 +212,8 @@ void bubble_sort(STACK* target, STACK* tool, int N)
 
 STACK* copy_stack(STACK* original, STACK* new_array)
 {
+    new_array = new_stack();
+
     for (int i = 1; i <= original->sp; ++i)
     {
         if (original->stack[i].tipo == ARRAY)
@@ -250,23 +232,14 @@ STACK* copy_stack(STACK* original, STACK* new_array)
         }
     }
     return new_array;
+    print_stack(new_array);
 }
 
 
 void sort(STACK* s, DADOS array, DADOS block)
 {
-    STACK* target = new_stack();
+    STACK* target;
     target = copy_stack(array.dados, target);
-
-    if (array.tipo == STRING)
-    {
-        STACK* new_array = new_stack();
-        char* str = array.dados;
-        for (int i = 1; *(str+i); ++i)
-        
-            push_char(new_array, *(str+i));
-        array.dados = new_array;
-    }
 
     push_array(s, *(STACK*)array.dados);
     push_block(s, block.dados);
