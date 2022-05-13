@@ -287,3 +287,25 @@ void print_stack(STACK *s)
             printf("{ %s }", (char*)d.dados);
     }
 }
+
+// Funções auxiliares
+
+/**
+ * @brief Função auxiliar que tem como objetivo converter o tipo de um elemento para um caracter.
+ * 
+ * @param x Elemento.
+ * @return char Retorna o tipo do elemento em formato de caracter.
+ */
+char type_to_char(DADOS x)
+{
+    char cx;
+    
+    if (x.tipo == ARRAY) cx = 'A';
+    else if (x.tipo == STRING) cx = 'S';
+    else if (x.tipo == LONG) cx = 'L';
+    else if (x.tipo == CHAR) cx = 'C';
+    else if (x.tipo == BLOCK) cx = 'B';
+    else cx = 'D';
+
+    return cx;
+}

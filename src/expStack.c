@@ -60,7 +60,7 @@ void swap(STACK *s)
  * 
  * @param s Stack.
  */
-void ncopy(STACK *s, DADOS* var)
+void ncopy(STACK *s, DADOS *var)
 {
     DADOS t = pop(s);
     
