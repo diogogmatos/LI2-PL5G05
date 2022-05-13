@@ -243,7 +243,7 @@ void multiply(STACK *s, DADOS *var)
             return;
         }
     }
-    
+
     free(x.dados);
     free(y.dados);
 }
@@ -496,7 +496,6 @@ void incr(STACK *s)
  void mod(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
-
     DADOS y = pop(s);
 
     if (x.tipo == BLOCK && y.tipo == ARRAY)
@@ -512,6 +511,7 @@ void incr(STACK *s)
 
         double r = b % a;
         push_long(s, r);
+
         free(x.dados);
         free(y.dados);
     }
