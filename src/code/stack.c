@@ -5,7 +5,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include "stack.h"
 
 // Declaração de nova stack
@@ -132,7 +131,7 @@ void push_char(STACK* s, char elem)
  */
 void push_string(STACK *s, char* elem)
 {   
-    DADOS d = {STRING, elem};
+    DADOS d = {STRING, elem}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
     s->sp++;
     s->stack[s->sp] = d;
 }
@@ -149,14 +148,10 @@ void push_array(STACK *s, STACK elem)
 
 void push_block(STACK* s, char* elem)
 {
-    char *elemP = malloc(sizeof(elem)+1);
-    strcpy(elemP, elem);
-    
-    DADOS d = {BLOCK, elemP};
+    DADOS d = {BLOCK, elem};
     s->sp++;
     s->stack[s->sp] = d;
 }
-
 /**
  * @brief Introduz um elemento na stack, direcionando para a função push correspondente de acordo com o seu tipo.
  * 
@@ -185,20 +180,10 @@ void push(STACK* s, DADOS elem)
         char *n = elem.dados;
         push_string(s, n);
     }
-    else if (elem.tipo == BLOCK)
-    {
-        char* n = elem.dados;
-        push_block(s, n);
-    }
     else if (elem.tipo == ARRAY)
     {
         STACK *n = elem.dados;
         push_array(s, *n);
-    }
-    else if (elem.tipo == BLOCK)
-    {
-        char *n = elem.dados;
-        push_block(s, n);
     }
 }
 
