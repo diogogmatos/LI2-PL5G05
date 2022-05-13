@@ -73,7 +73,7 @@ void div_whitespace(STACK *s)
     char *a = pop(s).dados;
     char *str = malloc(sizeof(char) * BUFSIZ);
     strcpy(str, a);
-
+    
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
@@ -97,7 +97,7 @@ void div_whitespace(STACK *s)
  * 
  * @param s Stack.
  */
-void range(STACK *s)
+void range(STACK *s, DADOS *var)
 {
     DADOS x = pop(s);
     
@@ -130,9 +130,11 @@ void range(STACK *s)
         DADOS y = pop(s);
 
         if (y.tipo == ARRAY)
-            filter_array(s, x, y);
+            filter_array(s, x, y, var);
         else
-            filter_string(s, x, y);
+            filter_string(s, x, y, var);
+
+        free(y.dados);
     }
 }
 
