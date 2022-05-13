@@ -178,7 +178,6 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
     push_string(s, r);
 }
 
-<<<<<<< HEAD
 
 void swap_sort(STACK* s, int i)
 {
@@ -188,25 +187,6 @@ void swap_sort(STACK* s, int i)
     s->stack[i+1] = t;
 }
 
-/* void bubble_sort(STACK* target, STACK* tool, int N) */
-/* { */
-/*     double a, b; */
-
-/*     int i, j; */
-/*     for (i = 1; i <= N-1; ++i) */
-/*     { */
-/*         for (j = 1; j < N - i + - 1; ++j) */
-/*         { */
-/*             a = *(double*)(tool->stack[i].dados); */
-/*             b = *(double*)(tool->stack[i+1].dados); */
-/*             if (a > b) */
-/*             { */
-/*                 swap_sort(target, i); */
-/*                 swap_sort(tool, i); */
-/*             } */
-/*         } */
-/*     } */
-/* } */
 void bubble_sort(STACK* target, STACK* tool, int N)
 {
     double a, b;
@@ -250,7 +230,7 @@ STACK* copy_stack(STACK* original, STACK* new_array)
 }
 
 
-void sort(STACK* s, DADOS array, DADOS block)
+void sort(STACK* s, DADOS array, DADOS block, DADOS* var)
 {
     STACK* target = new_stack();
     target = copy_stack(array.dados, target);
@@ -267,7 +247,7 @@ void sort(STACK* s, DADOS array, DADOS block)
 
     push_array(s, *(STACK*)array.dados);
     push_block(s, block.dados);
-    mod(s);
+    mod(s, var);
 
     STACK* tool = pop(s).dados;
     
@@ -275,7 +255,7 @@ void sort(STACK* s, DADOS array, DADOS block)
 
     push_array(s, *target);
 }
-=======
+
 /**
  * @brief Aplica as operações contidas num bloco iterativamente aos elementos de um array. Por exemplo, o input: `[ 1 2 3 ] { + } *` daria o output: `6`
  * (soma de todos os elemetnos do array). 
@@ -347,4 +327,4 @@ void truthy (STACK* s, DADOS *var)
     }
 
 }
->>>>>>> main
+

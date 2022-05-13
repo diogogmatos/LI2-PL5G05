@@ -180,7 +180,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case ';': { pop(s); return; }
         case '\\': { swap(s); return; }
         case '@': { spin(s); return; }
-        case '$': { ncopy(s); return; }
+        case '$': { ncopy(s, var); return; }
 
         // Lógica
 
