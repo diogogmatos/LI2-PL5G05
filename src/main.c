@@ -23,33 +23,37 @@ char* get_token(char* line, char token[])
     int str_flag = 0;
     int block_flag = 0;
 
-    while (*line == ' ')
-        line++;
+    while (*line != '\n')
+    {
+        while (*line == ' ')
+            line++;
 
-    while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
-            (flag > 0 || str_flag > 0 || block_flag > 0))
-    {   
-        token[index] = *line;
-        ++size;
+        while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
+                (flag > 0 || str_flag > 0 || block_flag > 0))
+        {   
+            token[index] = *line;
+            ++size;
 
-        if (*line == '[')
-            ++flag;
-        else if (*line == '"' && str_flag == 0)
-            ++str_flag;
-        else if (*line == '{')
-            ++block_flag;
-        else if (*line == '"' && str_flag > 0)
-            --str_flag;
-        else if (*line == '}')
-            -- block_flag;
-        else if (*line == ']')
-            --flag;
-        
-        index++;
-        line++;
+            if (*line == '[')
+                ++flag;
+            else if (*line == '"' && str_flag == 0)
+                ++str_flag;
+            else if (*line == '{')
+                ++block_flag;
+            else if (*line == '"' && str_flag > 0)
+                --str_flag;
+            else if (*line == '}')
+                -- block_flag;
+            else if (*line == ']')
+                --flag;
+            
+            index++;
+            line++;
+        }
+        token[index] = '\0';
+
+        return line;
     }
-    token[index] = '\0';
-
     return line;
 }
 

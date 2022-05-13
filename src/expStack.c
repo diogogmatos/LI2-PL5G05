@@ -4,7 +4,7 @@
  * 
  * - __Nota:__ Todas as funções em expStack.c incluem uma libertação de memória (`free(d.dados)`) uma vez que acedemos a um elemento da stack com
  * a função `pop()` para o qual foi alocada memória dinâmica que já não será usada.
-*/
+ */
 
 #include "stack.h"
 #include <stdio.h>
