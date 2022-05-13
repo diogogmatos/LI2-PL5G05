@@ -211,23 +211,41 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 }
 
 
+int is_truthy (STACK* s) 
+{
+    DADOS x = pop(s);
+
+    if (x.tipo == STRING)
+    {
+        char *str = x.dados;
+        if (strlen(str) == 0) return 0;
+        else return 1;
+    }
+    else if (x.tipo == ARRAY)
+    {
+        STACK *r = x.dados;
+        if (r->sp == 0) return 0;
+        else return 1;
+    }
+    else if (x.tipo == LONG || x.tipo == DOUBLE)
+    {
+        double *n = x.dados;
+        double p = *n;
+        if (p == 0) return 0;
+        else return 1;
+    }
+
+    return 0;
+}
+
 void truthy (STACK* s, DADOS *var)
 {
     DADOS x = pop(s);
     execute_block(s,x,var);
-    DADOS y = pop (s);
 
-    if (y.tipo == LONG || y.tipo == DOUBLE)
-    {
-    double *n = y.dados;
-
-    while (*n =! 0)
+    while(is_truthy(s))
     {
         execute_block(s,x,var);
-        DADOS y = pop (s);
-        double *n = y.dados;
     }
 
-    push(s,y);
-    }
 }
