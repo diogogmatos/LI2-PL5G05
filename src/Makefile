@@ -14,12 +14,9 @@ $(TARGET): $(OBJS)
 
 run: $(TARGET)
 	./main
-	@rm -f $(TARGET) $(OBJS)
 
 clean:
 	@rm -f $(TARGET) $(OBJS)
-	rm a.out
-	rm -r a.out.dSYM
 
 test:
 	$(value script)

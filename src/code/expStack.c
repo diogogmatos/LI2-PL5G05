@@ -9,6 +9,7 @@
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @brief Duplica um elemento na stack, introduzindo-o na mesma duas vezes com função `push()`.
@@ -60,14 +61,23 @@ void swap(STACK *s)
  * 
  * @param s Stack.
  */
-void ncopy(STACK *s)
+void ncopy(STACK *s, DADOS *var)
 {
     DADOS t = pop(s);
-
-    double *ii = (double*)t.dados;
-    long i = *ii;
     
-    DADOS y = s->stack[(s->sp) - i];
+    if (t.tipo == BLOCK)
+    {
+        DADOS f = pop(s);
+        if (strcmp((char*)t.dados, "") != 0 || strcmp((char*)t.dados, " ") != 0)
+            sort(s, f, t, var);
+    }
+    else
+    {
+        double *ii = (double*)t.dados;
+        long i = *ii;
+        
+        DADOS y = s->stack[(s->sp) - i];
 
-    push(s, y);
+        push(s, y);
+    }
 }
