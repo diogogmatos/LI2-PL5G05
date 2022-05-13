@@ -163,6 +163,10 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case 'l': { new_line(s); return;}
         case 't': { all_lines(s); return;}
 
+        // Blocks
+
+        case 'w': {truthy (s,var); return; }
+
         // Conversões
 
         case 'i': { conv_int(s); return; }

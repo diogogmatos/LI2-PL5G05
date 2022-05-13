@@ -130,3 +130,5 @@ void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var);
 void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var);
 void filter_string(STACK* s, DADOS b, DADOS a, DADOS *var);
 void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var);
+void truthy (STACK* s, DADOS *var);
+int is_truthy (STACK* s);
