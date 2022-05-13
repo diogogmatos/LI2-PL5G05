@@ -317,7 +317,7 @@ STACK* copy_stack(STACK* original, STACK* new_array)
     return new_array;
 }
 
-void sort(STACK* s, DADOS array, DADOS block)
+void sort(STACK* s, DADOS array, DADOS block, DADOS *var)
 {
     STACK* target = new_stack();
     target = copy_stack(array.dados, target);
@@ -334,7 +334,7 @@ void sort(STACK* s, DADOS array, DADOS block)
 
     push_array(s, *(STACK*)array.dados);
     push_block(s, block.dados);
-    mod(s);
+    mod(s, var);
 
     STACK* tool = pop(s).dados;
     

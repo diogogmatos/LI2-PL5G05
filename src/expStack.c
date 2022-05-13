@@ -60,14 +60,14 @@ void swap(STACK *s)
  * 
  * @param s Stack.
  */
-void ncopy(STACK *s)
+void ncopy(STACK *s, DADOS *var)
 {
     DADOS t = pop(s);
     
     if (t.tipo == BLOCK)
     {
         DADOS f = pop(s);
-        sort(s, f, t);
+        sort(s, f, t, var);
     }
     else
     {
