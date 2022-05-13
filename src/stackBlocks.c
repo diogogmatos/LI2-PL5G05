@@ -178,7 +178,75 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
     push_string(s, r);
 }
 
-<<<<<<< HEAD
+/**
+ * @brief Aplica as operações contidas num bloco iterativamente aos elementos de um array. Por exemplo, o input: `[ 1 2 3 ] { + } *` daria o output: `6`
+ * (soma de todos os elemetnos do array). 
+ * 
+ * @param s Stack.
+ * @param b Bloco.
+ * @param a Array.
+ */
+void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
+{
+    STACK *array = a.dados;
+    STACK *stack = new_stack();
+
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    line = b.dados;
+
+    push(stack, array->stack[1]);
+    for(int i = 2; i <= array->sp; i++)
+    {
+        push(stack, array->stack[i]);
+        while ((line = get_token(line, token)) && *line != '\0'){
+            handle_token(stack, token, var);
+        }
+        handle_token(stack, token, var);
+
+        line = b.dados;
+    }
+    
+    push(s, pop(stack));
+}
+
+int is_truthy (STACK* s) 
+{
+    DADOS x = pop(s);
+
+    if (x.tipo == STRING)
+    {
+        char *str = x.dados;
+        if (strlen(str) == 0) return 0;
+        else return 1;
+    }
+    else if (x.tipo == ARRAY)
+    {
+        STACK *r = x.dados;
+        if (r->sp == 0) return 0;
+        else return 1;
+    }
+    else if (x.tipo == LONG || x.tipo == DOUBLE)
+    {
+        double *n = x.dados;
+        double p = *n;
+        if (p == 0) return 0;
+        else return 1;
+    }
+
+    return 0;
+}
+
+void truthy (STACK* s, DADOS *var)
+{
+    DADOS x = pop(s);
+    execute_block(s,x,var);
+
+    while(is_truthy(s))
+    {
+        execute_block(s,x,var);
+    }
+}
 
 void swap_sort(STACK* s, int i)
 {
@@ -249,7 +317,6 @@ STACK* copy_stack(STACK* original, STACK* new_array)
     return new_array;
 }
 
-
 void sort(STACK* s, DADOS array, DADOS block)
 {
     STACK* target = new_stack();
@@ -275,76 +342,3 @@ void sort(STACK* s, DADOS array, DADOS block)
 
     push_array(s, *target);
 }
-=======
-/**
- * @brief Aplica as operações contidas num bloco iterativamente aos elementos de um array. Por exemplo, o input: `[ 1 2 3 ] { + } *` daria o output: `6`
- * (soma de todos os elemetnos do array). 
- * 
- * @param s Stack.
- * @param b Bloco.
- * @param a Array.
- */
-void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
-{
-    STACK *array = a.dados;
-    STACK *stack = new_stack();
-
-    char token[BUFSIZ];
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    line = b.dados;
-
-    push(stack, array->stack[1]);
-    for(int i = 2; i <= array->sp; i++)
-    {
-        push(stack, array->stack[i]);
-        while ((line = get_token(line, token)) && *line != '\0'){
-            handle_token(stack, token, var);
-        }
-        handle_token(stack, token, var);
-
-        line = b.dados;
-    }
-    
-    push(s, pop(stack));
-}
-
-
-int is_truthy (STACK* s) 
-{
-    DADOS x = pop(s);
-
-    if (x.tipo == STRING)
-    {
-        char *str = x.dados;
-        if (strlen(str) == 0) return 0;
-        else return 1;
-    }
-    else if (x.tipo == ARRAY)
-    {
-        STACK *r = x.dados;
-        if (r->sp == 0) return 0;
-        else return 1;
-    }
-    else if (x.tipo == LONG || x.tipo == DOUBLE)
-    {
-        double *n = x.dados;
-        double p = *n;
-        if (p == 0) return 0;
-        else return 1;
-    }
-
-    return 0;
-}
-
-void truthy (STACK* s, DADOS *var)
-{
-    DADOS x = pop(s);
-    execute_block(s,x,var);
-
-    while(is_truthy(s))
-    {
-        execute_block(s,x,var);
-    }
-
-}
->>>>>>> main

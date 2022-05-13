@@ -202,3 +202,146 @@ void slash_str(STACK* s, DADOS a, DADOS b)
 
     push_array(s, *r);
 }
+
+void add_arrays(STACK *s, DADOS x, DADOS y)
+{
+    STACK *array1 = y.dados;
+    STACK *array2 = x.dados;
+
+    STACK *r = new_stack();
+
+    int i,j,k;
+
+    for (i=1; i <= array1->sp; i++)
+    {
+        *(r->stack + i) = *(array1->stack + i);
+        r->sp++;
+    }
+
+    for (j=i,k=1;k <= array2->sp;j++,k++)
+    {
+        *(r->stack + j) = *(array2->stack + k);
+        r->sp++;
+    }
+
+    push_array(s, *r);
+}
+
+void add_char_array(STACK *s, DADOS x, DADOS y)
+{
+    if (x.tipo == CHAR && y.tipo == ARRAY)
+    {
+        STACK *array = y.dados;
+        char *a = x.dados;
+        double c = *a;
+
+        STACK *r = new_stack();
+
+        int i;
+        for (i=1; i <= array->sp; i++)
+        {
+            *(r->stack + i) = *(array->stack + i);
+            r->sp++;
+        }
+
+        push_char(r, c);
+        push_array(s, *r);
+    }
+    else if (x.tipo == ARRAY && y.tipo == CHAR)
+    {
+        STACK *array = x.dados;
+        char *a = y.dados;
+        double c = *a;
+
+        STACK *r = new_stack();
+        int i;
+
+        push_char(r,c);
+
+        for (i=2; i <= array->sp + 1; i++)
+        {
+            *(r->stack + i) = *(array->stack + i -1);
+            r->sp++;
+        }
+        push_array(s, *r);
+    }
+}
+
+void add_num_array(STACK *s, DADOS x, DADOS y)
+{
+    if ((x.tipo == LONG || x.tipo == DOUBLE) && y.tipo == ARRAY)
+    {
+        STACK *array = y.dados;
+        push(array, x);
+        push_array(s, *array);
+    }
+    else if (x.tipo == ARRAY && (y.tipo == LONG || y.tipo == DOUBLE))
+    {
+        STACK *array = x.dados;
+        STACK *r = new_stack();
+        
+        push(r, y);
+        int i;
+        for (i=2; i <= array->sp + 1; i++)
+        {
+            *(r->stack + i) = *(array->stack + i -1);
+            r->sp++;
+        }
+        push_array(s, *r);
+    }
+}
+
+void add_strings(STACK *s, DADOS x, DADOS y)
+{
+    char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
+    char* a = x.dados;
+    char* b = y.dados;
+    memcpy(r, b, strlen(b));
+    strcat(r, a);
+    push_string(s, r);
+}
+
+void add_char_string(STACK *s, DADOS x, DADOS y)
+{
+    if (x.tipo == CHAR && y.tipo == STRING)
+    {
+        char *a = x.dados;
+        double c = *a;
+
+        char *str = y.dados;
+        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        int tam = strlen(str);
+        
+        int i;
+        for (i=0; *(str + i); i++)
+        {
+            *(r+i) = *(str + i);
+        }
+
+        *(r + tam) = c;
+        *(r + tam + 1) = '\0';
+
+        push_string (s, r);
+    }
+    else if (x.tipo == STRING && y.tipo == CHAR)
+    {
+        char *a = y.dados;
+        double c = *a;
+
+        char *str = x.dados;
+        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
+        int tam = strlen(str);
+        int i,j=0;
+
+        *r = c;
+
+        for (i=1; *(str + j); i++,j++)
+        {
+            *(r+i) = *(str + j);
+        }
+
+        *(r + tam + 1) = '\0';
+        
+        push_string (s, r);
+    }
+}
