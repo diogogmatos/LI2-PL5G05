@@ -91,16 +91,29 @@ void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
 void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var)
 {
     char* str = string.dados;
-    STACK* new_arr = new_stack();
+    STACK* stack = new_stack();
+    char *r = malloc(sizeof(str));
     
-    for (int i = 0; *(str + i); ++i)
-        push_char(new_arr, *(str+i));
-    
-    free(string.dados);
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    line = block.dados;
+    int i;
+    for(i = 0; str[i] != '\0'; i++)
+    {
+        push_char(stack, str[i]);
+        while ((line = get_token(line, token)) && *line != '\0'){
+            handle_token(stack, token, var);
+        }
+        handle_token(stack, token, var);
+        
+        char *result = pop(stack).dados;
+        r[i] = *result;
 
-    push_array(s, *new_arr);
-    push_block(s, block.dados);
-    mod(s, var);
+        line = block.dados;
+    }
+    r[i] = '\0';
+
+    push_string(s, r);
 }
 
 /**
