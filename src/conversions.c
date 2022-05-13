@@ -81,8 +81,6 @@ void conv_int(STACK *s)
         double r = ri;
         push_long(s, r);
     }
-    
-    free(d.dados);
 }
 
 /**
