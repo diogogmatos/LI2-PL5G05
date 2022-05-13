@@ -209,3 +209,25 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
     
     push(s, pop(stack));
 }
+
+
+void truthy (STACK* s, DADOS *var)
+{
+    DADOS x = pop(s);
+    execute_block(s,x,var);
+    DADOS y = pop (s);
+
+    if (y.tipo == LONG || y.tipo == DOUBLE)
+    {
+    double *n = y.dados;
+
+    while (*n =! 0)
+    {
+        execute_block(s,x,var);
+        DADOS y = pop (s);
+        double *n = y.dados;
+    }
+
+    push(s,y);
+    }
+}
