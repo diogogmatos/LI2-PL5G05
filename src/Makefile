@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -pedantic-errors -O2
 LIBS = -lm
-OBJS = main.o stack.o conversions.o expLogic.o expStack.o expMat.o io.o expArrayString.o
+OBJS = main.o stack.o conversions.o expLogic.o expStack.o expMat.o io.o expArrayString.o stackBlocks.o
 TARGET = main
 DOC_FILE = Doxyfile
 

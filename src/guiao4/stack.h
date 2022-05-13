@@ -12,7 +12,7 @@
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
  * 
  */
-typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY, BLOCK} TIPO;
+typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY} TIPO;
 
 /**
  * @brief Definição de uma estrutura "__DADOS__" que constitui os elementos da stack.
@@ -58,21 +58,20 @@ void push_string(STACK *s, char elem[]);
 void push_array(STACK *s, STACK elem);
 void push(STACK *s, DADOS elem);
 DADOS pop(STACK *s);
-void push_block(STACK* s, char* elem);
 
 // expMat.c
 
 void s_add(STACK *s);
 void subtract(STACK *s);
-void multiply(STACK *s, DADOS *var);
+void multiply(STACK *s);
 void divide(STACK *s);
 void bit_and(STACK *s);
 void bit_or(STACK *s);
 void bit_xor(STACK *s);
-void bit_not(STACK *s, DADOS *var);
+void bit_not(STACK *s);
 void decr(STACK *s);
 void incr(STACK *s);
-void mod(STACK *s, DADOS *var);
+void mod(STACK *s);
 void expo(STACK *s);
 
 // io.c
@@ -113,22 +112,10 @@ void if_else(STACK* s);
 
 // expArrayString.c
 
-DADOS create_array(STACK* s, char* token, DADOS *var);
 void div_newline(STACK *s);
 void div_whitespace(STACK *s);
-void range(STACK *s, DADOS *var);
+void range(STACK *s);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
 void slash_str(STACK* s, DADOS a, DADOS b);
 
-// stackBlocks.c
-
-DADOS create_block(STACK* s, char* token);
-void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var);
-void execute_block(STACK* s, DADOS block, DADOS *var);
-void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var);
-void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var);
-void filter_string(STACK* s, DADOS b, DADOS a, DADOS *var);
-void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var);
-void truthy (STACK* s, DADOS *var);
-int is_truthy (STACK* s);

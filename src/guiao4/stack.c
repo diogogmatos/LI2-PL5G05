@@ -14,20 +14,13 @@
  * 
  * @return s Retorna o endereço da "STACK" declarada em `main()`, agora inicializada.
  */
-STACK *new_stack()
+STACK* new_stack()
 {
     STACK *s = malloc(sizeof(STACK));
     s->sp = 0;
+    s->cap = 15000;
+    s->stack = malloc(sizeof(DADOS) * s->cap);
     return s;
-}
-
-//Remoção de elementos da stack
-
-void remove_elem(STACK* s, int pos)
-{
-    for (int i = pos; i+1 <= s->sp+1; ++i)
-        s->stack[i] = s->stack[i+1];
-    s->sp--;
 }
 
 // Armazenamento de variáveis
@@ -136,17 +129,9 @@ void push_char(STACK* s, char elem)
  * @param s Stack.
  * @param elem Elemento a introduzir na stack.
  */
-void push_string(STACK *s, char elem[])
+void push_string(STACK *s, char* elem)
 {   
-    int i;
-    char *str = malloc(sizeof(char) * 50);
-    for (i = 0; *(elem + i) != 0; ++i)
-    {
-        *(str+i) = *(elem + i);
-    }
-    *(str+i) = '\0';
-    
-    DADOS d = {STRING, str}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
+    DADOS d = {STRING, elem}; // Seria 'DADOS d = {STRING, elemP};' com o código acima.
     s->sp++;
     s->stack[s->sp] = d;
 }
@@ -210,4 +195,18 @@ DADOS pop(STACK* s)
     s->sp--;
 
     return d;
+}
+
+
+DADOS* memory_checker(STACK* s)
+{
+    if (s->sp == s->cap)
+    {
+        s->cap += MAX_STACK;
+        int n = s->cap / MAX_STACK;
+        s->stack = realloc(s->stack, sizeof(DADOS) * n);
+        return s->stack;
+    }
+    else
+        return s->stack;
 }

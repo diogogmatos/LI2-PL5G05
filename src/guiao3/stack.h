@@ -1,3 +1,4 @@
+#include<stdlib.h>
 /**
  * @file stack.h
  * @brief Declaração de funções e definição de estruturas de dados.
@@ -5,7 +6,7 @@
 
 // Definição de stack
 
-#define MAX_STACK  10000
+#define MAX_STACK 1000 
 
 /**
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
@@ -37,14 +38,16 @@ typedef struct
  */
 typedef struct
 {
-    DADOS stack[MAX_STACK];
+    DADOS* stack;
     int sp;
+    int cap;
 } STACK;
 
 // Declarações de funções
 
 // stack.c
 
+DADOS* memory_checker(STACK* s);
 STACK* new_stack();
 void remove_elem(STACK* s, int pos);
 void initialize_var(DADOS *var);
@@ -114,3 +117,5 @@ void div_whitespace(STACK *s);
 void range(STACK *s);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
+void slash_str(STACK* s, DADOS a, DADOS b);
+

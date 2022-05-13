@@ -17,6 +17,7 @@
  */
 char* get_token(char* line, char token[])
 {
+    int size=0;
     int index = 0;
     int flag = 0;
     int str_flag = 0;
@@ -28,6 +29,7 @@ char* get_token(char* line, char token[])
         while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0)) || (flag > 0 || str_flag > 0))
         {   
             token[index] = *line;
+            ++size;
 
             if (*line == '[')
                 ++flag;
@@ -69,6 +71,7 @@ int main()
     if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while ((line = get_token(line, token)) && *line != '\n'){
+            s->stack = memory_checker(s);
             handle_token(s, token, var);
         }
         handle_token(s, token, var);

@@ -21,10 +21,13 @@
 void div_newline(STACK *s)
 {
     char *a = pop(s).dados;
+    char *str = malloc(sizeof(char) * BUFSIZ);
+    strcpy(str, a);
+
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(a, "\n");
+    token = strtok(str, "\n");
 
     while (token != NULL)
     {
@@ -33,9 +36,6 @@ void div_newline(STACK *s)
     }
     
     push_array(s, *r);
-
-    free(a);
-    free(token);
 }
 
 /**
@@ -48,21 +48,21 @@ void div_newline(STACK *s)
 void div_whitespace(STACK *s)
 {
     char *a = pop(s).dados;
+    char *str = malloc(sizeof(char) * BUFSIZ);
+    strcpy(str, a);
+    
     char *token = malloc(sizeof(char) * strlen(a));
     STACK *r = new_stack();
     
-    token = strtok(a, " \n");
+    token = strtok(str, " \t\r\n\v\f");
 
     while (token != NULL)
     {
         push_string(r, token);
-        token = strtok(NULL, " \n");
+        token = strtok(NULL, " \t\r\n\v\f");
     }
     
     push_array(s, *r);
-
-    free(a);
-    free(token);
 }
 
 /**
@@ -99,34 +99,6 @@ void range(STACK *s)
         for (i = 0; *(str + i); ++i);
         push_long(s, i);
     }
-
-    free(x.dados);
-}
-
-int substrings(STACK *s, DADOS b, DADOS a)
-{
-    char* word = b.dados;
-    char* sen = a.dados;
-
-    int word_len = strlen(word);
-    /* int sen_len = strlen(sen); */
-
-    int f, i , j;
-    for (i = 0; *(sen + i); ++i)
-    {
-        if (*word == *(sen + i))
-        {
-            for (f = 0, j = i; *(sen + j) && *(word + f); ++f, ++j);
-
-            if (f == word_len)
-            {
-                push_long(s, i);
-                return i;
-            }
-        }
-    }
-    push_long(s, -1);
-    return -1;
 }
 
 void create_string(STACK *s, char* token)
@@ -142,4 +114,35 @@ void create_string(STACK *s, char* token)
     *(str+i) = '\0';
 
     push_string(s, str);
+}
+
+void slash_str(STACK* s, DADOS a, DADOS b)
+{
+    char *str2 = a.dados;
+    char *str1 = b.dados;
+    
+    STACK *r = new_stack();
+    
+    int ind;
+    while (strstr(str1, str2) != NULL)
+    {
+        char *aux = malloc(sizeof(char) * BUFSIZ);
+        ind = strstr(str1, str2) - str1;
+
+        int i;
+        for (i=0; i < ind; i++)
+            aux[i] = str1[i];
+        aux[i] = '\0';
+
+        push_string(r, aux);
+        str1 = str1 + ind + strlen(str2);
+    }
+    if (str1[0] != '\0')
+    {
+        char *aux = malloc(sizeof(char) * BUFSIZ);
+        strcpy(aux, str1);
+        push_string(r, aux);
+    }
+
+    push_array(s, *r);
 }
