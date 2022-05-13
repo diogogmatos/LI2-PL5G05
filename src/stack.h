@@ -83,6 +83,7 @@ void handle_token(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
 void new_line (STACK *s);
 void all_lines (STACK *s);
+char type_to_char(DADOS x);
 
 // conversions.c
 
@@ -120,6 +121,11 @@ void range(STACK *s, DADOS *var);
 int substrings(STACK *s, DADOS a, DADOS b);
 void create_string(STACK *s, char* token);
 void slash_str(STACK* s, DADOS a, DADOS b);
+void add_arrays(STACK *s, DADOS x, DADOS y);
+void add_char_array(STACK *s, DADOS x, DADOS y);
+void add_num_array(STACK *s, DADOS x, DADOS y);
+void add_strings(STACK *s, DADOS x, DADOS y);
+void add_char_string(STACK *s, DADOS x, DADOS y);
 
 // stackBlocks.c
 

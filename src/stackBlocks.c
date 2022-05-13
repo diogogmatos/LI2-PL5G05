@@ -247,5 +247,4 @@ void truthy (STACK* s, DADOS *var)
     {
         execute_block(s,x,var);
     }
-
 }

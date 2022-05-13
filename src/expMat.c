@@ -26,154 +26,90 @@ void s_add(STACK *s)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
+
+    char cx = type_to_char(x);
+    char cy = type_to_char(y);
     
-    if (x.tipo == ARRAY && y.tipo == ARRAY)
+    switch (cx)
     {
-        STACK *array1 = y.dados;
-        STACK *array2 = x.dados;
-
-        STACK *r = new_stack();
-
-        int i,j,k;
-
-        for (i=1; i <= array1->sp; i++)
+        case 'A':
         {
-            *(r->stack + i) = *(array1->stack + i);
-            r->sp++;
+            switch (cy)
+            {
+                case 'A': { add_arrays(s, x, y); return; }
+                case 'C': { add_char_array(s, x, y); return; }
+                case 'L': { add_num_array(s, x, y); return; }
+                case 'D': { add_num_array(s, x, y); return; }
+            }
+            return;
         }
-
-        for (j=i,k=1;k <= array2->sp;j++,k++)
+        case 'C':
         {
-            *(r->stack + j) = *(array2->stack + k);
-            r->sp++;
+            switch (cy)
+            {
+                case 'A': { add_char_array(s, x, y); return; }
+                case 'S': { add_char_string(s, x, y); return; }
+            }
+            return;
         }
-
-        push_array(s, *r);
-    }
-    else if (x.tipo == CHAR && y.tipo == ARRAY)
-    {
-        STACK *array = y.dados;
-        char *a = x.dados;
-        double c = *a;
-
-        STACK *r = new_stack();
-
-        int i;
-        for (i=1; i <= array->sp; i++)
+        case 'L':
         {
-            *(r->stack + i) = *(array->stack + i);
-            r->sp++;
+            switch (cy)
+            {
+                case 'A': { add_num_array(s, x, y); return; }
+                case 'L':
+                {
+                    double *a = x.dados;
+                    double *b = y.dados;
+
+                    long ri = *b + *a;
+                    
+                    double r = ri;
+                    push_long(s, r);
+
+                    return;
+                }
+
+                default:
+                {
+                    double *a = x.dados;
+                    double *b = y.dados;
+
+                    double r = *b + *a;
+                    push_double(s, r);
+
+                    return;
+                }
+            }
+            return;
         }
-
-        push_char(r, c);
-        push_array(s, *r);
-    }
-    else if (x.tipo == ARRAY && y.tipo == CHAR)
-    {
-        STACK *array = x.dados;
-        char *a = y.dados;
-        double c = *a;
-
-        STACK *r = new_stack();
-        int i;
-
-        push_char(r,c);
-
-        for (i=2; i <= array->sp + 1; i++)
+        case 'D':
         {
-            *(r->stack + i) = *(array->stack + i -1);
-            r->sp++;
+            switch (cy)
+            {
+                case 'A': { add_num_array(s, x, y); return; }
+                
+                default:
+                {
+                    double *a = x.dados;
+                    double *b = y.dados;
+
+                    double r = *b + *a;
+                    push_double(s, r);
+
+                    return;
+                }
+            }
         }
-        push_array(s, *r);
-    }
-    else if ((x.tipo == LONG || x.tipo == DOUBLE) && y.tipo == ARRAY)
-    {
-        STACK *array = y.dados;
-        push(array, x);
-        push_array(s, *array);
-    }
-    else if (x.tipo == ARRAY && (y.tipo == LONG || y.tipo == DOUBLE))
-    {
-        STACK *array = x.dados;
-        STACK *r = new_stack();
-        
-        push(r, y);
-        int i;
-        for (i=2; i <= array->sp + 1; i++)
+        case 'S':
         {
-            *(r->stack + i) = *(array->stack + i -1);
-            r->sp++;
+            switch (cy)
+            {
+                case 'S': { add_strings(s, x, y); return; }
+                case 'C': { add_char_string(s, x, y); return; }
+            }
+            return;
         }
-        push_array(s, *r);
-        
-    }
-    else if (x.tipo == STRING && y.tipo == STRING)
-    {
-            char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
-            char* a = x.dados;
-            char* b = y.dados;
-            memcpy(r, b, strlen(b));
-            strcat(r, a);
-            push_string(s, r);
-    }  
-    else if (x.tipo == CHAR && y.tipo == STRING)
-    {
-        char *a = x.dados;
-        double c = *a;
-
-        char *str = y.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
-        int tam = strlen(str);
-        
-        int i;
-        for (i=0; *(str + i); i++)
-        {
-            *(r+i) = *(str + i);
-        }
-
-        *(r + tam) = c;
-        *(r + tam + 1) = '\0';
-
-        push_string (s, r);
-    }
-    else if (x.tipo == STRING && y.tipo == CHAR)
-    {
-        char *a = y.dados;
-        double c = *a;
-
-        char *str = x.dados;
-        char *r = malloc (sizeof(x.dados) + sizeof(y.dados) + sizeof(char));
-        int tam = strlen(str);
-        int i,j=0;
-
-        *r = c;
-
-        for (i=1; *(str + j); i++,j++)
-        {
-            *(r+i) = *(str + j);
-        }
-
-        *(r + tam + 1) = '\0';
-        
-        push_string (s, r);
-    }
-    else if (x.tipo == LONG && y.tipo == LONG)
-    {
-        double *a = x.dados;
-        double *b = y.dados;
-
-        long ri = *b + *a;
-        
-        double r = ri;
-        push_long(s, r);
-    }
-    else
-    {
-        double *a = x.dados;
-        double *b = y.dados;
-
-        double r = *b + *a;
-        push_double(s, r);
     }
 }
 
@@ -225,69 +161,151 @@ void multiply(STACK *s, DADOS *var)
 {   
     DADOS x = pop(s);
     DADOS y = pop(s);
-    
-    if (x.tipo == BLOCK)
-        fold_array(s, x, y, var);
-    else if (y.tipo == ARRAY)
+
+    char cx = type_to_char(x);
+    char cy = type_to_char(y);
+
+    switch (cx)
     {
-        double *a = x.dados;
-        long n = *a;
-        STACK *array = y.dados;
+        case 'B': { fold_array(s, x, y, var); return; }
 
-        STACK *r = new_stack();
-
-        int i, j, k;
-        for (i=1; i <= n * array->sp; )
+        default:
         {
-            for (j=i, k=1; j < i + array->sp; j++, k++)
+            switch (cy)
             {
-                r->stack[j] = array->stack[k];
+                case 'A':
+                {
+                    double *a = x.dados;
+                    long n = *a;
+                    STACK *array = y.dados;
+
+                    STACK *r = new_stack();
+
+                    int i, j, k;
+                    for (i=1; i <= n * array->sp; )
+                    {
+                        for (j=i, k=1; j < i + array->sp; j++, k++)
+                        {
+                            r->stack[j] = array->stack[k];
+                        }
+                        r->sp += array->sp;
+                        i = r->sp+1;
+                    }
+
+                    push_array(s, *r);
+
+                    return;
+                }
+                case 'S':
+                {
+                    double *a = x.dados;
+                    long n = *a;
+                    char *str = y.dados;
+
+                    int tam = strlen(str) * n;
+                    char *r = malloc(sizeof(char) * tam);
+
+                    int i, j, k;
+                    for (i=0; i < tam; )
+                    {
+                        int max = i + strlen(str);
+                        for (j=i, k=0; j < max; j++, k++)
+                            r[j] = str[k];
+                        i = j;
+                    }
+                    r[tam] = '\0';
+
+                    push_string(s, r);
+
+                    return;
+                }
+                default:
+                {
+                    double *a = x.dados;
+                    double *b = y.dados;
+
+                    if (x.tipo == LONG && y.tipo == LONG)
+                    {
+                        long ri = *b * *a;
+                        
+                        double r = ri;
+                        push_long(s, r);
+                    }
+                    else
+                    {
+                        double r = *b * *a;
+                        push_double(s, r);
+                    }
+
+                    return;
+                }
             }
-            r->sp += array->sp;
-            i = r->sp+1;
+            return;
         }
-
-        push_array(s, *r);
     }
-    else if (y.tipo == STRING)
-    {
-        double *a = x.dados;
-        long n = *a;
-        char *str = y.dados;
+    
+    // if (x.tipo == BLOCK)
+    //     fold_array(s, x, y, var);
+    // else if (y.tipo == ARRAY)
+    // {
+    //     double *a = x.dados;
+    //     long n = *a;
+    //     STACK *array = y.dados;
 
-        int tam = strlen(str) * n;
-        char *r = malloc(sizeof(char) * tam);
+    //     STACK *r = new_stack();
 
-        int i, j, k;
-        for (i=0; i < tam; )
-        {
-            int max = i + strlen(str);
-            for (j=i, k=0; j < max; j++, k++)
-                r[j] = str[k];
-            i = j;
-        }
-        r[tam] = '\0';
+    //     int i, j, k;
+    //     for (i=1; i <= n * array->sp; )
+    //     {
+    //         for (j=i, k=1; j < i + array->sp; j++, k++)
+    //         {
+    //             r->stack[j] = array->stack[k];
+    //         }
+    //         r->sp += array->sp;
+    //         i = r->sp+1;
+    //     }
 
-        push_string(s, r);
-    }
-    else
-    {
-        double *a = x.dados;
-        double *b = y.dados;
+    //     push_array(s, *r);
+    // }
+    // else if (y.tipo == STRING)
+    // {
+    //     double *a = x.dados;
+    //     long n = *a;
+    //     char *str = y.dados;
 
-        if (x.tipo == LONG && y.tipo == LONG)
-        {
-            long ri = *b * *a;
+    //     int tam = strlen(str) * n;
+    //     char *r = malloc(sizeof(char) * tam);
+
+    //     int i, j, k;
+    //     for (i=0; i < tam; )
+    //     {
+    //         int max = i + strlen(str);
+    //         for (j=i, k=0; j < max; j++, k++)
+    //             r[j] = str[k];
+    //         i = j;
+    //     }
+    //     r[tam] = '\0';
+
+    //     push_string(s, r);
+    // }
+    // else
+    // {
+    //     double *a = x.dados;
+    //     double *b = y.dados;
+
+    //     if (x.tipo == LONG && y.tipo == LONG)
+    //     {
+    //         long ri = *b * *a;
             
-            double r = ri;
-            push_long(s, r);
-        }
-        else
-        {
-            double r = *b * *a;
-            push_double(s, r);
-        }
-    }
+    //         double r = ri;
+    //         push_long(s, r);
+    //     }
+    //     else
+    //     {
+    //         double r = *b * *a;
+    //         push_double(s, r);
+    //     }
+    // }
     
     free(x.dados);
     free(y.dados);
