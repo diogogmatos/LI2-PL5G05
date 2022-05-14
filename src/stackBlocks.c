@@ -201,20 +201,8 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
  */
 void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 {
-<<<<<<< HEAD
-    STACK *array = a.dados;
-    STACK *stack = new_stack();
-
-    char token[BUFSIZ];
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    line = b.dados;
-
-    push(stack, array->stack[1]);
-    for(int i = 2; i < array->sp; i++)
-=======
     char *block = b.dados;
     if (strlen(block) == 1)
->>>>>>> main
     {
         STACK *array = a.dados;
         STACK *stack = new_stack();
