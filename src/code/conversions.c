@@ -126,7 +126,7 @@ void conv_string(STACK *s)
 
     if (d.tipo == LONG)
     {
-        char result[BUFSIZ];
+        char result[1090];
         double *ai = (double*)d.dados;
 
         long a = *ai;
@@ -135,7 +135,7 @@ void conv_string(STACK *s)
     }
     else if (d.tipo == DOUBLE)
     {
-        char result[BUFSIZ];
+        char result[1090];
         double *a = (double*)d.dados;
 
         sprintf(result, "%lf", *a);
@@ -143,7 +143,7 @@ void conv_string(STACK *s)
     }
     else if (d.tipo == CHAR)
     {
-        char result[BUFSIZ];
+        char result[1090];
         char *l = (char*)d.dados;
         
         result[0] = *l;
