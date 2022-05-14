@@ -21,13 +21,19 @@ DADOS create_block(STACK* s, char* token)
 {
     char* block = malloc(sizeof(char) * BUFSIZ);
 
+    int flag = 1;
     int index = 0;
     ++token;
     while ( *token == ' ')
         ++token;
 
-    for(int i = 0; *(token + i) != '}'; ++i)
+    for(int i = 0; *(token + i) && flag != 0; ++i)
     {
+        if (*(token + i) == '{')
+            ++flag;
+        else if (*(token + i) == '}')
+            --flag;
+
         *(block + index) = *(token + i);
         ++index;
     }
