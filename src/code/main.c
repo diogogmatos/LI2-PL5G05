@@ -64,7 +64,7 @@ char* get_token(char* line, char token[])
  * - `STACK* s = new_stack();`: __Declaração de uma nova stack.__
  * - `DADOS var[26];`: __Declaração do array responsável por armazenar as variáveis.__
  * - `initialize_var(var);`: __Inicialização do array que armazena as variáveis com os seus valores por defeito.__ 
- * - `if (fgets(line, BUFSIZ, stdin) != NULL)`: __Leitura do input.__
+ * - `if (fgets(line, 10090, stdin) != NULL)`: __Leitura do input.__
  */
 int main()
 {
@@ -72,10 +72,10 @@ int main()
     DADOS* var = malloc(sizeof(DADOS) * 26);
     initialize_var(var);
 
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * 10090);
+    char token[10090];
 
-    if (fgets(line, BUFSIZ, stdin) != NULL)
+    if (fgets(line, 10090, stdin) != NULL)
     {
         while ((line = get_token(line, token)) && *line != '\n'){
             s->stack = memory_checker(s);
