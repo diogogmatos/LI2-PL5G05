@@ -565,6 +565,24 @@ void incr(STACK *s)
         free(x.dados);
         free(y.dados);
     }
+    else if (x.tipo == CHAR && y.tipo == STRING)
+    {
+        char *ai = x.dados;
+        char *a = malloc(sizeof(char)+1);
+        
+        a[0] = *ai;
+        a[1] = '\0';
+
+        char *b = y.dados;
+
+        if (strstr(b, a) == NULL)
+            push_long(s, -1);
+        else
+            push_long(s, strstr(b, a) - b);
+
+        free(x.dados);
+        free(y.dados);
+    }
     else
     {
         double a = *((double*)x.dados);
