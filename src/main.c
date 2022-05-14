@@ -72,10 +72,10 @@ int main()
     DADOS* var = malloc(sizeof(DADOS) * 26);
     initialize_var(var);
 
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * 1090);
+    char token[1090];
 
-    if (fgets(line, BUFSIZ, stdin) != NULL)
+    if (fgets(line, 1090, stdin) != NULL)
     {
         while ((line = get_token(line, token)) && *line != '\n'){
             s->stack = memory_checker(s);
