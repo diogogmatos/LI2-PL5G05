@@ -16,7 +16,7 @@
 DADOS create_array(STACK* s, char* token, DADOS *var)
 {
     STACK* array = new_stack();
-    char token_token[BUFSIZ]; 
+    char token_token[10090]; 
 
     ++token;
     while(*token){
@@ -44,7 +44,7 @@ DADOS create_array(STACK* s, char* token, DADOS *var)
 void div_newline(STACK *s)
 {
     char *a = pop(s).dados;
-    char *str = malloc(sizeof(char) * BUFSIZ);
+    char *str = malloc(sizeof(char) * 10090);
     strcpy(str, a);
 
     char *token = malloc(sizeof(char) * strlen(a));
@@ -71,7 +71,7 @@ void div_newline(STACK *s)
 void div_whitespace(STACK *s)
 {
     char *a = pop(s).dados;
-    char *str = malloc(sizeof(char) * BUFSIZ);
+    char *str = malloc(sizeof(char) * 10090);
     strcpy(str, a);
     
     char *token = malloc(sizeof(char) * strlen(a));
@@ -147,7 +147,7 @@ void range(STACK *s, DADOS *var)
 void create_string(STACK *s, char* token)
 {
     ++token;
-    char* str = malloc(sizeof(char) * BUFSIZ);
+    char* str = malloc(sizeof(char) * 10090);
     int i;
 
     for (i = 0; *(token + i) != '"'; ++i)
@@ -182,7 +182,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
     int ind;
     while (strstr(str1, str2) != NULL)
     {
-        char *aux = malloc(sizeof(char) * BUFSIZ);
+        char *aux = malloc(sizeof(char) * 10090);
         ind = strstr(str1, str2) - str1;
 
         int i;
@@ -195,7 +195,7 @@ void slash_str(STACK* s, DADOS a, DADOS b)
     }
     if (str1[0] != '\0')
     {
-        char *aux = malloc(sizeof(char) * BUFSIZ);
+        char *aux = malloc(sizeof(char) * 10090);
         strcpy(aux, str1);
         push_string(r, aux);
     }
@@ -293,7 +293,7 @@ void add_num_array(STACK *s, DADOS x, DADOS y)
 
 void add_strings(STACK *s, DADOS x, DADOS y)
 {
-    char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
+    char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + 10090);
     char* a = x.dados;
     char* b = y.dados;
     memcpy(r, b, strlen(b));
