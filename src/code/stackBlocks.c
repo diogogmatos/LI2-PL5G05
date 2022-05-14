@@ -22,11 +22,9 @@ DADOS create_block(STACK* s, char* token)
     char* block = malloc(sizeof(char) * BUFSIZ);
 
     int index = 0;
+    
     ++token;
-    while ( *token == ' ')
-        ++token;
-
-    for(int i = 0; *(token + i) != '}'; ++i)
+    for(int i = 0; *(token + i); ++i)
     {
         *(block + index) = *(token + i);
         ++index;
