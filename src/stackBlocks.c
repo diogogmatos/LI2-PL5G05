@@ -37,28 +37,7 @@ DADOS create_block(STACK* s, char* token)
     s->stack[s->sp] = d;
     return d;
 }
-/* DADOS create_block(STACK* s, char* token) */
-/* { */
-/*     char* block = malloc(sizeof(char) * BUFSIZ); */
 
-/*     int index = 0; */
-/*     ++token; */
-/*     while ( *token == ' ') */
-/*         ++token; */
-
-/*     for(int i = 0; *(token + i) != '}'; ++i) */
-/*     { */
-/*         *(block + index) = *(token + i); */
-/*         ++index; */
-/*     } */
-    
-/*     *(block + index - 1) = '\0'; */
-/*     DADOS d = {BLOCK, block}; */
-    
-/*     s->sp++; */
-/*     s->stack[s->sp] = d; */
-/*     return d; */
-/* } */
 /**
  * @brief Executa as operações contidas num bloco.
  * 
