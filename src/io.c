@@ -62,7 +62,10 @@ void new_line (STACK *s)
 {
     char* line = malloc(sizeof(char) * BUFSIZ);
     if (fgets (line, BUFSIZ, stdin) != NULL)
+    {
+        line[strlen(line)-1] = '\0';
         push_string (s,line);
+    }
 }
 
 /**
