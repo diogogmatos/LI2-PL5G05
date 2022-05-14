@@ -67,53 +67,86 @@ void is_smaller(STACK *s)
     DADOS x = pop(s);
     DADOS y = pop(s);
     
-    if (x.tipo == STRING && y.tipo == STRING)
+    char cx = type_to_char(x);
+    char cy = type_to_char(y);
+
+    switch (cx)
     {
-        char *a = x.dados;
-        char *b = y.dados;
+        case 'S':
+        {
+            char *a = x.dados;
+            char *b = y.dados;
 
-        if (strcmp (b, a) > 0)
-            push_long(s, 0);
-        else
-            push_long(s, 1);
-    }
-    else if (x.tipo == LONG && y.tipo == ARRAY)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        STACK *array = y.dados;
+            if (strcmp (b, a) > 0)
+                push_long(s, 0);
+            else
+                push_long(s, 1);
 
-        STACK *r = new_stack();
-        
-        for (int j = 1; j <= i; j++)
-            push(r, array->stack[j]);
+            return;
+        }
+        case 'L':
+        {
+            switch (cy)
+            {
+                case 'A':
+                {
+                    double *ii = x.dados;
+                    int i = *ii;
+                    STACK *array = y.dados;
 
-        push_array(s, *r);
-    }
-    else if (x.tipo == LONG && y.tipo == STRING)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        char *str = y.dados;
+                    STACK *r = new_stack();
+                    
+                    for (int j = 1; j <= i; j++)
+                        push(r, array->stack[j]);
 
-        char *r = malloc(sizeof(str) + BUFSIZ);
+                    push_array(s, *r);
 
-        int j;
-        for (j = 0; j < i; j++)
-            r[j] = str[j];
-        r[j] = '\0';
+                    return;
+                }
+                case 'S':
+                {
+                    double *ii = x.dados;
+                    int i = *ii;
+                    char *str = y.dados;
 
-        push_string(s, r);
-    }
-    else 
-    {
-        double a_int = *(double*)x.dados;
-        double b_int = *(double*)y.dados;
+                    char *r = malloc(sizeof(str) + BUFSIZ);
 
-        if (b_int < a_int)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
+                    int j;
+                    for (j = 0; j < i; j++)
+                        r[j] = str[j];
+                    r[j] = '\0';
+
+                    push_string(s, r);
+
+                    return;
+                }
+                default:
+                {
+                    double a_int = *(double*)x.dados;
+                    double b_int = *(double*)y.dados;
+
+                    if (b_int < a_int)
+                        push_long(s, 1);
+                    else
+                        push_long(s, 0);
+
+                    return;
+                }
+            }
+            return;
+        }
+        default:
+        {
+            double a_int = *(double*)x.dados;
+            double b_int = *(double*)y.dados;
+
+            if (b_int < a_int)
+                push_long(s, 1);
+            else
+                push_long(s, 0);
+
+            return;
+        }
     }
 }
 
@@ -126,54 +159,87 @@ void is_bigger(STACK *s)
 {
     DADOS x = pop(s);
     DADOS y = pop(s);
-    
-    if (x.tipo == STRING && y.tipo == STRING)
+
+    char cx = type_to_char(x);
+    char cy = type_to_char(y);
+
+    switch (cx)
     {
-        char *a = x.dados;
-        char *b = y.dados;
+        case 'S':
+        {
+            char *a = x.dados;
+            char *b = y.dados;
 
-        if (strcmp (b, a) > 0)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
-    }
-    else if (x.tipo == LONG && y.tipo == ARRAY)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        STACK *array = y.dados;
+            if (strcmp (b, a) > 0)
+                push_long(s, 1);
+            else
+                push_long(s, 0);
 
-        STACK *r = new_stack();
+            return;
+        }
+        case 'L':
+        {
+            switch (cy)
+            {
+                case 'A':
+                {
+                    double *ii = x.dados;
+                    int i = *ii;
+                    STACK *array = y.dados;
 
-        for (int j = array->sp - i + 1; j <= array->sp; j++)
-            push(r, array->stack[j]);
+                    STACK *r = new_stack();
 
-        push_array(s, *r);
-    }
-    else if (x.tipo == LONG && y.tipo == STRING)
-    {
-        double *ii = x.dados;
-        int i = *ii;
-        char *str = y.dados;
+                    for (int j = array->sp - i + 1; j <= array->sp; j++)
+                        push(r, array->stack[j]);
 
-        char *r = malloc(sizeof(str) + BUFSIZ);
+                    push_array(s, *r);
 
-        int j, k, tam = strlen(str);
-        for (j = tam - i, k = 0; j < tam; j++, k++)
-            r[k] = str[j];
-        r[k] = '\0';
+                    return;
+                }
+                case 'S':
+                {
+                    double *ii = x.dados;
+                    int i = *ii;
+                    char *str = y.dados;
 
-        push_string(s, r);
-    }
-    else
-    {
-        double a_int = *(double*)x.dados;
-        double b_int = *(double*)y.dados;
+                    char *r = malloc(sizeof(str) + BUFSIZ);
 
-        if (b_int > a_int)
-            push_long(s, 1);
-        else
-            push_long(s, 0);
+                    int j, k, tam = strlen(str);
+                    for (j = tam - i, k = 0; j < tam; j++, k++)
+                        r[k] = str[j];
+                    r[k] = '\0';
+
+                    push_string(s, r);
+
+                    return;
+                }
+                default:
+                {
+                    double a_int = *(double*)x.dados;
+                    double b_int = *(double*)y.dados;
+
+                    if (b_int > a_int)
+                        push_long(s, 1);
+                    else
+                        push_long(s, 0);
+
+                    return;
+                }
+            }
+            return;
+        }
+        default:
+        {
+            double a_int = *(double*)x.dados;
+            double b_int = *(double*)y.dados;
+
+            if (b_int > a_int)
+                push_long(s, 1);
+            else
+                push_long(s, 0);
+
+            return;
+        }
     }
 }
 

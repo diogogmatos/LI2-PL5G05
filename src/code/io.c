@@ -7,6 +7,7 @@
 #include <string.h>
 #include "stack.h"
 
+// Colocação de elementos na stack
 
 /**
  * @brief Esta função está encarregue de adicionar à stack os elementos do input.
@@ -61,7 +62,10 @@ void new_line (STACK *s)
 {
     char* line = malloc(sizeof(char) * BUFSIZ);
     if (fgets (line, BUFSIZ, stdin) != NULL)
+    {
+        line[strlen(line)-1] = '\0';
         push_string (s,line);
+    }
 }
 
 /**
@@ -146,21 +150,25 @@ void handle_token(STACK* s, char* token, DADOS *var)
         // Expressões matemáticas
 
         case '+': { s_add(s); return; }          // Também opera com arrays/strings
-        case '*': { multiply(s); return; }       // Também opera com arrays/strings e blocos
+        case '*': { multiply(s, var); return; }  // Também opera com arrays/strings e blocos
         case '/': { divide(s); return; }
         case '(': { decr(s); return; }           // Também opera com arrays/strings
         case ')': { incr(s); return; }           // Também opera com arrays/strings
-        case '%': { mod(s); return; }            // Também opera com blocos
-        case '#': { expo(s); return; }           // Também opera com arrays/strings e blocos
+        case '%': { mod(s, var); return; }       // Também opera com blocos
+        case '#': { expo(s); return; }           // Também opera com arrays/strings
         case '&': { bit_and(s); return; }
         case '|': { bit_or(s); return; }
         case '^': { bit_xor(s); return; }
-        case '~': { bit_not(s); return; }        // Também opera com arrays/blocos
+        case '~': { bit_not(s, var); return; }   // Também opera com arrays/blocos
         
         // Input/Output
 
         case 'l': { new_line(s); return;}
         case 't': { all_lines(s); return;}
+
+        // Blocks
+
+        case 'w': {truthy (s,var); return; }
 
         // Conversões
 
@@ -175,7 +183,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case ';': { pop(s); return; }
         case '\\': { swap(s); return; }
         case '@': { spin(s); return; }
-        case '$': { ncopy(s); return; }
+        case '$': { ncopy(s, var); return; }
 
         // Lógica
 
@@ -201,7 +209,7 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
         case '{': { create_block(s, token); return; }
-        case ',': { range(s); return; }          // Também opera com blocos
+        case ',': { range(s, var); return; }     // Também opera com blocos
         case 'N':
         {
             switch (token[1])
@@ -281,4 +289,26 @@ void print_stack(STACK *s)
         else if (d.tipo == BLOCK)     // Caso em que o elemento da stack é um BLOCK
             printf("{ %s }", (char*)d.dados);
     }
+}
+
+// Funções auxiliares
+
+/**
+ * @brief Função auxiliar que tem como objetivo converter o tipo de um elemento para um caracter.
+ * 
+ * @param x Elemento.
+ * @return char Retorna o tipo do elemento em formato de caracter.
+ */
+char type_to_char(DADOS x)
+{
+    char cx;
+    
+    if (x.tipo == ARRAY) cx = 'A';
+    else if (x.tipo == STRING) cx = 'S';
+    else if (x.tipo == LONG) cx = 'L';
+    else if (x.tipo == CHAR) cx = 'C';
+    else if (x.tipo == BLOCK) cx = 'B';
+    else cx = 'D';
+
+    return cx;
 }
