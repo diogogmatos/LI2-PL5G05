@@ -19,7 +19,7 @@
  */
 DADOS create_block(STACK* s, char* token)
 {
-    char* block = malloc(sizeof(char) * 10090);
+    char* block = malloc(sizeof(char) * BUFSIZ);
 
     int index = 0;
     
@@ -37,12 +37,6 @@ DADOS create_block(STACK* s, char* token)
     s->stack[s->sp] = d;
     return d;
 }
-<<<<<<< HEAD
-=======
-/* DADOS create_block(STACK* s, char* token) */
-/* { */
-/*     char* block = malloc(sizeof(char) * 10090); */
->>>>>>> main
 
 /**
  * @brief Executa as operações contidas num bloco.
@@ -53,7 +47,7 @@ DADOS create_block(STACK* s, char* token)
 void execute_block(STACK* s, DADOS block, DADOS *var)
 {
     char* line = block.dados; 
-    char* token = malloc(sizeof(char) * 10090);
+    char* token = malloc(sizeof(char) * BUFSIZ);
 
     while ((line = get_token(line, token)) && *line != '\0'){
         s->stack = memory_checker(s);
@@ -77,8 +71,8 @@ void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
     new_arr->cap = old_arr->cap;
     new_arr->stack = malloc(sizeof(DADOS) * old_arr->cap);    
     
-    char token[10090];
-    char* line = malloc(sizeof(char) * 10090);
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
     line = block.dados;
     for(int i = 1; i <= old_arr->sp; ++i)
     {
@@ -98,8 +92,8 @@ void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var)
     STACK* stack = new_stack();
     char *r = malloc(sizeof(str));
     
-    char token[10090];
-    char* line = malloc(sizeof(char) * 10090);
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
     line = block.dados;
     int i;
     for(i = 0; str[i] != '\0'; i++)
@@ -134,8 +128,8 @@ void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var)
     STACK *stack = new_stack();
     STACK *r = new_stack();
 
-    char token[10090];
-    char* line = malloc(sizeof(char) * 10090);
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
     line = b.dados;
     for(int i = 1; i <= array->sp; i++)
     {
@@ -169,8 +163,8 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
     STACK *stack = new_stack();
     char *r = malloc(sizeof(str));
 
-    char token[10090];
-    char* line = malloc(sizeof(char) * 10090);
+    char token[BUFSIZ];
+    char* line = malloc(sizeof(char) * BUFSIZ);
     line = block.dados;
     int i, j;
     for(i = 0, j = 0; str[i] != '\0'; i++)
@@ -212,8 +206,8 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
         STACK *stack = new_stack();
         STACK *r = new_stack();
 
-        char token[10090];
-        char* line = malloc(sizeof(char) * 10090);
+        char token[BUFSIZ];
+        char* line = malloc(sizeof(char) * BUFSIZ);
         line = b.dados;
 
         push(stack, array->stack[1]);
@@ -239,8 +233,8 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
         r->cap = array->cap;
         r->stack = malloc(sizeof(DADOS) * array->cap);    
         
-        char token[10090];
-        char* line = malloc(sizeof(char) * 10090);
+        char token[BUFSIZ];
+        char* line = malloc(sizeof(char) * BUFSIZ);
         line = b.dados;
 
         push(r, array->stack[1]);

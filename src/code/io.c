@@ -60,8 +60,8 @@ void val(STACK* s, char* token)
  */
 void new_line (STACK *s)
 {
-    char* line = malloc(sizeof(char) * 10090);
-    if (fgets (line, 10090, stdin) != NULL)
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    if (fgets (line, BUFSIZ, stdin) != NULL)
     {
         line[strlen(line)-1] = '\0';
         push_string (s,line);
@@ -75,9 +75,9 @@ void new_line (STACK *s)
  */
 void all_lines (STACK *s)
 {
-    char* line = malloc(sizeof(char) * 10090);
-    char* line2 = malloc(sizeof(char) * 10090);
-    while (fgets (line2,10090,stdin) != NULL)
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    char* line2 = malloc(sizeof(char) * BUFSIZ);
+    while (fgets (line2,BUFSIZ,stdin) != NULL)
     {
         strcat(line , line2);
     }
