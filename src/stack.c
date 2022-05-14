@@ -149,7 +149,7 @@ void push_array(STACK *s, STACK elem)
 
 void push_block(STACK* s, char* elem)
 {
-    char *elemP = malloc(sizeof(elem)+1);
+    char *elemP = malloc(sizeof(char) * BUFSIZ);
     strcpy(elemP, elem);
     
     DADOS d = {BLOCK, elemP};
