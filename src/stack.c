@@ -19,7 +19,7 @@ STACK* new_stack()
 {
     STACK *s = malloc(sizeof(STACK));
     s->sp = 0;
-    s->cap = 15000;
+    s->cap = 150000;
     s->stack = malloc(sizeof(DADOS) * s->cap);
     return s;
 }

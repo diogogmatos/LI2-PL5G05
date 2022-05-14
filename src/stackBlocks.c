@@ -201,6 +201,7 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
  */
 void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 {
+<<<<<<< HEAD
     STACK *array = a.dados;
     STACK *stack = new_stack();
 
@@ -210,17 +211,58 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 
     push(stack, array->stack[1]);
     for(int i = 2; i < array->sp; i++)
+=======
+    char *block = b.dados;
+    if (strlen(block) == 1)
+>>>>>>> main
     {
-        push(stack, array->stack[i]);
-        while ((line = get_token(line, token)) && *line != '\0'){
-            handle_token(stack, token, var);
-        }
-        handle_token(stack, token, var);
+        STACK *array = a.dados;
+        STACK *stack = new_stack();
+        STACK *r = new_stack();
 
+        char token[BUFSIZ];
+        char* line = malloc(sizeof(char) * BUFSIZ);
         line = b.dados;
+
+        push(stack, array->stack[1]);
+        for(int i = 2; i <= array->sp; i++)
+        {
+            push(stack, array->stack[i]);
+            while ((line = get_token(line, token)) && *line != '\0'){
+                handle_token(stack, token, var);
+            }
+            handle_token(stack, token, var);
+
+            line = b.dados;
+        }
+        
+        push(r, pop(stack));
+        push_array(s, *r);
     }
-    
-    push(s, pop(stack));
+    else
+    {
+        STACK *array = a.dados;
+        
+        STACK *r = new_stack();
+        r->cap = array->cap;
+        r->stack = malloc(sizeof(DADOS) * array->cap);    
+        
+        char token[BUFSIZ];
+        char* line = malloc(sizeof(char) * BUFSIZ);
+        line = b.dados;
+
+        push(r, array->stack[1]);
+        for(int i = 2; i <= array->sp; ++i)
+        {
+            push(r, array->stack[i]);
+            while ((line = get_token(line, token)) && *line != '\0'){
+                handle_token(r, token, var);
+            }
+            handle_token(r, token, var);
+            line = b.dados;
+        }
+        push_array(s, *r);
+    }
 }
 
 int is_truthy (STACK* s) 
