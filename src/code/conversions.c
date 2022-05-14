@@ -81,23 +81,6 @@ void conv_int(STACK *s)
         double r = ri;
         push_long(s, r);
     }
-    else if (d.tipo == ARRAY)
-    {
-        STACK* arr = d.dados;
-        char str[BUFSIZ];
-        int index = 0;
-        for(int i = 1; i <= arr->sp; ++i)
-        {
-            *(str+index) = *(char*)arr->stack[i].dados; 
-            ++index;
-        }
-
-        long ri;
-        sscanf(str, "%ld", &ri);
-
-        double r = ri;
-        push_long(s, r);
-    }
     
     free(d.dados);
 }

@@ -209,7 +209,7 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
     line = b.dados;
 
     push(stack, array->stack[1]);
-    for(int i = 2; i <= array->sp; i++)
+    for(int i = 2; i < array->sp; i++)
     {
         push(stack, array->stack[i]);
         while ((line = get_token(line, token)) && *line != '\0'){

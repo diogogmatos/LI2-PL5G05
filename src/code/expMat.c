@@ -244,69 +244,6 @@ void multiply(STACK *s, DADOS *var)
         }
     }
     
-    // if (x.tipo == BLOCK)
-    //     fold_array(s, x, y, var);
-    // else if (y.tipo == ARRAY)
-    // {
-    //     double *a = x.dados;
-    //     long n = *a;
-    //     STACK *array = y.dados;
-
-    //     STACK *r = new_stack();
-
-    //     int i, j, k;
-    //     for (i=1; i <= n * array->sp; )
-    //     {
-    //         for (j=i, k=1; j < i + array->sp; j++, k++)
-    //         {
-    //             r->stack[j] = array->stack[k];
-    //         }
-    //         r->sp += array->sp;
-    //         i = r->sp+1;
-    //     }
-
-    //     push_array(s, *r);
-    // }
-    // else if (y.tipo == STRING)
-    // {
-    //     double *a = x.dados;
-    //     long n = *a;
-    //     char *str = y.dados;
-
-    //     int tam = strlen(str) * n;
-    //     char *r = malloc(sizeof(char) * tam);
-
-    //     int i, j, k;
-    //     for (i=0; i < tam; )
-    //     {
-    //         int max = i + strlen(str);
-    //         for (j=i, k=0; j < max; j++, k++)
-    //             r[j] = str[k];
-    //         i = j;
-    //     }
-    //     r[tam] = '\0';
-
-    //     push_string(s, r);
-    // }
-    // else
-    // {
-    //     double *a = x.dados;
-    //     double *b = y.dados;
-
-    //     if (x.tipo == LONG && y.tipo == LONG)
-    //     {
-    //         long ri = *b * *a;
-            
-    //         double r = ri;
-    //         push_long(s, r);
-    //     }
-    //     else
-    //     {
-    //         double r = *b * *a;
-    //         push_double(s, r);
-    //     }
-    // }
-    
     free(x.dados);
     free(y.dados);
 }
