@@ -37,6 +37,12 @@ DADOS create_block(STACK* s, char* token)
     s->stack[s->sp] = d;
     return d;
 }
+<<<<<<< HEAD
+=======
+/* DADOS create_block(STACK* s, char* token) */
+/* { */
+/*     char* block = malloc(sizeof(char) * 10090); */
+>>>>>>> main
 
 /**
  * @brief Executa as operações contidas num bloco.
