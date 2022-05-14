@@ -31,7 +31,7 @@ DADOS create_block(STACK* s, char* token)
     }
     
     *(block + index - 1) = '\0';
-    DADOS d = {BLOCK, ++block};
+    DADOS d = {BLOCK, block};
     
     s->sp++;
     s->stack[s->sp] = d;
