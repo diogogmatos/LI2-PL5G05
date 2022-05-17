@@ -312,3 +312,4 @@ char type_to_char(DADOS x)
 
     return cx;
 }
+

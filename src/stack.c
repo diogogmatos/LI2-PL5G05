@@ -236,3 +236,4 @@ DADOS* memory_checker(STACK* s)
     else
         return s->stack;
 }
+

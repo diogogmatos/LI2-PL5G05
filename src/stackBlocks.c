@@ -363,3 +363,4 @@ void sort(STACK* s, DADOS array, DADOS block, DADOS *var)
 
     push_array(s, *target);
 }
+
