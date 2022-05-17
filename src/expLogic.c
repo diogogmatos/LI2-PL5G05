@@ -109,7 +109,7 @@ void is_smaller(STACK *s)
                     int i = *ii;
                     char *str = y.dados;
 
-                    char *r = malloc(sizeof(str) + 10090);
+                    char *r = malloc(sizeof(str) + BUFSIZ);
 
                     int j;
                     for (j = 0; j < i; j++)
@@ -202,7 +202,7 @@ void is_bigger(STACK *s)
                     int i = *ii;
                     char *str = y.dados;
 
-                    char *r = malloc(sizeof(str) + 10090);
+                    char *r = malloc(sizeof(str) + BUFSIZ);
 
                     int j, k, tam = strlen(str);
                     for (j = tam - i, k = 0; j < tam; j++, k++)
