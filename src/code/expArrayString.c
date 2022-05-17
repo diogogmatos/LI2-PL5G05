@@ -345,3 +345,4 @@ void add_char_string(STACK *s, DADOS x, DADOS y)
         push_string (s, r);
     }
 }
+

@@ -287,7 +287,7 @@ void print_stack(STACK *s)
         else if (d.tipo == ARRAY)     // Caso em que o elemento da stack é um ARRAY
             print_stack(d.dados);
         else if (d.tipo == BLOCK)     // Caso em que o elemento da stack é um BLOCK
-            printf("{%s}", (char*)d.dados);
+            printf("{ %s}", (char*)d.dados);
     }
 }
 
@@ -312,3 +312,4 @@ char type_to_char(DADOS x)
 
     return cx;
 }
+

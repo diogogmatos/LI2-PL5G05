@@ -595,3 +595,4 @@ void incr(STACK *s)
         free(y.dados);
     }
 }
+

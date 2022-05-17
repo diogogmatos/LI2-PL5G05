@@ -158,3 +158,4 @@ void conv_string(STACK *s)
 
     free(d.dados);
 }
+

@@ -81,3 +81,4 @@ void ncopy(STACK *s, DADOS *var)
         push(s, y);
     }
 }
+
