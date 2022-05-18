@@ -60,8 +60,8 @@ void val(STACK* s, char* token)
  */
 void new_line (STACK *s)
 {
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    if (fgets (line, BUFSIZ, stdin) != NULL)
+    char* line = malloc(sizeof(char) * 15000);
+    if (fgets (line, 15000, stdin) != NULL)
     {
         line[strlen(line)-1] = '\0';
         push_string (s,line);
