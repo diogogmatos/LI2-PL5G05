@@ -52,7 +52,10 @@ char* get_token(char* line, char token[])
 
     while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
             (flag > 0 || str_flag > 0 || block_flag > 0))
-    {get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);}
+    {
+        get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);
+    }
+    
     token[index] = '\0';
 
     return line;
