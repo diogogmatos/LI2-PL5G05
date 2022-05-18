@@ -8,7 +8,7 @@
 #include <string.h>
 #include "stack.h"
 
-void get_token2(char* line, char *token, int* size, int* index,int* flag, int* str_flag, int*block_flag)
+char* get_token2(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
 {
     token[*index] = *line;
     ++(*size);
@@ -27,7 +27,8 @@ void get_token2(char* line, char *token, int* size, int* index,int* flag, int* s
         --(*flag);
     
     (*index)++;
-    (*line)++;
+
+    return ++line;
 }
 
 
@@ -46,14 +47,13 @@ char* get_token(char* line, char token[])
     int str_flag = 0;
     int block_flag = 0;
 
-
     while (*line == ' ')
         line++;
 
     while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
             (flag > 0 || str_flag > 0 || block_flag > 0))
     {
-        get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);
+        line = get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);
     }
     
     token[index] = '\0';
