@@ -79,6 +79,7 @@ void expo(STACK *s);
 
 char* get_token(char* line, char token[]);
 char* get_token2(char* line, char *token, int* size, int* index,int* flag, int* str_flag, int*block_flag);
+char* get_token3(char* line, char *token, int* size, int* index,int* flag, int* str_flag, int*block_flag);
 void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token, DADOS *var);
 void handle_token2(STACK* s, char* token, DADOS *var);

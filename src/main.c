@@ -8,6 +8,17 @@
 #include <string.h>
 #include "stack.h"
 
+char* get_token3(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
+{
+    while ((*line && *line != ' ' && *line != '\n' && ((*flag) == 0 || (*str_flag) == 0 || (*block_flag) == 0)) || 
+            ((*flag) > 0 || (*str_flag) > 0 || (*block_flag) > 0))
+    {
+        line = get_token2(line, token, size, index,flag,str_flag,block_flag);
+    }
+    return line;
+}
+
+
 char* get_token2(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
 {
     token[*index] = *line;
@@ -49,12 +60,7 @@ char* get_token(char* line, char token[])
 
     while (*line == ' ')
         line++;
-
-    while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
-            (flag > 0 || str_flag > 0 || block_flag > 0))
-    {
-        line = get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);
-    }
+    line = get_token3(line,token,&size,&index,&flag,&str_flag,&block_flag);
     
     token[index] = '\0';
 
