@@ -160,7 +160,15 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case '|': { bit_or(s); return; }
         case '^': { bit_xor(s); return; }
         case '~': { bit_not(s, var); return; }   // Também opera com arrays/blocos
-        
+
+        default: {handle_token2(s, token, var); return; }
+    }
+}
+
+void handle_token2(STACK* s, char* token, DADOS *var)
+{
+        switch (token[0])
+    {
         // Input/Output
 
         case 'l': { new_line(s); return;}
@@ -177,7 +185,16 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case 'c': { conv_char(s); return; }
         case 's': { conv_string(s); return; }
 
-        // Stack
+        default: {handle_token3(s, token, var); return; }
+    }    
+
+}
+
+void handle_token3(STACK* s, char* token, DADOS *var)
+{
+        switch (token[0])
+        {
+                    // Stack
 
         case '_': { dup(s); return; }
         case ';': { pop(s); return; }
@@ -204,7 +221,16 @@ void handle_token(STACK* s, char* token, DADOS *var)
             return;
         }
 
-        // Arrays e Strings
+        default: {handle_token4(s, token, var); return;}
+
+        }
+}
+
+void handle_token4(STACK* s, char* token, DADOS *var)
+{
+        switch (token[0])
+        {
+            // Arrays e Strings
 
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
@@ -252,7 +278,8 @@ void handle_token(STACK* s, char* token, DADOS *var)
             
             return;
         }
-    }
+        }
+        
 }
 
 // Impressão da stack

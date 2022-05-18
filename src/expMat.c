@@ -165,6 +165,8 @@ void multiply(STACK *s, DADOS *var)
     char cx = type_to_char(x);
     char cy = type_to_char(y);
 
+    double *a = x.dados;
+
     switch (cx)
     {
         case 'B': { fold_array(s, x, y, var); return; }
@@ -175,7 +177,6 @@ void multiply(STACK *s, DADOS *var)
             {
                 case 'A':
                 {
-                    double *a = x.dados;
                     long n = *a;
                     STACK *array = y.dados;
 
@@ -198,7 +199,6 @@ void multiply(STACK *s, DADOS *var)
                 }
                 case 'S':
                 {
-                    double *a = x.dados;
                     long n = *a;
                     char *str = y.dados;
 
@@ -221,7 +221,6 @@ void multiply(STACK *s, DADOS *var)
                 }
                 default:
                 {
-                    double *a = x.dados;
                     double *b = y.dados;
 
                     if (x.tipo == LONG && y.tipo == LONG)

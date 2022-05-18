@@ -78,8 +78,12 @@ void expo(STACK *s);
 // io.c
 
 char* get_token(char* line, char token[]);
+char* get_token2(char* line, char *token, int* size, int* index,int* flag, int* str_flag, int*block_flag);
 void val(STACK* s, char* token);
 void handle_token(STACK* s, char* token, DADOS *var);
+void handle_token2(STACK* s, char* token, DADOS *var);
+void handle_token3(STACK* s, char* token, DADOS *var);
+void handle_token4(STACK* s, char* token, DADOS *var);
 void print_stack(STACK *s);
 void new_line (STACK *s);
 void all_lines (STACK *s);
