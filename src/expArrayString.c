@@ -13,6 +13,14 @@
 
 // Colocação de elementos na stack
 
+/**
+ * @brief Lê o input e cria um array.
+ * 
+ * @param s Stack.
+ * @param token Input.
+ * @param var Array de variáveis.
+ * @return DADOS Retorna o array criado.
+ */
 DADOS create_array(STACK* s, char* token, DADOS *var)
 {
     STACK* array = new_stack();
@@ -203,6 +211,13 @@ void slash_str(STACK* s, DADOS a, DADOS b)
     push_array(s, *r);
 }
 
+/**
+ * @brief Concatena dois arrays. Função auxiliar a `s_add()`.
+ * 
+ * @param s Stack.
+ * @param x Array 1.
+ * @param y Array 2.
+ */
 void add_arrays(STACK *s, DADOS x, DADOS y)
 {
     STACK *array1 = y.dados;
@@ -227,6 +242,13 @@ void add_arrays(STACK *s, DADOS x, DADOS y)
     push_array(s, *r);
 }
 
+/**
+ * @brief Concatena um array a um caracter ou vice-versa. Função auxiliar a `s_add()`.
+ * 
+ * @param s Stack.
+ * @param x Array/Caracter.
+ * @param y Caracter/Array.
+ */
 void add_char_array(STACK *s, DADOS x, DADOS y)
 {
     if (x.tipo == CHAR && y.tipo == ARRAY)
@@ -267,6 +289,13 @@ void add_char_array(STACK *s, DADOS x, DADOS y)
     }
 }
 
+/**
+ * @brief Concatena um inteiro/double a um array ou vice-versa. Função auxiliar a `s_add()`.
+ * 
+ * @param s Stack.
+ * @param x Inteiro/Double/Array.
+ * @param y Array/Inteiro/Double.
+ */
 void add_num_array(STACK *s, DADOS x, DADOS y)
 {
     if ((x.tipo == LONG || x.tipo == DOUBLE) && y.tipo == ARRAY)
@@ -291,6 +320,13 @@ void add_num_array(STACK *s, DADOS x, DADOS y)
     }
 }
 
+/**
+ * @brief Concatena duas strings. Função auxiliar a `s_add()`.
+ * 
+ * @param s Stack.
+ * @param x String 1.
+ * @param y String 2.
+ */
 void add_strings(STACK *s, DADOS x, DADOS y)
 {
     char* r = malloc(sizeof(x.dados) + sizeof(y.dados) + sizeof(char) + BUFSIZ);
@@ -301,6 +337,13 @@ void add_strings(STACK *s, DADOS x, DADOS y)
     push_string(s, r);
 }
 
+/**
+ * @brief Concatena um caracter a uma string ou vice-versa. Função auxiliar a `s_add()`.
+ * 
+ * @param s Stack.
+ * @param x Caracter/String.
+ * @param y String/Caracter.
+ */
 void add_char_string(STACK *s, DADOS x, DADOS y)
 {
     if (x.tipo == CHAR && y.tipo == STRING)

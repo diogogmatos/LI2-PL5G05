@@ -8,6 +8,13 @@
 #include <string.h>
 #include "stack.h"
 
+/**
+ * @brief Função auxiliar a `get_token()`.
+ * 
+ * @param line String contendo a totalidade do input.
+ * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
+ * @return char* Retorna o endereço da string line.
+ */
 char* get_token3(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
 {
     while ((*line && *line != ' ' && *line != '\n' && ((*flag) == 0 || (*str_flag) == 0 || (*block_flag) == 0)) || 
@@ -18,7 +25,13 @@ char* get_token3(char* line, char token[], int* size, int* index,int* flag, int*
     return line;
 }
 
-
+/**
+ * @brief Função auxiliar a `get_token()`.
+ * 
+ * @param line String contendo a totalidade do input.
+ * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
+ * @return char* Retorna o endereço da string line, que é incrementado ao longo da análise do input.
+ */
 char* get_token2(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
 {
     token[*index] = *line;
@@ -42,9 +55,9 @@ char* get_token2(char* line, char token[], int* size, int* index,int* flag, int*
     return ++line;
 }
 
-
 /**
- * @brief ?
+ * @brief Responsável por receber a totalidade do input e dividi-lo nas diferentes tokens que este contém. Utiliza as funções `get_token2()` e `get_token3()`
+ * como auxiliares.
  * 
  * @param line String contendo a totalidade do input.
  * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
