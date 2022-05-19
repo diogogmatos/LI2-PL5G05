@@ -37,28 +37,7 @@ DADOS create_block(STACK* s, char* token)
     s->stack[s->sp] = d;
     return d;
 }
-/* DADOS create_block(STACK* s, char* token) */
-/* { */
-/*     char* block = malloc(sizeof(char) * BUFSIZ); */
 
-/*     int index = 0; */
-/*     ++token; */
-/*     while ( *token == ' ') */
-/*         ++token; */
-
-/*     for(int i = 0; *(token + i) != '}'; ++i) */
-/*     { */
-/*         *(block + index) = *(token + i); */
-/*         ++index; */
-/*     } */
-    
-/*     *(block + index - 1) = '\0'; */
-/*     DADOS d = {BLOCK, block}; */
-    
-/*     s->sp++; */
-/*     s->stack[s->sp] = d; */
-/*     return d; */
-/* } */
 /**
  * @brief Executa as operações contidas num bloco.
  * 
@@ -71,7 +50,7 @@ void execute_block(STACK* s, DADOS block, DADOS *var)
     char* token = malloc(sizeof(char) * BUFSIZ);
 
     while ((line = get_token(line, token)) && *line != '\0'){
-        s->stack = memory_checker(s);
+        //s->stack = memory_checker(s);
         handle_token(s, token, var);
     }
     handle_token(s, token, var);
@@ -305,9 +284,7 @@ void truthy (STACK* s, DADOS *var)
     execute_block(s,x,var);
 
     while(is_truthy(s))
-    {
         execute_block(s,x,var);
-    }
 }
 
 void swap_sort(STACK* s, int i)
