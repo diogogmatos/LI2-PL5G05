@@ -60,8 +60,8 @@ void val(STACK* s, char* token)
  */
 void new_line (STACK *s)
 {
-    char* line = malloc(sizeof(char) * 15000);
-    if (fgets (line, 15000, stdin) != NULL)
+    char* line = malloc(sizeof(char) * 10002);
+    if (fgets (line, 10002, stdin) != NULL)
     {
         line[strlen(line)-1] = '\0';
         push_string (s,line);
@@ -75,9 +75,9 @@ void new_line (STACK *s)
  */
 void all_lines (STACK *s)
 {
-    char* line = malloc(sizeof(char) * BUFSIZ);
-    char* line2 = malloc(sizeof(char) * BUFSIZ);
-    while (fgets (line2,BUFSIZ,stdin) != NULL)
+    char* line = malloc(sizeof(char) * 10002);
+    char* line2 = malloc(sizeof(char) * 10002);
+    while (fgets (line2,10002,stdin) != NULL)
     {
         strcat(line , line2);
     }
@@ -161,13 +161,13 @@ void handle_token(STACK* s, char* token, DADOS *var)
         case '^': { bit_xor(s); return; }
         case '~': { bit_not(s, var); return; }   // Também opera com arrays/blocos
 
-        default: {handle_token2(s, token, var); return; }
+        default: { handle_token2(s, token, var); return; }
     }
 }
 
 void handle_token2(STACK* s, char* token, DADOS *var)
 {
-        switch (token[0])
+    switch (token[0])
     {
         // Input/Output
 
@@ -185,16 +185,15 @@ void handle_token2(STACK* s, char* token, DADOS *var)
         case 'c': { conv_char(s); return; }
         case 's': { conv_string(s); return; }
 
-        default: {handle_token3(s, token, var); return; }
-    }    
-
+        default: { handle_token3(s, token, var); return; }
+    }
 }
 
 void handle_token3(STACK* s, char* token, DADOS *var)
 {
-        switch (token[0])
-        {
-                    // Stack
+    switch (token[0])
+    {
+        // Stack
 
         case '_': { dup(s); return; }
         case ';': { pop(s); return; }
@@ -221,16 +220,15 @@ void handle_token3(STACK* s, char* token, DADOS *var)
             return;
         }
 
-        default: {handle_token4(s, token, var); return;}
-
-        }
+        default: { handle_token4(s, token, var); return; }
+    }
 }
 
 void handle_token4(STACK* s, char* token, DADOS *var)
 {
-        switch (token[0])
-        {
-            // Arrays e Strings
+    switch (token[0])
+    {
+        // Arrays e Strings
 
         case '[': { create_array(s, token, var); return; }
         case '"': { create_string(s, token); return;}
@@ -278,8 +276,7 @@ void handle_token4(STACK* s, char* token, DADOS *var)
             
             return;
         }
-        }
-        
+    }
 }
 
 // Impressão da stack

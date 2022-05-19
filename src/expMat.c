@@ -385,9 +385,9 @@ void bit_not(STACK *s, DADOS *var)
         
         double r = ~ a;
         push_long(s, r);
-    }
 
-    free(x.dados);
+        free(x.dados);
+    }
 }
 
 /**
@@ -561,8 +561,8 @@ void incr(STACK *s)
         else
             push_long(s, strstr(b, a) - b);
 
-        free(x.dados);
-        free(y.dados);
+        // free(x.dados);
+        // free(y.dados);
     }
     else if (x.tipo == CHAR && y.tipo == STRING)
     {
@@ -579,8 +579,8 @@ void incr(STACK *s)
         else
             push_long(s, strstr(b, a) - b);
 
-        free(x.dados);
-        free(y.dados);
+        // free(x.dados);
+        // free(y.dados);
     }
     else
     {

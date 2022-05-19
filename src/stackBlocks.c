@@ -37,28 +37,7 @@ DADOS create_block(STACK* s, char* token)
     s->stack[s->sp] = d;
     return d;
 }
-/* DADOS create_block(STACK* s, char* token) */
-/* { */
-/*     char* block = malloc(sizeof(char) * BUFSIZ); */
 
-/*     int index = 0; */
-/*     ++token; */
-/*     while ( *token == ' ') */
-/*         ++token; */
-
-/*     for(int i = 0; *(token + i) != '}'; ++i) */
-/*     { */
-/*         *(block + index) = *(token + i); */
-/*         ++index; */
-/*     } */
-    
-/*     *(block + index - 1) = '\0'; */
-/*     DADOS d = {BLOCK, block}; */
-    
-/*     s->sp++; */
-/*     s->stack[s->sp] = d; */
-/*     return d; */
-/* } */
 /**
  * @brief Executa as operações contidas num bloco.
  * 
@@ -71,7 +50,7 @@ void execute_block(STACK* s, DADOS block, DADOS *var)
     char* token = malloc(sizeof(char) * BUFSIZ);
 
     while ((line = get_token(line, token)) && *line != '\0'){
-        s->stack = memory_checker(s);
+        //s->stack = memory_checker(s);
         handle_token(s, token, var);
     }
     handle_token(s, token, var);
@@ -83,6 +62,7 @@ void execute_block(STACK* s, DADOS block, DADOS *var)
  * @param s Stack.
  * @param block Bloco.
  * @param array Array.
+ * @param var Array de variáveis (para handling dos inputs do bloco).
  */
 void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
 {
@@ -107,6 +87,14 @@ void execute_block_array(STACK* s, DADOS block, DADOS array, DADOS *var)
     push_array(s, *new_arr);
 } 
 
+/**
+ * @brief Aplica as operações contidas num bloco a cada caracter de uma string e coloca na stack uma nova string com as tranformações efetuadas.
+ * 
+ * @param s Stack.
+ * @param block Bloco.
+ * @param string String.
+ * @param var Array de variáveis (para handling dos inputs do bloco).
+ */
 void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var)
 {
     char* str = string.dados;
@@ -272,6 +260,12 @@ void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
     }
 }
 
+/**
+ * @brief Função auxiliar a `truthy()`
+ * 
+ * @param s Stack.
+ * @return int 
+ */
 int is_truthy (STACK* s) 
 {
     DADOS x = pop(s);
@@ -299,16 +293,22 @@ int is_truthy (STACK* s)
     return 0;
 }
 
+/**
+ * @brief Executa um bloco enquanto a sua execução deixar um truthy no topo da stack.
+ * 
+ * @param s Stack.
+ * @param var Array de variáveis (para handling dos inputs do bloco).
+ */
 void truthy (STACK* s, DADOS *var)
 {
     DADOS x = pop(s);
     execute_block(s,x,var);
 
     while(is_truthy(s))
-    {
         execute_block(s,x,var);
-    }
 }
+
+// Sort
 
 void swap_sort(STACK* s, int i)
 {
@@ -338,6 +338,13 @@ void bubble_sort(STACK* target, STACK* tool, int N)
     }
 }
 
+/**
+ * @brief Função auxiliar que copia uma stack para uma nova stack.
+ * 
+ * @param original Stack original.
+ * @param new_array Nova stack.
+ * @return STACK* Devolve o endereço da nova stack.
+ */
 STACK* copy_stack(STACK* original, STACK* new_array)
 {
     for (int i = 1; i <= original->sp; ++i)
@@ -360,6 +367,14 @@ STACK* copy_stack(STACK* original, STACK* new_array)
     return new_array;
 }
 
+/**
+ * @brief Ordena um array de acordo com as condições definidas num bloco.
+ * 
+ * @param s Stack.
+ * @param array Array.
+ * @param block Bloco.
+ * @param var Array de variáveis (para handling dos inputs do bloco).
+ */
 void sort(STACK* s, DADOS array, DADOS block, DADOS *var)
 {
     STACK* target = new_stack();

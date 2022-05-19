@@ -124,11 +124,8 @@ void push_char(STACK* s, char elem)
 /**
  * @brief Introduz um elemento do tipo STRING na stack, incrementando um valor ao stack pointer (`s->sp`), uma vez que o topo da stack aumenta.
  * 
- * Para isso, é alocada memória de modo a suportar o tamanho de uma string com 50 caracteres, uma vez que na stack é apenas guardado o valor do endereço
- * desta memória, e não o elemento em si.
- * 
  * @param s Stack.
- * @param elem Elemento a introduzir na stack.
+ * @param elem String a introduzir na stack.
  */
 void push_string(STACK *s, char* elem)
 {   
@@ -137,6 +134,14 @@ void push_string(STACK *s, char* elem)
     s->stack[s->sp] = d;
 }
 
+/**
+ * @brief Introduz um elemento do tipo ARRAY na stack, incrementando um valor ao stack pointer (`s->sp`), uma vez que o topo da stack aumenta.
+ * 
+ * Para isso, é utilizada a função `new_stack()` para inicializar a estrutura STACK que é utilizada para armazenar os elementos de um array.
+ * 
+ * @param s Stack.
+ * @param elem Array a introduzir na stack.
+ */
 void push_array(STACK *s, STACK elem)
 {
     STACK *arrayP = new_stack();
@@ -147,6 +152,14 @@ void push_array(STACK *s, STACK elem)
     s->stack[s->sp] = d;
 }
 
+/**
+ * @brief Introduz um elemento do tipo BLOCK na stack, incrementando um valor ao stack pointer (`s->sp`), uma vez que o topo da stack aumenta.
+ * 
+ * Para isso, é alocada memória de modo a suportar um array com "BUFSIZ" caracteres.
+ * 
+ * @param s Stack.
+ * @param elem Bloco a ser introduzido na stack.
+ */
 void push_block(STACK* s, char* elem)
 {
     char *elemP = malloc(sizeof(char) * BUFSIZ);
