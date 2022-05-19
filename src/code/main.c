@@ -8,6 +8,30 @@
 #include <string.h>
 #include "stack.h"
 
+char* get_token2(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
+{
+    token[*index] = *line;
+    ++(*size);
+
+    if (*line == '[')
+        ++(*flag);
+    else if (*line == '"' && *str_flag == 0)
+        ++(*str_flag);
+    else if (*line == '{')
+        ++(*block_flag);
+    else if (*line == '"' && *str_flag > 0)
+        --(*str_flag);
+    else if (*line == '}')
+        --(*block_flag);
+    else if (*line == ']')
+        --(*flag);
+    
+    (*index)++;
+
+    return ++line;
+}
+
+
 /**
  * @brief ?
  * 
@@ -23,37 +47,17 @@ char* get_token(char* line, char token[])
     int str_flag = 0;
     int block_flag = 0;
 
-    while (*line != '\n')
+    while (*line == ' ')
+        line++;
+
+    while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
+            (flag > 0 || str_flag > 0 || block_flag > 0))
     {
-        while (*line == ' ')
-            line++;
-
-        while ((*line && *line != ' ' && *line != '\n' && (flag == 0 || str_flag == 0 || block_flag == 0)) || 
-                (flag > 0 || str_flag > 0 || block_flag > 0))
-        {   
-            token[index] = *line;
-            ++size;
-
-            if (*line == '[')
-                ++flag;
-            else if (*line == '"' && str_flag == 0)
-                ++str_flag;
-            else if (*line == '{')
-                ++block_flag;
-            else if (*line == '"' && str_flag > 0)
-                --str_flag;
-            else if (*line == '}')
-                -- block_flag;
-            else if (*line == ']')
-                --flag;
-            
-            index++;
-            line++;
-        }
-        token[index] = '\0';
-
-        return line;
+        line = get_token2(line, token, &size, &index,&flag,&str_flag,&block_flag);
     }
+    
+    token[index] = '\0';
+
     return line;
 }
 
@@ -64,7 +68,7 @@ char* get_token(char* line, char token[])
  * - `STACK* s = new_stack();`: __Declaração de uma nova stack.__
  * - `DADOS var[26];`: __Declaração do array responsável por armazenar as variáveis.__
  * - `initialize_var(var);`: __Inicialização do array que armazena as variáveis com os seus valores por defeito.__ 
- * - `if (fgets(line, 10090, stdin) != NULL)`: __Leitura do input.__
+ * - `if (fgets(line, BUFSIZ, stdin) != NULL)`: __Leitura do input.__
  */
 int main()
 {
@@ -72,10 +76,10 @@ int main()
     DADOS* var = malloc(sizeof(DADOS) * 26);
     initialize_var(var);
 
-    char* line = malloc(sizeof(char) * 10090);
-    char token[10090];
+    char* line = malloc(sizeof(char) * BUFSIZ);
+    char token[BUFSIZ];
 
-    if (fgets(line, 10090, stdin) != NULL)
+    if (fgets(line, BUFSIZ, stdin) != NULL)
     {
         while ((line = get_token(line, token)) && *line != '\n'){
             s->stack = memory_checker(s);
