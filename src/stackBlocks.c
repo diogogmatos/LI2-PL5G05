@@ -308,7 +308,12 @@ void truthy (STACK* s, DADOS *var)
         execute_block(s,x,var);
 }
 
-// Sort
+/**
+ * @brief Função auxiliar para mecanismos de ordenação.
+ *        
+ * @param s Stack.
+ * @param i Posição de elemento na stack.
+ */
 
 void swap_sort(STACK* s, int i)
 {
@@ -317,6 +322,14 @@ void swap_sort(STACK* s, int i)
     s->stack[i] = s->stack[i+1]; 
     s->stack[i+1] = t;
 }
+
+/**
+ * @brief Função auxiliar para mecanismos de ordenação (sort).
+ *        
+ * @param target Stack.
+ * @param tool Stack auxiliar.
+ * @param N nº elementos da stack auxiliar.
+ */
 
 void bubble_sort(STACK* target, STACK* tool, int N)
 {

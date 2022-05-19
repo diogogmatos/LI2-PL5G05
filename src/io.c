@@ -137,7 +137,7 @@ void handle_variables(STACK* s, char* token, DADOS *var)
  * 
  * Para isso, a função:
  * 1. Verifica se o input é um operador ou uma variável, executando a função correspondente se o mesmo se verificar;
- * 2. Caso contrário, o input será um operando e é introduzido na stack com a função `val()`.
+ * 2. Caso contrário, chama a próxima função handle_token.
  * 
  * @param s Stack.
  * @param token String que contém o input do programa.
@@ -165,6 +165,18 @@ void handle_token(STACK* s, char* token, DADOS *var)
     }
 }
 
+/**
+ * @brief 2ª função da cadeia handle_token. Lida com os inputs do programa, determinando que função deve ser utilizada para lidar com cada um deles.
+ * 
+ * Para isso, a função:
+ * 1. Verifica se o input é um operador ou uma variável, executando a função correspondente se o mesmo se verificar;
+ * 2. Caso contrário, chama a próxima função handle_token.
+ * 
+ * @param s Stack.
+ * @param token String que contém o input do programa.
+ * @param var Array que armazena as variáveis.
+ */
+
 void handle_token2(STACK* s, char* token, DADOS *var)
 {
     switch (token[0])
@@ -188,6 +200,19 @@ void handle_token2(STACK* s, char* token, DADOS *var)
         default: { handle_token3(s, token, var); return; }
     }
 }
+
+/**
+ * @brief 3ª função da cadeia handle_token. Lida com os inputs do programa, determinando que função deve ser utilizada para lidar com cada um deles.
+ * 
+ * Para isso, a função:
+ * 1. Verifica se o input é um operador ou uma variável, executando a função correspondente se o mesmo se verificar;
+ * 2. Caso contrário, chama a próxima função handle_token.
+ * 
+ * @param s Stack.
+ * @param token String que contém o input do programa.
+ * @param var Array que armazena as variáveis.
+ */
+
 
 void handle_token3(STACK* s, char* token, DADOS *var)
 {
@@ -223,6 +248,18 @@ void handle_token3(STACK* s, char* token, DADOS *var)
         default: { handle_token4(s, token, var); return; }
     }
 }
+
+/**
+ * @brief 4ª e última função da cadeia handle_token. Lida com os inputs do programa, determinando que função deve ser utilizada para lidar com cada um deles.
+ * 
+ * Para isso, a função:
+ * 1. Verifica se o input é um operador ou uma variável, executando a função correspondente se o mesmo se verificar;
+ * 2. Caso contrário, o input será um operando e é introduzido na stack com a função `val()`.
+ * 
+ * @param s Stack.
+ * @param token String que contém o input do programa.
+ * @param var Array que armazena as variáveis.
+ */
 
 void handle_token4(STACK* s, char* token, DADOS *var)
 {
