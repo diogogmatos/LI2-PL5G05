@@ -6,7 +6,7 @@
 
 // Definição de stack
 
-#define MAX_STACK 100000 /**< Capacidade da stack. */
+#define MAX_STACK 100000 ///< Capacidade da stack.
 
 /**
  * @brief Definição de um tipo "__TIPO__" que representa o tipo do elemento da stack (long, double, char ou string).
@@ -25,8 +25,8 @@ typedef enum{LONG, DOUBLE, CHAR, STRING, ARRAY, BLOCK} TIPO; /**< Tipo dos dados
  */
 typedef struct
 {
-    TIPO tipo; /**< Tipo dos dados. */
-    void *dados; /**< Endereço do elemento */
+    TIPO tipo; ///< Tipo dos dados. 
+    void *dados; ///< Endereço do elemento 
 } DADOS;
 
 /**
@@ -38,9 +38,9 @@ typedef struct
  */
 typedef struct
 {
-    DADOS* stack; /**< Stack. */
-    int sp; /**< Stack pointer */
-    int cap; /**< Capacidade da Stack. */
+    DADOS* stack; ///< Stack. 
+    int sp; ///< Stack pointer 
+    int cap; ///< Capacidade da Stack. 
 } STACK;
 
 // Declarações de funções
