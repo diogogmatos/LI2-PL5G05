@@ -60,6 +60,7 @@ void swap(STACK *s)
  * Para isso, acede ao n-ésimo elemento da stack e introduz o mesmo novamente com função `push()`.
  * 
  * @param s Stack.
+ * @param var Variáveis.
  */
 void ncopy(STACK *s, DADOS *var)
 {

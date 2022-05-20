@@ -104,6 +104,7 @@ void div_whitespace(STACK *s)
  * isso as funções `filter_array()` e `filter_string()`, cujo objetivo e funcionamento está documentado em stackBlocks.c.
  * 
  * @param s Stack.
+ * @param var Variáveis.
  */
 void range(STACK *s, DADOS *var)
 {

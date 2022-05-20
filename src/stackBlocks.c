@@ -43,6 +43,7 @@ DADOS create_block(STACK* s, char* token)
  * 
  * @param s Stack.
  * @param block Bloco.
+ * @param var Variáveis.
  */
 void execute_block(STACK* s, DADOS block, DADOS *var)
 {
@@ -130,6 +131,7 @@ void execute_block_string(STACK* s, DADOS block, DADOS string, DADOS *var)
  * @param s Stack.
  * @param b Bloco.
  * @param a Array.
+ * @param var Variáveis.
  */
 void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 {
@@ -165,6 +167,7 @@ void filter_array(STACK* s, DADOS b, DADOS a, DADOS *var)
  * @param s Stack.
  * @param block Bloco.
  * @param string String.
+ * @param var Variáveis.
  */
 void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
 {
@@ -205,6 +208,7 @@ void filter_string(STACK* s, DADOS block, DADOS string, DADOS *var)
  * @param s Stack.
  * @param b Bloco.
  * @param a Array.
+ * @param var Variáveis.
  */
 void fold_array(STACK* s, DADOS b, DADOS a, DADOS *var)
 {

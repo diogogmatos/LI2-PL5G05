@@ -13,6 +13,11 @@
  * 
  * @param line String contendo a totalidade do input.
  * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
+ * @param size
+ * @param index
+ * @param flag
+ * @param str_flag
+ * @param block_flag
  * @return char* Retorna o endereço da string line.
  */
 char* get_token3(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)
@@ -30,6 +35,11 @@ char* get_token3(char* line, char token[], int* size, int* index,int* flag, int*
  * 
  * @param line String contendo a totalidade do input.
  * @param token String cujo objetivo é armazenar um operador/operando do input individualmente, para que seja depois tratado.
+ * @param size
+ * @param index
+ * @param flag
+ * @param str_flag
+ * @param block_flag
  * @return char* Retorna o endereço da string line, que é incrementado ao longo da análise do input.
  */
 char* get_token2(char* line, char token[], int* size, int* index,int* flag, int* str_flag, int*block_flag)

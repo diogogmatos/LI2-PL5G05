@@ -156,6 +156,7 @@ void subtract(STACK *s)
  * como `$ "abc" 2 *` teria como resultado `abcabc`.
  * 
  * @param s Stack.
+ * @param var Variáveis.
  */
 void multiply(STACK *s, DADOS *var)
 {   
@@ -361,6 +362,7 @@ void bit_xor(STACK *s)
  * função para ambas estas operações uma vez que os operadores (`~`) são idênticos.
  * 
  * @param s Stack.
+ * @param var Variáveis.
  */
 void bit_not(STACK *s, DADOS *var)
 {
@@ -491,6 +493,7 @@ void incr(STACK *s)
  * as funções `execute_block_array()` e `execute_block_string()`, cujo objetivo e funcionamento está documentado em stackBlocks.c.
  * 
  * @param s Stack.
+ * @param var Variáveis.
  */
  void mod(STACK *s, DADOS *var)
 {
