@@ -8,7 +8,7 @@ This group project was fully developed in __C__ during the second semester of th
 
 ## Installing and running the program
 
-The interpreter can receive inputs using a specific sintax that is explained in deitail here, therefore it works like a calculator with some extra functionality. Here's how to try it out on your Linux machine:
+The interpreter can receive inputs using a specific sintax that is explained in deitail [**here**](https://github.com/sassypocoyo/LI2-PL5G05/blob/main/assets/project.pdf), therefore it works like a calculator with some extra functionality. Here's how to try it out on your Linux machine:
 
 ### Dependencies
 
